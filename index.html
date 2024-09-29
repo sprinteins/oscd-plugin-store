@@ -15,6 +15,8 @@
 	<div>
 		<span>Your plugin is available at</span>
 		<pre class="js-info-url"></pre>
+
+		<button id="button-run">run</button>
 	</div>
 
 	<hr />
@@ -30,6 +32,12 @@
 		const parser = new DOMParser();
 		const xmlDoc = parser.parseFromString(xmlString, "application/xml");
 		document.querySelector('oscd-plugin-store').doc = xmlDoc
+
+		document.getElementById("button-run").addEventListener('click', () => {
+			const plugin = document.querySelector('oscd-plugin-store');
+			console.log(plugin)
+			document.querySelector('oscd-plugin-store').run();
+		});
 
 	</script>
 
