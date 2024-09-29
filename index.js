@@ -27,7 +27,7 @@ function p(t, e, n) {
 function a(t) {
   t.parentNode && t.parentNode.removeChild(t);
 }
-function x(t) {
+function k(t) {
   return document.createElement(t);
 }
 function z(t) {
@@ -49,14 +49,14 @@ function m(t) {
 const d = [], A = [];
 let h = [];
 const B = [], F = /* @__PURE__ */ Promise.resolve();
-let k = !1;
+let w = !1;
 function G() {
-  k || (k = !0, F.then(I));
+  w || (w = !0, F.then(I));
 }
 function C(t) {
   h.push(t);
 }
-const w = /* @__PURE__ */ new Set();
+const x = /* @__PURE__ */ new Set();
 let f = 0;
 function I() {
   if (f !== 0)
@@ -74,13 +74,13 @@ function I() {
     for (m(null), d.length = 0, f = 0; A.length; ) A.pop()();
     for (let e = 0; e < h.length; e += 1) {
       const n = h[e];
-      w.has(n) || (w.add(n), n());
+      x.has(n) || (x.add(n), n());
     }
     h.length = 0;
   } while (d.length);
   for (; B.length; )
     B.pop()();
-  k = !1, w.clear(), m(t);
+  w = !1, x.clear(), m(t);
 }
 function J(t) {
   if (t.fragment !== null) {
@@ -198,12 +198,12 @@ class nt {
 }
 const it = "4";
 typeof window < "u" && (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(it);
-const M = "new-oscd-plugin", T = "0.0.1";
+const M = "oscd-plugin-store", T = "0.0.1";
 function L(t) {
   let e;
   return {
     c() {
-      e = x("h2"), e.textContent = "Welcome to new-oscd-plugin";
+      e = k("h2"), e.textContent = "Welcome to oscd-plugin-store";
     },
     m(n, i) {
       p(n, e, i);
@@ -220,7 +220,7 @@ function ot(t) {
   );
   return {
     c() {
-      o && o.c(), e = O(), n = x("input"), i = O(), r = x("input"), $(n, "type", "hidden"), $(n, "name", "package-name"), n.value = M, $(r, "type", "hidden"), $(r, "name", "package-version"), r.value = T;
+      o && o.c(), e = O(), n = k("input"), i = O(), r = k("input"), $(n, "type", "hidden"), $(n, "name", "package-name"), n.value = M, $(r, "type", "hidden"), $(r, "name", "package-version"), r.value = T;
     },
     m(s, l) {
       o && o.m(s, l), p(s, e, l), p(s, n, l), p(s, i, l), p(s, r, l);
