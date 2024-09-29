@@ -5,6 +5,10 @@
 	// Inputs
 	export let doc: XMLDocument | undefined;
 	export let editCount: number
+
+	export function run(){
+		console.log("Plugin is running");
+	}
 </script>
 
 {#if doc}

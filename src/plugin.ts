@@ -5,6 +5,10 @@ import * as pkg from "../package.json";
 export default class NewOSCDPlugin extends HTMLElement {
 
 	private plugin?: Plugin
+
+	public run(){
+		this.plugin?.run()
+	}
 	
 	connectedCallback() {
 		this.attachShadow({ mode: "open" });
