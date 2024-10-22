@@ -123,7 +123,7 @@ let showOnlyInstalled = false;
 let searchFilter = "";
 
 function combineAllPlugins(local: Plugin[]): Plugin[] {
-	const plugins = local;
+	const plugins: Plugin[] = [...local];
 
 	for (let i = 0; i < externalPlugins.length; i++) {
 		if (!localPlugins.some((it) => it.name === externalPlugins[i].name)) {
