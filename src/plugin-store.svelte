@@ -97,24 +97,13 @@ function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 let externalPlugins: Plugin[] = [];
 
 async function fetchExternalPlugins() {
-	const externalPluginsMockup: Plugin[] = [
-		{
-			name: "Type Designer",
-			author: "SprintEins",
-			src: "https://sprinteins.github.io/oscd-plugins/type-designer/index.js",
-			kind: "editor",
-			installed: false,
-		},
-		{
-			name: "Auto Doc",
-			author: "SprintEins",
-			src: "https://sprinteins.github.io/osdc-plugins/auto-doc/index.js",
-			kind: "editor",
-			installed: false,
-		},
-	];
+	const url =
+		"https://raw.githubusercontent.com/sprinteins/oscd-plugin-store/refs/heads/main/public/plugins.json";
 
-	externalPlugins = externalPluginsMockup;
+	const result = await fetch(url);
+	const data = await result.json();
+
+	externalPlugins = data.plugins;
 }
 
 fetchExternalPlugins();
