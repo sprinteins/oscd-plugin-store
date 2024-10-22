@@ -4,6 +4,21 @@
 			"name": "Auto Doc",
 			"author": "SprintEins",
 			"src": "https://sprinteins.github.io/oscd-plugins/auto-doc/index.js"
+		},
+		{
+			"name": "Diffing Tool",
+			"author": "SprintEins",
+			"src": "https://sprinteins.github.io/oscd-plugins/diffing-tool/index.js"
+		},
+		{
+			"name": "I/O Center",
+			"author": "SprintEins",
+			"src": "https://sprinteins.github.io/oscd-plugins/io-center/index.js"
+		},
+		{
+			"name": "Type Designer",
+			"author": "SprintEins",
+			"src": "https://sprinteins.github.io/oscd-plugins/type-designer/index.js"
 		}
 	]
 }
