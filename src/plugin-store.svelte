@@ -216,27 +216,29 @@ function getPluginSource(plugin: Plugin) {
                                 </div>
                             </plugin-store-item-meta>
                             {#if plugin.installed}
-                                <Group variant="raised">
                                     {#if plugin.official}
+                                    <Group variant="outlined">
                                         <Button
                                             on:click={() =>
                                                 toggleOfficialPlugin(
                                                     plugin,
                                                     false
                                                 )}
-                                            variant="outlined"
+                                                variant="outlined"
                                             style="min-width: 148px;"
                                         >
                                             <Label>Disable</Label>
                                         </Button>
+                                    </Group>
                                     {:else}
+                                    <Group variant="outlined">
                                         <Button
                                             on:click={() =>
                                                 toggleOfficialPlugin(
                                                     plugin,
                                                     false
                                                 )}
-                                            variant="outlined"
+                                                variant="outlined"
                                             style="min-width: 102px;"
                                         >
                                             <Label>Disable</Label>
@@ -245,8 +247,8 @@ function getPluginSource(plugin: Plugin) {
                                             <Button
                                                 on:click={(e) =>
                                                     openPluginMenu(e, index)}
-                                                variant="outlined"
                                                 style="min-width: 18px;"
+                                                variant="outlined"
                                             >
                                                 <IconArrowDropDown />
                                             </Button>
@@ -269,9 +271,10 @@ function getPluginSource(plugin: Plugin) {
                                                 </List>
                                             </Menu>
                                         </div>
+                                    </Group>
                                     {/if}
-                                </Group>
                             {:else if plugin.official}
+                            <Group variant="raised">
                                 <Button
                                     on:click={() =>
                                         toggleOfficialPlugin(plugin, true)}
@@ -280,6 +283,7 @@ function getPluginSource(plugin: Plugin) {
                                 >
                                     <Label>Enable</Label>
                                 </Button>
+                            </Group>
                             {:else}
                                 {#if localPlugins.includes(plugin)}
                                     <Group variant="raised">
@@ -289,15 +293,17 @@ function getPluginSource(plugin: Plugin) {
                                                     plugin,
                                                     true
                                                 )}
-                                            variant="raised"
+                                                variant="raised"
                                             style="min-width: 102px;"
                                         >
                                             <Label>Enable</Label>
                                         </Button>
+                                        <div use:GroupItem>
+                                            
                                         <Button
                                             on:click={(e) =>
                                                 openPluginMenu(e, index)}
-                                            variant="raised"
+                                                variant="raised"
                                             style="min-width: 18px;"
                                         >
                                             <IconArrowDropDown />
@@ -307,7 +313,7 @@ function getPluginSource(plugin: Plugin) {
                                             anchorElement={currentPluginAnchor}
                                             open={menuStates[index]}
                                             anchorCorner="BOTTOM_LEFT"
-                                            style="left: -70px"
+                                            style="left: -70px;"
                                         >
                                             <List>
                                                 <Item
@@ -320,6 +326,7 @@ function getPluginSource(plugin: Plugin) {
                                                 </Item>
                                             </List>
                                         </Menu>
+                                        </div>
                                     </Group>
                                 {:else}
                                 <Button
