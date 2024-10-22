@@ -1,0 +1,9 @@
+{
+	"plugins": [
+		{
+			"name": "Auto Doc",
+			"author": "SprintEins",
+			"src": "https://sprinteins.github.io/oscd-plugins/auto-doc/index.js"
+		}
+	]
+}

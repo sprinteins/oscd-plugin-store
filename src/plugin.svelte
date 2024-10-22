@@ -1,19 +1,17 @@
-<script lang="ts">
-	import * as pckg from "../package.json";
-	import "./app.css"
-	
-	// Inputs
-	export let doc: XMLDocument | undefined;
-	export let editCount: number
+<svelte:options tag={null} />
 
-	export function run(){
-		console.log("Plugin is running");
-	}
+<script lang="ts">
+    import PluginStore from "./plugin-store.svelte";
+    import { name, version } from "../package.json";
+
+    let isOpen = false;
+
+    export async function run() {
+        isOpen = true;
+    }
 </script>
 
-{#if doc}
-	<h2>Welcome to oscd-plugin-store</h2>
-{/if}
+<PluginStore bind:isOpen />
 
-<input type="hidden" name="package-name" value={pckg.name} />
-<input type="hidden" name="package-version" value={pckg.version} />
+<input type="hidden" name="package-name" value={name} />
+<input type="hidden" name="package-version" value={version} />
