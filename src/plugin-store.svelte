@@ -292,7 +292,7 @@ function getPluginSource(plugin: Plugin) {
                                     <Label>Enable</Label>
                                 </Button>
                             {:else}
-                                {#if !plugin.installed && localPlugins.includes(plugin)}
+                                {#if localPlugins.includes(plugin)}
                                     <Group variant="raised">
                                         <Button
                                             on:click={() =>
@@ -370,7 +370,6 @@ function getPluginSource(plugin: Plugin) {
 <style>
     :root,
     :host {
-        color: red;
         --header-height: 128px;
     }
     plugin-store {
