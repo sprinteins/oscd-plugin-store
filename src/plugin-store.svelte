@@ -1,15 +1,16 @@
 <script lang="ts">
 import Theme from "./theme/theme.svelte";
 import { Checkbox } from "./components/checkbox/";
+import { IconClose } from "./components/icons";
+import { Button, SplitButton } from "./components/button";
 import Textfield from "@smui/textfield";
-import Button, { Group, GroupItem, Label } from "@smui/button";
+import { Label } from "@smui/button";
+import SMUIButton from "@smui/button";
 import Menu from "@smui/menu";
 import IconButton from "@smui/icon-button";
 import Dialog, { Header, Title, Content, Actions } from "@smui/dialog";
 import List, { Item, Text } from "@smui/list";
 import Snackbar from "@smui/snackbar";
-import IconArrowDropDown from "./components/icons/icon-arrow-drop-down.svelte";
-import IconClose from "./components/icons/icon-close.svelte";
 
 export let isOpen: boolean;
 
@@ -222,47 +223,17 @@ function getPluginSource(plugin: Plugin) {
                             </plugin-store-item-meta>
                             {#if plugin.installed}
                                     {#if plugin.official}
-                                    <Group variant="outlined">
-                                        <Button
-                                            on:click={() =>
-                                                toggleOfficialPlugin(
-                                                    plugin,
-                                                    false
-                                                )}
-                                                variant="outlined"
-                                            style="min-width: 148px;"
-                                        >
-                                            <Label>Disable</Label>
+                                        <Button variant="outlined" on:click={() => toggleOfficialPlugin(plugin, false)}>
+                                            Disable
                                         </Button>
-                                    </Group>
                                     {:else}
-                                    <Group variant="outlined">
-                                        <Button
-                                            on:click={() =>
-                                                toggleOfficialPlugin(
-                                                    plugin,
-                                                    false
-                                                )}
-                                                variant="outlined"
-                                            style="min-width: 102px;"
-                                        >
-                                            <Label>Disable</Label>
-                                        </Button>
-                                        <div use:GroupItem>
-                                            <Button
-                                                on:click={(e) =>
-                                                    openPluginMenu(e, index)}
-                                                style="min-width: 18px;"
-                                                variant="outlined"
-                                            >
-                                                <IconArrowDropDown />
-                                            </Button>
+                                        <SplitButton variant="outlined" label="Disable" on:click={() => toggleOfficialPlugin(plugin, false)} on:menuOpen={() => openPluginMenu(index)}>
                                             <Menu
                                                 bind:this={menus[index]}
                                                 anchorElement={currentPluginAnchor}
                                                 open={menuStates[index]}
                                                 anchorCorner="BOTTOM_LEFT"
-                                                style="left: -70px"
+                                                style="left: -70px;"
                                             >
                                                 <List>
                                                     <Item
@@ -275,47 +246,17 @@ function getPluginSource(plugin: Plugin) {
                                                     </Item>
                                                 </List>
                                             </Menu>
-                                        </div>
-                                    </Group>
+                                        </SplitButton>
                                     {/if}
                             {:else if plugin.official}
-                            <Group variant="raised">
-                                <Button
-                                    on:click={() =>
-                                        toggleOfficialPlugin(plugin, true)}
-                                    variant="raised"
-                                    style="min-width: 148px;"
-                                >
-                                    <Label>Enable</Label>
+                            <Button on:click={() => toggleOfficialPlugin(plugin, true)}>
+                                Enable
                                 </Button>
-                            </Group>
                             {:else}
                                 {#if localPlugins.includes(plugin)}
-                                    <Group variant="raised">
-                                        <Button
-                                            on:click={() =>
-                                                toggleOfficialPlugin(
-                                                    plugin,
-                                                    true
-                                                )}
-                                                variant="raised"
-                                            style="min-width: 102px;"
-                                        >
-                                            <Label>Enable</Label>
-                                        </Button>
-                                        <div use:GroupItem>
-                                            
-                                        <Button
-                                            on:click={(e) =>
-                                                openPluginMenu(e, index)}
-                                                variant="raised"
-                                            style="min-width: 18px;"
-                                        >
-                                            <IconArrowDropDown />
-                                        </Button>
+                                    <SplitButton label="Enable" on:click={() => {toggleOfficialPlugin(plugin, true)}} on:menuOpen={() => openPluginMenu(index)}>
                                         <Menu
                                             bind:this={menus[index]}
-                                            anchorElement={currentPluginAnchor}
                                             open={menuStates[index]}
                                             anchorCorner="BOTTOM_LEFT"
                                             style="left: -70px;"
@@ -331,16 +272,10 @@ function getPluginSource(plugin: Plugin) {
                                                 </Item>
                                             </List>
                                         </Menu>
-                                        </div>
-                                    </Group>
+                                    </SplitButton>
                                 {:else}
-                                <Button
-                                    on:click={() =>
-                                        installExternalPlugin(plugin)}
-                                    variant="raised"
-                                    style="min-width: 148px;"
-                                >
-                                    <Label>Install</Label>
+                                <Button on:click={() => installExternalPlugin(plugin)}>
+                                    Install
                                 </Button>
                                 {/if}
                             {/if}
@@ -358,12 +293,12 @@ function getPluginSource(plugin: Plugin) {
             </plugin-store>
         </Content>
         <Actions>
-            <Button action="reject" on:click={() => location.reload()}>
+            <SMUIButton action="reject" on:click={() => location.reload()}>
                 <Label>Restart</Label>
-            </Button>
-            <Button action="accept">
+            </SMUIButton>
+            <SMUIButton action="accept">
                 <Label>Close</Label>
-            </Button>
+            </SMUIButton>
         </Actions>
     </Dialog>
 </Theme>
