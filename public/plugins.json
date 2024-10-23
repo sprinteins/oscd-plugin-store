@@ -3,17 +3,20 @@
 		{
 			"name": "Type Switcher",
 			"author": "SprintEins",
-			"src": "https://sprinteins.github.io/oscd-plugins/type-switcher/index.js"
+			"src": "https://sprinteins.github.io/oscd-plugins/type-switcher/index.js",
+			"kind": "editor"
 		},
 		{
 			"name": "Communication Explorer",
 			"author": "SprintEins",
-			"src": "https://sprinteins.github.io/oscd-plugins/communication-explorer/index.js"
+			"src": "https://sprinteins.github.io/oscd-plugins/communication-explorer/index.js",
+			"kind": "editor"
 		},
 		{
 			"name": "Network Explorer",
 			"author": "SprintEins",
-			"src": "https://sprinteins.github.io/oscd-plugins/network-explorer/index.js"
+			"src": "https://sprinteins.github.io/oscd-plugins/network-explorer/index.js",
+			"kind": "editor"
 		}
 	]
 }
