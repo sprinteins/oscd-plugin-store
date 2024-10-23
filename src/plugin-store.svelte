@@ -174,6 +174,17 @@ function alternateRowColors(index: number) {
 	return `background: rgba(0, 0, 0, ${index % 2 === 0 ? "0" : "0.03"});`;
 }
 
+function convertPluginKindToText(kind: PluginKind): string {
+	if (kind === undefined) return "";
+
+	const capitalized = kind.toString()[0].toUpperCase() + kind.substring(1);
+	return capitalized;
+}
+
+function getTagline(plugin: Plugin) {
+	return `${getPluginAuthor(plugin)} · ${convertPluginKindToText(plugin.kind)}`;
+}
+
 function getPluginAuthor(plugin: Plugin) {
 	return plugin.official ? "Built-in" : plugin.author;
 }
@@ -217,7 +228,7 @@ function getPluginSource(plugin: Plugin) {
                         <plugin-store-item style={alternateRowColors(index)}>
                             <plugin-store-item-meta>
                                 <div class="mdc-typography--caption">
-                                    {getPluginAuthor(plugin)}
+                                    {getTagline(plugin)}
                                 </div>
                                 <div class="mdc-typography--body1">
                                     <strong>{plugin.name}</strong>
