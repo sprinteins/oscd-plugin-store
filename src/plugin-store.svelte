@@ -132,7 +132,14 @@ function filterInstalledPlugins(plugin: Plugin, isChecked: boolean): boolean {
 }
 
 function filterSearchResults(plugin: Plugin, filter: string): boolean {
-	return plugin.name.toLowerCase().includes(filter.toLowerCase());
+	const search = filter.toLowerCase();
+
+	const foundName = plugin.name.toLowerCase().includes(search);
+	let foundAuthor = false;
+
+	if (plugin.author) foundAuthor = plugin.author.toLowerCase().includes(search);
+
+	return foundName || foundAuthor;
 }
 
 // Prevent Plugin Store itself from showing up in search results.
