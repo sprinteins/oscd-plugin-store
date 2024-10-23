@@ -128,7 +128,7 @@ function combineAllPlugins(local: Plugin[], external: Plugin[]): Plugin[] {
 }
 
 function filterInstalledPlugins(plugin: Plugin, isChecked: boolean): boolean {
-	return !isChecked || plugin.installed;
+	return !isChecked || localPlugins.includes(plugin);
 }
 
 function filterSearchResults(plugin: Plugin, filter: string): boolean {
