@@ -102,7 +102,6 @@ async function fetchExternalPlugins() {
 
 	const result = await fetch(url);
 	const data = await result.json();
-
 	externalPlugins = data.plugins;
 }
 
@@ -111,14 +110,20 @@ fetchExternalPlugins();
 let showOnlyInstalled = false;
 let searchFilter = "";
 
-function combineAllPlugins(local: Plugin[]): Plugin[] {
+function combineAllPlugins(local: Plugin[], external: Plugin[]): Plugin[] {
 	const plugins: Plugin[] = [...local];
 
 	for (let i = 0; i < externalPlugins.length; i++) {
-		if (!localPlugins.some((it) => it.name === externalPlugins[i].name)) {
-			plugins.push(externalPlugins[i]);
+		if (!localPlugins.some((it) => it.name === external[i].name)) {
+			plugins.push(external[i]);
 		}
 	}
+
+	plugins.sort((a, b) => {
+		if (a.name < b.name) return -1;
+		if (a.name > b.name) return 1;
+		return 0;
+	});
 
 	return plugins;
 }
@@ -137,7 +142,7 @@ function filterSelf(plugin: Plugin): boolean {
 }
 
 let localPlugins = storedPlugins();
-$: plugins = combineAllPlugins(localPlugins);
+$: plugins = combineAllPlugins(localPlugins, externalPlugins);
 $: filteredPlugins = plugins
 	.filter((plugin) => filterInstalledPlugins(plugin, showOnlyInstalled))
 	.filter((plugin) => filterSearchResults(plugin, searchFilter))
