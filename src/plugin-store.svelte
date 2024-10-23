@@ -1,6 +1,5 @@
 <script lang="ts">
 import Theme from "./theme/theme.svelte";
-import { Checkbox } from "./components/checkbox/";
 import { IconClose } from "./components/icons";
 import { Button, SplitButton } from "./components/button";
 import Textfield from "@smui/textfield";
