@@ -154,13 +154,11 @@ $: filteredPlugins = plugins
 // #region UI
 let notificationSnackbar: Snackbar;
 
-let currentPluginAnchor: Element;
 let menus: Menu[];
 $: menus = filteredPlugins.map(() => null);
 $: menuStates = filteredPlugins.map(() => false);
 
-function openPluginMenu(e, index: number) {
-	currentPluginAnchor = e.currentTarget;
+function openPluginMenu(index: number) {
 	menuStates = menuStates.map(() => false);
 	menuStates[index] = true;
 }
@@ -230,7 +228,6 @@ function getPluginSource(plugin: Plugin) {
                                         <SplitButton variant="outlined" label="Disable" on:click={() => toggleOfficialPlugin(plugin, false)} on:menuOpen={() => openPluginMenu(index)}>
                                             <Menu
                                                 bind:this={menus[index]}
-                                                anchorElement={currentPluginAnchor}
                                                 open={menuStates[index]}
                                                 anchorCorner="BOTTOM_LEFT"
                                                 style="left: -70px;"
@@ -251,7 +248,7 @@ function getPluginSource(plugin: Plugin) {
                             {:else if plugin.official}
                             <Button on:click={() => toggleOfficialPlugin(plugin, true)}>
                                 Enable
-                                </Button>
+                            </Button>
                             {:else}
                                 {#if localPlugins.includes(plugin)}
                                     <SplitButton label="Enable" on:click={() => {toggleOfficialPlugin(plugin, true)}} on:menuOpen={() => openPluginMenu(index)}>
