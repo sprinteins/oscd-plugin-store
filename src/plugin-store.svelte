@@ -44,6 +44,7 @@ function withoutContent<P extends Plugin>(plugin: P): P {
 
 function storePlugins(plugins: Array<Plugin>) {
 	localStorage.setItem("plugins", JSON.stringify(plugins.map(withoutContent)));
+	isDirty = true;
 }
 
 function installExternalPlugin(plugin: Plugin) {
@@ -157,6 +158,8 @@ $: filteredPlugins = plugins
 
 // #region UI
 let notificationSnackbar: Snackbar;
+
+let isDirty = false;
 
 let menus: Menu[];
 $: menus = filteredPlugins.map(() => null);
@@ -294,7 +297,7 @@ function getPluginSource(plugin: Plugin) {
             </plugin-store>
         </Content>
         <Actions>
-            <SMUIButton action="reject" on:click={() => location.reload()}>
+            <SMUIButton action="reject" disabled={!isDirty} on:click={() => location.reload()}>
                 <Label>Reload App</Label>
             </SMUIButton>
             <SMUIButton action="accept">
