@@ -5,6 +5,7 @@ import { IconClose } from "./components/icons";
 import { Button, SplitButton } from "./components/button";
 import Textfield from "@smui/textfield";
 import { Label } from "@smui/button";
+import Switch from "@smui/switch";
 import SMUIButton from "@smui/button";
 import Menu from "@smui/menu";
 import IconButton from "@smui/icon-button";
@@ -213,10 +214,13 @@ function getPluginSource(plugin: Plugin) {
         <Content id="plugin-store-content">
             <plugin-store>
                 <plugin-store-toolbar>
-                    <Checkbox
-                        label="Only Installed"
-                        bind:checked={showOnlyInstalled}
-                    />
+                    <plugin-store-filters--switch>
+                        <Switch
+                            bind:checked={showOnlyInstalled}
+                            style="margin: 0;"
+                        />
+                        <Label>Only Installed</Label>  
+                    </plugin-store-filters--switch>
                     <Textfield
                         label={"Search"}
                         variant={"outlined"}
@@ -335,6 +339,11 @@ function getPluginSource(plugin: Plugin) {
         justify-content: space-between;
         place-items: center;
         margin-top: 1rem;
+    }
+    plugin-store-filters--switch {
+        display: flex;
+        place-items: center;
+        gap: 0.8rem;
     }
     plugin-store-items {
         display: flex;
