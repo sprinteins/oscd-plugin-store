@@ -98,8 +98,7 @@ function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 let externalPlugins: Plugin[] = [];
 
 async function fetchExternalPlugins() {
-	const url =
-		"https://raw.githubusercontent.com/sprinteins/oscd-plugin-store/refs/heads/main/public/plugins.json";
+	const url = "https://sprinteins.github.io/oscd-plugin-store/plugins.json";
 
 	const result = await fetch(url);
 	const data = await result.json();
