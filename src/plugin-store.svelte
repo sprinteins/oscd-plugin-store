@@ -283,13 +283,13 @@ function getPluginSource(plugin: Plugin) {
                     {/if}
                 </plugin-store-items>
                 <Snackbar bind:this={notificationSnackbar}>
-                    <Label>Refresh page to see changes.</Label>
+                    <Label>Reload app to see changes.</Label>
                 </Snackbar>
             </plugin-store>
         </Content>
         <Actions>
             <SMUIButton action="reject" on:click={() => location.reload()}>
-                <Label>Restart</Label>
+                <Label>Reload App</Label>
             </SMUIButton>
             <SMUIButton action="accept">
                 <Label>Close</Label>
