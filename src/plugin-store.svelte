@@ -1,15 +1,17 @@
 <script lang="ts">
 import Theme from "./theme/theme.svelte";
-import { Checkbox } from "./components/checkbox/";
+import { IconClose } from "./components/icons";
+import { Button, SplitButton } from "./components/button";
 import Textfield from "@smui/textfield";
-import Button, { Group, GroupItem, Label } from "@smui/button";
+import { Label } from "@smui/button";
+import Switch from "@smui/switch";
+import SMUIButton from "@smui/button";
 import Menu from "@smui/menu";
 import IconButton from "@smui/icon-button";
 import Dialog, { Header, Title, Content, Actions } from "@smui/dialog";
 import List, { Item, Text } from "@smui/list";
 import Snackbar from "@smui/snackbar";
-import IconArrowDropDown from "./components/icons/icon-arrow-drop-down.svelte";
-import IconClose from "./components/icons/icon-close.svelte";
+import { plugins as externalPlugins } from "../public/plugins.json";
 
 export let isOpen: boolean;
 
@@ -43,6 +45,7 @@ function withoutContent<P extends Plugin>(plugin: P): P {
 
 function storePlugins(plugins: Array<Plugin>) {
 	localStorage.setItem("plugins", JSON.stringify(plugins.map(withoutContent)));
+	isDirty = true;
 }
 
 function installExternalPlugin(plugin: Plugin) {
@@ -94,52 +97,44 @@ function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 	console.log("Set toggle state for", plugin.name);
 }
 
-let externalPlugins: Plugin[] = [];
-
-async function fetchExternalPlugins() {
-	const externalPluginsMockup: Plugin[] = [
-		{
-			name: "Type Designer",
-			author: "SprintEins",
-			src: "https://sprinteins.github.io/oscd-plugins/type-designer/index.js",
-			kind: "editor",
-			installed: false,
-		},
-		{
-			name: "Auto Doc",
-			author: "SprintEins",
-			src: "https://sprinteins.github.io/osdc-plugins/auto-doc/index.js",
-			kind: "editor",
-			installed: false,
-		},
-	];
-
-	externalPlugins = externalPluginsMockup;
-}
-
-fetchExternalPlugins();
-
 let showOnlyInstalled = false;
 let searchFilter = "";
 
-function combineAllPlugins(local: Plugin[]): Plugin[] {
-	const plugins: Plugin[] = [...local];
+function combineAllPlugins(local: Plugin[], external: Plugin[]): Plugin[] {
+	const plugins = [...local];
 
-	for (let i = 0; i < externalPlugins.length; i++) {
-		if (!localPlugins.some((it) => it.name === externalPlugins[i].name)) {
-			plugins.push(externalPlugins[i]);
+	for (const plugin of external) {
+		if (!localPlugins.some((it) => it.name === plugin.name)) {
+			plugins.push(plugin);
 		}
 	}
+
+	plugins.sort((a, b) => {
+		if (a.author && b.author && a.author !== b.author) {
+			return a.author?.localeCompare(b.author);
+		}
+
+		return a.name.localeCompare(b.name);
+	});
 
 	return plugins;
 }
 
 function filterInstalledPlugins(plugin: Plugin, isChecked: boolean): boolean {
-	return !isChecked || plugin.installed;
+	return !isChecked || localPlugins.includes(plugin);
 }
 
 function filterSearchResults(plugin: Plugin, filter: string): boolean {
-	return plugin.name.toLowerCase().includes(filter.toLowerCase());
+	const search = filter.toLowerCase();
+
+	const foundName = plugin.name.toLowerCase().includes(search);
+	let foundAuthor = false;
+
+	if (plugin.author) {
+		foundAuthor = plugin.author.toLowerCase().includes(search);
+	}
+
+	return foundName || foundAuthor;
 }
 
 // Prevent Plugin Store itself from showing up in search results.
@@ -148,7 +143,7 @@ function filterSelf(plugin: Plugin): boolean {
 }
 
 let localPlugins = storedPlugins();
-$: plugins = combineAllPlugins(localPlugins);
+$: plugins = combineAllPlugins(localPlugins, externalPlugins as Plugin[]);
 $: filteredPlugins = plugins
 	.filter((plugin) => filterInstalledPlugins(plugin, showOnlyInstalled))
 	.filter((plugin) => filterSearchResults(plugin, searchFilter))
@@ -159,19 +154,32 @@ $: filteredPlugins = plugins
 // #region UI
 let notificationSnackbar: Snackbar;
 
-let currentPluginAnchor: Element;
+let isDirty = false;
+
 let menus: Menu[];
 $: menus = filteredPlugins.map(() => null);
 $: menuStates = filteredPlugins.map(() => false);
 
-function openPluginMenu(e, index: number) {
-	currentPluginAnchor = e.currentTarget;
+function openPluginMenu(index: number) {
 	menuStates = menuStates.map(() => false);
 	menuStates[index] = true;
 }
 
 function alternateRowColors(index: number) {
 	return `background: rgba(0, 0, 0, ${index % 2 === 0 ? "0" : "0.03"});`;
+}
+
+function convertPluginKindToText(kind: PluginKind): string {
+	if (kind === undefined) {
+		return "";
+	}
+
+	const capitalized = kind.toString()[0].toUpperCase() + kind.substring(1);
+	return capitalized;
+}
+
+function getTagline(plugin: Plugin) {
+	return `${getPluginAuthor(plugin)} · ${convertPluginKindToText(plugin.kind)}`;
 }
 
 function getPluginAuthor(plugin: Plugin) {
@@ -202,10 +210,13 @@ function getPluginSource(plugin: Plugin) {
         <Content id="plugin-store-content">
             <plugin-store>
                 <plugin-store-toolbar>
-                    <Checkbox
-                        label="Only Installed"
-                        bind:checked={showOnlyInstalled}
-                    />
+                    <plugin-store-filters--switch>
+                        <Switch
+                            bind:checked={showOnlyInstalled}
+                            style="margin: 0;"
+                        />
+                        <Label>Only Installed</Label>  
+                    </plugin-store-filters--switch>
                     <Textfield
                         label={"Search"}
                         variant={"outlined"}
@@ -217,7 +228,7 @@ function getPluginSource(plugin: Plugin) {
                         <plugin-store-item style={alternateRowColors(index)}>
                             <plugin-store-item-meta>
                                 <div class="mdc-typography--caption">
-                                    {getPluginAuthor(plugin)}
+                                    {getTagline(plugin)}
                                 </div>
                                 <div class="mdc-typography--body1">
                                     <strong>{plugin.name}</strong>
@@ -227,46 +238,17 @@ function getPluginSource(plugin: Plugin) {
                                 </div>
                             </plugin-store-item-meta>
                             {#if plugin.installed}
-                                <Group variant="raised">
                                     {#if plugin.official}
-                                        <Button
-                                            on:click={() =>
-                                                toggleOfficialPlugin(
-                                                    plugin,
-                                                    false
-                                                )}
-                                            variant="outlined"
-                                            style="min-width: 148px;"
-                                        >
-                                            <Label>Disable</Label>
+                                        <Button variant="outlined" on:click={() => toggleOfficialPlugin(plugin, false)}>
+                                            Disable
                                         </Button>
                                     {:else}
-                                        <Button
-                                            on:click={() =>
-                                                toggleOfficialPlugin(
-                                                    plugin,
-                                                    false
-                                                )}
-                                            variant="outlined"
-                                            style="min-width: 102px;"
-                                        >
-                                            <Label>Disable</Label>
-                                        </Button>
-                                        <div use:GroupItem>
-                                            <Button
-                                                on:click={(e) =>
-                                                    openPluginMenu(e, index)}
-                                                variant="outlined"
-                                                style="min-width: 18px;"
-                                            >
-                                                <IconArrowDropDown />
-                                            </Button>
+                                        <SplitButton variant="outlined" label="Disable" on:click={() => toggleOfficialPlugin(plugin, false)} on:menuOpen={() => openPluginMenu(index)}>
                                             <Menu
                                                 bind:this={menus[index]}
-                                                anchorElement={currentPluginAnchor}
                                                 open={menuStates[index]}
                                                 anchorCorner="BOTTOM_LEFT"
-                                                style="left: -70px"
+                                                style="left: -70px;"
                                             >
                                                 <List>
                                                     <Item
@@ -279,46 +261,20 @@ function getPluginSource(plugin: Plugin) {
                                                     </Item>
                                                 </List>
                                             </Menu>
-                                        </div>
+                                        </SplitButton>
                                     {/if}
-                                </Group>
                             {:else if plugin.official}
-                                <Button
-                                    on:click={() =>
-                                        toggleOfficialPlugin(plugin, true)}
-                                    variant="raised"
-                                    style="min-width: 148px;"
-                                >
-                                    <Label>Enable</Label>
-                                </Button>
+                            <Button on:click={() => toggleOfficialPlugin(plugin, true)}>
+                                Enable
+                            </Button>
                             {:else}
                                 {#if localPlugins.includes(plugin)}
-                                    <Group variant="raised">
-                                        <Button
-                                            on:click={() =>
-                                                toggleOfficialPlugin(
-                                                    plugin,
-                                                    true
-                                                )}
-                                            variant="raised"
-                                            style="min-width: 102px;"
-                                        >
-                                            <Label>Enable</Label>
-                                        </Button>
-                                        <Button
-                                            on:click={(e) =>
-                                                openPluginMenu(e, index)}
-                                            variant="raised"
-                                            style="min-width: 18px;"
-                                        >
-                                            <IconArrowDropDown />
-                                        </Button>
+                                    <SplitButton label="Enable" on:click={() => {toggleOfficialPlugin(plugin, true)}} on:menuOpen={() => openPluginMenu(index)}>
                                         <Menu
                                             bind:this={menus[index]}
-                                            anchorElement={currentPluginAnchor}
                                             open={menuStates[index]}
                                             anchorCorner="BOTTOM_LEFT"
-                                            style="left: -70px"
+                                            style="left: -70px;"
                                         >
                                             <List>
                                                 <Item
@@ -331,15 +287,10 @@ function getPluginSource(plugin: Plugin) {
                                                 </Item>
                                             </List>
                                         </Menu>
-                                    </Group>
+                                    </SplitButton>
                                 {:else}
-                                <Button
-                                    on:click={() =>
-                                        installExternalPlugin(plugin)}
-                                    variant="raised"
-                                    style="min-width: 148px;"
-                                >
-                                    <Label>Install</Label>
+                                <Button on:click={() => installExternalPlugin(plugin)}>
+                                    Install
                                 </Button>
                                 {/if}
                             {/if}
@@ -352,17 +303,17 @@ function getPluginSource(plugin: Plugin) {
                     {/if}
                 </plugin-store-items>
                 <Snackbar bind:this={notificationSnackbar}>
-                    <Label>Refresh page to see changes.</Label>
+                    <Label>Reload app to see changes.</Label>
                 </Snackbar>
             </plugin-store>
         </Content>
         <Actions>
-            <Button action="reject" on:click={() => location.reload()}>
-                <Label>Restart</Label>
-            </Button>
-            <Button action="accept">
+            <SMUIButton action="reject" disabled={!isDirty} on:click={() => location.reload()}>
+                <Label>Reload App</Label>
+            </SMUIButton>
+            <SMUIButton action="accept">
                 <Label>Close</Label>
-            </Button>
+            </SMUIButton>
         </Actions>
     </Dialog>
 </Theme>
@@ -384,6 +335,11 @@ function getPluginSource(plugin: Plugin) {
         justify-content: space-between;
         place-items: center;
         margin-top: 1rem;
+    }
+    plugin-store-filters--switch {
+        display: flex;
+        place-items: center;
+        gap: 0.8rem;
     }
     plugin-store-items {
         display: flex;

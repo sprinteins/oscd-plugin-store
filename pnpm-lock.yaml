@@ -29,6 +29,9 @@ importers:
       '@smui/snackbar':
         specifier: ^7.0.0
         version: 7.0.0(svelte@4.2.19)(typescript@5.5.4)
+      '@smui/switch':
+        specifier: ^7.0.0
+        version: 7.0.0(svelte@4.2.19)(typescript@5.5.4)
       '@smui/textfield':
         specifier: ^7.0.0
         version: 7.0.0(svelte@4.2.19)(typescript@5.5.4)

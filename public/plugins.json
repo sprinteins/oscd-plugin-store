@@ -1,24 +1,28 @@
 {
 	"plugins": [
 		{
-			"name": "Auto Doc",
+			"name": "Communication Explorer",
 			"author": "SprintEins",
-			"src": "https://sprinteins.github.io/oscd-plugins/auto-doc/index.js"
+			"src": "https://sprinteins.github.io/oscd-plugins/communication-explorer/index.js",
+			"kind": "editor"
 		},
 		{
-			"name": "Diffing Tool",
+			"name": "Documentation",
 			"author": "SprintEins",
-			"src": "https://sprinteins.github.io/oscd-plugins/diffing-tool/index.js"
+			"src": "https://sprinteins.github.io/oscd-plugins/documentation/index.js",
+			"kind": "editor"
 		},
 		{
-			"name": "I/O Center",
+			"name": "Network Explorer",
 			"author": "SprintEins",
-			"src": "https://sprinteins.github.io/oscd-plugins/io-center/index.js"
+			"src": "https://sprinteins.github.io/oscd-plugins/network-explorer/index.js",
+			"kind": "editor"
 		},
 		{
-			"name": "Type Designer",
+			"name": "Type Switcher",
 			"author": "SprintEins",
-			"src": "https://sprinteins.github.io/oscd-plugins/type-designer/index.js"
+			"src": "https://sprinteins.github.io/oscd-plugins/type-switcher/index.js",
+			"kind": "editor"
 		}
 	]
 }
