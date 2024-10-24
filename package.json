@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
+        "build:restricted": "VITE_EXTERNAL_PLUGINS=true vite build",
         "preview": "vite preview --port 50713",
         "build:watch": "npm run build && concurrently 'npm:_build:watch' 'npm:preview'",
         "_build:watch": "NODE_ENV=development vite build --watch",

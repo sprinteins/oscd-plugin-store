@@ -13,6 +13,8 @@ import List, { Item, Text } from "@smui/list";
 import Snackbar from "@smui/snackbar";
 import { plugins as externalPlugins } from "../public/plugins.json";
 
+const isRestricted = !import.meta.env.VITE_EXTERNAL_PLUGINS === true;
+
 export let isOpen: boolean;
 
 // #region Plugin
@@ -103,9 +105,11 @@ let searchFilter = "";
 function combineAllPlugins(local: Plugin[], external: Plugin[]): Plugin[] {
 	const plugins = [...local];
 
-	for (const plugin of external) {
-		if (!localPlugins.some((it) => it.name === plugin.name)) {
-			plugins.push(plugin);
+	if (!isRestricted) {
+		for (const plugin of external) {
+			if (!localPlugins.some((it) => it.name === plugin.name)) {
+				plugins.push(plugin);
+			}
 		}
 	}
 

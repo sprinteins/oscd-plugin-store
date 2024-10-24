@@ -41,8 +41,8 @@ jobs:
       - name: Build Plugin
         run: pnpm run build
 
-      - name: Build Plugin
-        run: pnpm run build
+      - name: Build Restricted Plugin
+        run: pnpm run build:restricted
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
