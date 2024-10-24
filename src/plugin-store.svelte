@@ -101,17 +101,30 @@ let showOnlyInstalled = false;
 let searchFilter = "";
 
 function combineAllPlugins(local: Plugin[], external: Plugin[]): Plugin[] {
-	const plugins: Plugin[] = [...local];
+	const plugins = [...local];
 
-	for (let i = 0; i < externalPlugins.length; i++) {
-		if (!localPlugins.some((it) => it.name === external[i].name)) {
-			plugins.push(external[i]);
+	const pluginChunks = new Map();
+
+	for (const plugin of external) {
+		const { author } = plugin;
+
+		if (pluginChunks.has(author)) {
+			pluginChunks.get(author).push(plugin);
+		} else {
+			pluginChunks.set(author, [plugin]);
 		}
 	}
 
-	plugins.sort((a, b) => {
-		return a.name.localeCompare(b.name);
-	});
+	// Sort by author name, but ensure Built-in stays at the top.
+	const sortedPluginChunks = new Map(
+		[...pluginChunks.entries()].sort((a, b) => a[0].localeCompare(b[0])),
+	);
+
+	// Sort each chunk by plugin name.
+	for (const chunk of sortedPluginChunks) {
+		chunk[1].sort((a, b) => a.name.localeCompare(b.name));
+		plugins.push(...chunk[1]);
+	}
 
 	return plugins;
 }
