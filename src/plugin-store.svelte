@@ -137,7 +137,9 @@ function filterSearchResults(plugin: Plugin, filter: string): boolean {
 	const foundName = plugin.name.toLowerCase().includes(search);
 	let foundAuthor = false;
 
-	if (plugin.author) foundAuthor = plugin.author.toLowerCase().includes(search);
+	if (plugin.author) {
+		foundAuthor = plugin.author.toLowerCase().includes(search);
+	}
 
 	return foundName || foundAuthor;
 }
@@ -175,7 +177,9 @@ function alternateRowColors(index: number) {
 }
 
 function convertPluginKindToText(kind: PluginKind): string {
-	if (kind === undefined) return "";
+	if (kind === undefined) {
+		return "";
+	}
 
 	const capitalized = kind.toString()[0].toUpperCase() + kind.substring(1);
 	return capitalized;
