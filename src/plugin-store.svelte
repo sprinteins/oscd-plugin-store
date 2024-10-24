@@ -11,6 +11,7 @@ import IconButton from "@smui/icon-button";
 import Dialog, { Header, Title, Content, Actions } from "@smui/dialog";
 import List, { Item, Text } from "@smui/list";
 import Snackbar from "@smui/snackbar";
+import { plugins as externalPlugins } from "../public/plugins.json";
 
 export let isOpen: boolean;
 
@@ -96,18 +97,6 @@ function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 	console.log("Set toggle state for", plugin.name);
 }
 
-let externalPlugins: Plugin[] = [];
-
-async function fetchExternalPlugins() {
-	const url = "https://sprinteins.github.io/oscd-plugin-store/plugins.json";
-
-	const result = await fetch(url);
-	const data = await result.json();
-	externalPlugins = data.plugins;
-}
-
-fetchExternalPlugins();
-
 let showOnlyInstalled = false;
 let searchFilter = "";
 
@@ -150,7 +139,7 @@ function filterSelf(plugin: Plugin): boolean {
 }
 
 let localPlugins = storedPlugins();
-$: plugins = combineAllPlugins(localPlugins, externalPlugins);
+$: plugins = combineAllPlugins(localPlugins, externalPlugins as Plugin[]);
 $: filteredPlugins = plugins
 	.filter((plugin) => filterInstalledPlugins(plugin, showOnlyInstalled))
 	.filter((plugin) => filterSearchResults(plugin, searchFilter))
