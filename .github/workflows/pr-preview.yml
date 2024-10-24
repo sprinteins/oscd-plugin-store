@@ -9,7 +9,8 @@ on:
       - synchronize
       - closed
     paths:
-      - "packages/**"
+      - "src/**"
+      - "public/**"
 
 concurrency: preview-${{ github.ref }}
 env:
