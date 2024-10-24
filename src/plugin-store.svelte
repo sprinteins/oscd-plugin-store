@@ -115,12 +115,10 @@ function combineAllPlugins(local: Plugin[], external: Plugin[]): Plugin[] {
 		}
 	}
 
-	// Sort by author name, but ensure Built-in stays at the top.
 	const sortedPluginChunks = new Map(
 		[...pluginChunks.entries()].sort((a, b) => a[0].localeCompare(b[0])),
 	);
 
-	// Sort each chunk by plugin name.
 	for (const chunk of sortedPluginChunks) {
 		chunk[1].sort((a, b) => a.name.localeCompare(b.name));
 		plugins.push(...chunk[1]);
