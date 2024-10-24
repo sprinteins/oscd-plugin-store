@@ -103,30 +103,19 @@ let searchFilter = "";
 function combineAllPlugins(local: Plugin[], external: Plugin[]): Plugin[] {
 	const plugins = [...local];
 
-	const pluginChunks = new Map();
-
 	for (const plugin of external) {
-		const { author, name } = plugin;
-
-		if (localPlugins.some((it) => it.name === name)) {
-			continue;
-		}
-
-		if (pluginChunks.has(author)) {
-			pluginChunks.get(author).push(plugin);
-		} else {
-			pluginChunks.set(author, [plugin]);
+		if (!localPlugins.some((it) => it.name === plugin.name)) {
+			plugins.push(plugin);
 		}
 	}
 
-	const sortedPluginChunks = new Map(
-		[...pluginChunks.entries()].sort((a, b) => a[0].localeCompare(b[0])),
-	);
+	plugins.sort((a, b) => {
+		if (a.author && b.author && a.author !== b.author) {
+			return a.author?.localeCompare(b.author);
+		}
 
-	for (const chunk of sortedPluginChunks) {
-		chunk[1].sort((a, b) => a.name.localeCompare(b.name));
-		plugins.push(...chunk[1]);
-	}
+		return a.name.localeCompare(b.name);
+	});
 
 	return plugins;
 }
