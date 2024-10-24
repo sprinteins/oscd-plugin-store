@@ -22,8 +22,8 @@ export default defineConfig({
     },
     build: {
         lib: {
-            entry: 'src/plugin.ts',
-            fileName: 'index',
+            entry: 'src/plugin.ts', 
+            fileName: process.ENV.VITE_EXTERNAL_PLUGINS === "true" ? "index.js" : "index-restricted.js",
             formats: ['es'],
         },
     },
