@@ -15492,12 +15492,6 @@ const Ro = [
     kind: "editor"
   },
   {
-    name: "Template Generator",
-    author: "SprintEins",
-    src: "https://sprinteins.github.io/oscd-template-generator/oscd-template-generator.js",
-    kind: "editor"
-  },
-  {
     name: "Type Switcher",
     author: "SprintEins",
     src: "https://sprinteins.github.io/oscd-plugins/type-switcher/index.js",
