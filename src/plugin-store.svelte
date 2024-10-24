@@ -106,7 +106,11 @@ function combineAllPlugins(local: Plugin[], external: Plugin[]): Plugin[] {
 	const pluginChunks = new Map();
 
 	for (const plugin of external) {
-		const { author } = plugin;
+		const { author, name } = plugin;
+
+		if (localPlugins.some((it) => it.name === name)) {
+			continue;
+		}
 
 		if (pluginChunks.has(author)) {
 			pluginChunks.get(author).push(plugin);
