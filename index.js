@@ -15500,7 +15500,7 @@ const Ro = [
 ];
 function Zi(n, e, t) {
   const i = n.slice();
-  return i[34] = e[t], i[35] = e, i[36] = t, i;
+  return i[35] = e[t], i[36] = e, i[37] = t, i;
 }
 function ko(n) {
   let e;
@@ -15561,10 +15561,10 @@ function Do(n) {
     p(a, l) {
       const r = {};
       l[1] & /*$$scope*/
-      64 && (r.$$scope = { dirty: l, ctx: a }), e.$set(r);
+      128 && (r.$$scope = { dirty: l, ctx: a }), e.$set(r);
       const o = {};
       l[1] & /*$$scope*/
-      64 && (o.$$scope = { dirty: l, ctx: a }), i.$set(o);
+      128 && (o.$$scope = { dirty: l, ctx: a }), i.$set(o);
     },
     i(a) {
       s || (T(e.$$.fragment, a), T(i.$$.fragment, a), s = !0);
@@ -15598,7 +15598,7 @@ function Po(n) {
       /*click_handler_4*/
       n[26](
         /*plugin*/
-        n[34]
+        n[35]
       )
     );
   }
@@ -15618,7 +15618,7 @@ function Po(n) {
       n = s;
       const l = {};
       a[1] & /*$$scope*/
-      64 && (l.$$scope = { dirty: a, ctx: n }), e.$set(l);
+      128 && (l.$$scope = { dirty: a, ctx: n }), e.$set(l);
     },
     i(s) {
       t || (T(e.$$.fragment, s), t = !0);
@@ -15638,7 +15638,7 @@ function Uo(n) {
       /*click_handler_3*/
       n[24](
         /*plugin*/
-        n[34]
+        n[35]
       )
     );
   }
@@ -15647,7 +15647,7 @@ function Uo(n) {
       /*menuOpen_handler_1*/
       n[25](
         /*index*/
-        n[36]
+        n[37]
       )
     );
   }
@@ -15669,7 +15669,7 @@ function Uo(n) {
       const r = {};
       l[0] & /*menuStates, menus, filteredPlugins*/
       400 | l[1] & /*$$scope*/
-      64 && (r.$$scope = { dirty: l, ctx: n }), e.$set(r);
+      128 && (r.$$scope = { dirty: l, ctx: n }), e.$set(r);
     },
     i(a) {
       t || (T(e.$$.fragment, a), t = !0);
@@ -15689,7 +15689,7 @@ function Bo(n) {
       /*click_handler_2*/
       n[21](
         /*plugin*/
-        n[34]
+        n[35]
       )
     );
   }
@@ -15709,7 +15709,7 @@ function Bo(n) {
       n = s;
       const l = {};
       a[1] & /*$$scope*/
-      64 && (l.$$scope = { dirty: a, ctx: n }), e.$set(l);
+      128 && (l.$$scope = { dirty: a, ctx: n }), e.$set(l);
     },
     i(s) {
       t || (T(e.$$.fragment, s), t = !0);
@@ -15728,7 +15728,7 @@ function Ho(n) {
   function r(o, u) {
     return (
       /*plugin*/
-      o[34].official ? 0 : 1
+      o[35].official ? 0 : 1
     );
   }
   return e = r(n), t = l[e] = a[e](n), {
@@ -15800,7 +15800,7 @@ function Go(n) {
     p(i, s) {
       const a = {};
       s[1] & /*$$scope*/
-      64 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
+      128 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
     },
     i(i) {
       t || (T(e.$$.fragment, i), t = !0);
@@ -15820,7 +15820,7 @@ function zo(n) {
       /*SMUI_action_handler_1*/
       n[22](
         /*plugin*/
-        n[34]
+        n[35]
       )
     );
   }
@@ -15840,7 +15840,7 @@ function zo(n) {
       n = s;
       const l = {};
       a[1] & /*$$scope*/
-      64 && (l.$$scope = { dirty: a, ctx: n }), e.$set(l);
+      128 && (l.$$scope = { dirty: a, ctx: n }), e.$set(l);
     },
     i(s) {
       t || (T(e.$$.fragment, s), t = !0);
@@ -15871,7 +15871,7 @@ function jo(n) {
       const a = {};
       s[0] & /*filteredPlugins*/
       16 | s[1] & /*$$scope*/
-      64 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
+      128 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
     },
     i(i) {
       t || (T(e.$$.fragment, i), t = !0);
@@ -15887,7 +15887,7 @@ function jo(n) {
 function Wo(n) {
   let e, t = (
     /*index*/
-    n[36]
+    n[37]
   ), i;
   const s = () => (
     /*menu_binding_1*/
@@ -15901,7 +15901,7 @@ function Wo(n) {
       /*menuStates*/
       n[8][
         /*index*/
-        n[36]
+        n[37]
       ]
     ),
     anchorCorner: "BOTTOM_LEFT",
@@ -15918,17 +15918,17 @@ function Wo(n) {
     },
     p(r, o) {
       t !== /*index*/
-      r[36] && (a(), t = /*index*/
-      r[36], s());
+      r[37] && (a(), t = /*index*/
+      r[37], s());
       const u = {};
       o[0] & /*menuStates*/
       256 && (u.open = /*menuStates*/
       r[8][
         /*index*/
-        r[36]
+        r[37]
       ]), o[0] & /*filteredPlugins*/
       16 | o[1] & /*$$scope*/
-      64 && (u.$$scope = { dirty: o, ctx: r }), e.$set(u);
+      128 && (u.$$scope = { dirty: o, ctx: r }), e.$set(u);
     },
     i(r) {
       i || (T(e.$$.fragment, r), i = !0);
@@ -15962,7 +15962,7 @@ function qo(n) {
       /*click_handler_1*/
       n[19](
         /*plugin*/
-        n[34]
+        n[35]
       )
     );
   }
@@ -15971,7 +15971,7 @@ function qo(n) {
       /*menuOpen_handler*/
       n[20](
         /*index*/
-        n[36]
+        n[37]
       )
     );
   }
@@ -15994,7 +15994,7 @@ function qo(n) {
       const r = {};
       l[0] & /*menuStates, menus, filteredPlugins*/
       400 | l[1] & /*$$scope*/
-      64 && (r.$$scope = { dirty: l, ctx: n }), e.$set(r);
+      128 && (r.$$scope = { dirty: l, ctx: n }), e.$set(r);
     },
     i(a) {
       t || (T(e.$$.fragment, a), t = !0);
@@ -16014,7 +16014,7 @@ function Xo(n) {
       /*click_handler*/
       n[16](
         /*plugin*/
-        n[34]
+        n[35]
       )
     );
   }
@@ -16035,7 +16035,7 @@ function Xo(n) {
       n = s;
       const l = {};
       a[1] & /*$$scope*/
-      64 && (l.$$scope = { dirty: a, ctx: n }), e.$set(l);
+      128 && (l.$$scope = { dirty: a, ctx: n }), e.$set(l);
     },
     i(s) {
       t || (T(e.$$.fragment, s), t = !0);
@@ -16079,7 +16079,7 @@ function Zo(n) {
     p(i, s) {
       const a = {};
       s[1] & /*$$scope*/
-      64 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
+      128 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
     },
     i(i) {
       t || (T(e.$$.fragment, i), t = !0);
@@ -16099,7 +16099,7 @@ function Jo(n) {
       /*SMUI_action_handler*/
       n[17](
         /*plugin*/
-        n[34]
+        n[35]
       )
     );
   }
@@ -16119,7 +16119,7 @@ function Jo(n) {
       n = s;
       const l = {};
       a[1] & /*$$scope*/
-      64 && (l.$$scope = { dirty: a, ctx: n }), e.$set(l);
+      128 && (l.$$scope = { dirty: a, ctx: n }), e.$set(l);
     },
     i(s) {
       t || (T(e.$$.fragment, s), t = !0);
@@ -16150,7 +16150,7 @@ function Yo(n) {
       const a = {};
       s[0] & /*filteredPlugins*/
       16 | s[1] & /*$$scope*/
-      64 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
+      128 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
     },
     i(i) {
       t || (T(e.$$.fragment, i), t = !0);
@@ -16166,7 +16166,7 @@ function Yo(n) {
 function xo(n) {
   let e, t = (
     /*index*/
-    n[36]
+    n[37]
   ), i;
   const s = () => (
     /*menu_binding*/
@@ -16180,7 +16180,7 @@ function xo(n) {
       /*menuStates*/
       n[8][
         /*index*/
-        n[36]
+        n[37]
       ]
     ),
     anchorCorner: "BOTTOM_LEFT",
@@ -16197,17 +16197,17 @@ function xo(n) {
     },
     p(r, o) {
       t !== /*index*/
-      r[36] && (a(), t = /*index*/
-      r[36], s());
+      r[37] && (a(), t = /*index*/
+      r[37], s());
       const u = {};
       o[0] & /*menuStates*/
       256 && (u.open = /*menuStates*/
       r[8][
         /*index*/
-        r[36]
+        r[37]
       ]), o[0] & /*filteredPlugins*/
       16 | o[1] & /*$$scope*/
-      64 && (u.$$scope = { dirty: o, ctx: r }), e.$set(u);
+      128 && (u.$$scope = { dirty: o, ctx: r }), e.$set(u);
     },
     i(r) {
       i || (T(e.$$.fragment, r), i = !0);
@@ -16237,24 +16237,24 @@ function $o(n) {
 function Ji(n) {
   let e, t, i, s = xi(
     /*plugin*/
-    n[34]
+    n[35]
   ) + "", a, l, r, o, u = (
     /*plugin*/
-    n[34].name + ""
+    n[35].name + ""
   ), c, d, f, g = $i(
     /*plugin*/
-    n[34]
+    n[35]
   ) + "", m, v, p, b, E, R;
   const L = [Ho, Bo, Uo, Po], S = [];
   function I(h, A) {
     return A[0] & /*localPlugins, filteredPlugins*/
     24 && (p = null), /*plugin*/
-    h[34].installed ? 0 : (
+    h[35].installed ? 0 : (
       /*plugin*/
-      h[34].official ? 1 : (p == null && (p = !!/*localPlugins*/
+      h[35].official ? 1 : (p == null && (p = !!/*localPlugins*/
       h[3].includes(
         /*plugin*/
-        h[34]
+        h[35]
       )), p ? 2 : 3)
     );
   }
@@ -16262,7 +16262,7 @@ function Ji(n) {
     c() {
       e = ie("plugin-store-item"), t = ie("plugin-store-item-meta"), i = ie("div"), a = Ze(s), l = ue(), r = ie("div"), o = ie("strong"), c = Ze(u), d = ue(), f = ie("div"), m = Ze(g), v = ue(), E.c(), re(i, "class", "mdc-typography--caption"), re(r, "class", "mdc-typography--body1"), re(f, "class", "mdc-typography--caption"), kt(t, "class", "svelte-5pptni"), kt(e, "style", mu(
         /*index*/
-        n[36]
+        n[37]
       )), kt(e, "class", "svelte-5pptni");
     },
     m(h, A) {
@@ -16272,13 +16272,13 @@ function Ji(n) {
       (!R || A[0] & /*filteredPlugins*/
       16) && s !== (s = xi(
         /*plugin*/
-        h[34]
+        h[35]
       ) + "") && Ft(a, s), (!R || A[0] & /*filteredPlugins*/
       16) && u !== (u = /*plugin*/
-      h[34].name + "") && Ft(c, u), (!R || A[0] & /*filteredPlugins*/
+      h[35].name + "") && Ft(c, u), (!R || A[0] & /*filteredPlugins*/
       16) && g !== (g = $i(
         /*plugin*/
-        h[34]
+        h[35]
       ) + "") && Ft(m, g);
       let K = b;
       b = I(h, A), b === K ? S[b].p(h, A) : (Ke(), D(S[K], 1, 1, () => {
@@ -16341,7 +16341,7 @@ function tu(n) {
     p(i, s) {
       const a = {};
       s[1] & /*$$scope*/
-      64 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
+      128 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
     },
     i(i) {
       t || (T(e.$$.fragment, i), t = !0);
@@ -16411,7 +16411,7 @@ function nu(n) {
       F[1], ft(() => a = !1)), s.$set(N);
       const y = {};
       _[1] & /*$$scope*/
-      64 && (y.$$scope = { dirty: _, ctx: F }), r.$set(y);
+      128 && (y.$$scope = { dirty: _, ctx: F }), r.$set(y);
       const k = {};
       if (!c && _[0] & /*searchFilter*/
       4 && (c = !0, k.value = /*searchFilter*/
@@ -16434,7 +16434,7 @@ function nu(n) {
       F[4].length === 0 ? A || (A = Yi(), A.c(), A.m(f, null)) : A && (A.d(1), A = null);
       const w = {};
       _[1] & /*$$scope*/
-      64 && (w.$$scope = { dirty: _, ctx: F }), v.$set(w);
+      128 && (w.$$scope = { dirty: _, ctx: F }), v.$set(w);
     },
     i(F) {
       if (!p) {
@@ -16486,7 +16486,7 @@ function su(n) {
     p(i, s) {
       const a = {};
       s[1] & /*$$scope*/
-      64 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
+      128 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
     },
     i(i) {
       t || (T(e.$$.fragment, i), t = !0);
@@ -16530,7 +16530,7 @@ function au(n) {
     p(i, s) {
       const a = {};
       s[1] & /*$$scope*/
-      64 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
+      128 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
     },
     i(i) {
       t || (T(e.$$.fragment, i), t = !0);
@@ -16575,10 +16575,10 @@ function lu(n) {
       l[0] & /*isDirty*/
       64 && (r.disabled = !/*isDirty*/
       a[6]), l[1] & /*$$scope*/
-      64 && (r.$$scope = { dirty: l, ctx: a }), e.$set(r);
+      128 && (r.$$scope = { dirty: l, ctx: a }), e.$set(r);
       const o = {};
       l[1] & /*$$scope*/
-      64 && (o.$$scope = { dirty: l, ctx: a }), i.$set(o);
+      128 && (o.$$scope = { dirty: l, ctx: a }), i.$set(o);
     },
     i(a) {
       s || (T(e.$$.fragment, a), T(i.$$.fragment, a), s = !0);
@@ -16619,15 +16619,15 @@ function ou(n) {
     p(r, o) {
       const u = {};
       o[1] & /*$$scope*/
-      64 && (u.$$scope = { dirty: o, ctx: r }), e.$set(u);
+      128 && (u.$$scope = { dirty: o, ctx: r }), e.$set(u);
       const c = {};
       o[0] & /*notificationSnackbar, filteredPlugins, menuStates, menus, localPlugins, searchFilter, showOnlyInstalled*/
       446 | o[1] & /*$$scope*/
-      64 && (c.$$scope = { dirty: o, ctx: r }), i.$set(c);
+      128 && (c.$$scope = { dirty: o, ctx: r }), i.$set(c);
       const d = {};
       o[0] & /*isDirty*/
       64 | o[1] & /*$$scope*/
-      64 && (d.$$scope = { dirty: o, ctx: r }), a.$set(d);
+      128 && (d.$$scope = { dirty: o, ctx: r }), a.$set(d);
     },
     i(r) {
       l || (T(e.$$.fragment, r), T(i.$$.fragment, r), T(a.$$.fragment, r), l = !0);
@@ -16667,7 +16667,7 @@ function uu(n) {
         const o = {};
         r[0] & /*isDirty, notificationSnackbar, filteredPlugins, menuStates, menus, localPlugins, searchFilter, showOnlyInstalled*/
         510 | r[1] & /*$$scope*/
-        64 && (o.$$scope = { dirty: r, ctx: l }), !t && r[0] & /*isOpen*/
+        128 && (o.$$scope = { dirty: r, ctx: l }), !t && r[0] & /*isOpen*/
         1 && (t = !0, o.open = /*isOpen*/
         l[0], ft(() => t = !1)), e.$set(o);
       },
@@ -16701,7 +16701,7 @@ function cu(n) {
       const a = {};
       s[0] & /*isOpen, isDirty, notificationSnackbar, filteredPlugins, menuStates, menus, localPlugins, searchFilter, showOnlyInstalled*/
       511 | s[1] & /*$$scope*/
-      64 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
+      128 && (a.$$scope = { dirty: s, ctx: i }), e.$set(a);
     },
     i(i) {
       t || (T(e.$$.fragment, i), t = !0);
