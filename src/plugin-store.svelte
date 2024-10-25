@@ -35,6 +35,14 @@ type Plugin = {
 	official?: boolean;
 };
 
+type ConfigurePluginDetail = {
+	name: string;
+	// The API describes only 'menu' and 'editor' kinds
+	// but we still use the 'validator' too, so I just use the type PluginKind
+	kind: PluginKind;
+	config: Plugin | null;
+};
+
 function storedPlugins(): Plugin[] {
 	return <Plugin[]>(
 		JSON.parse(localStorage.getItem("plugins") ?? "[]", (key, value) => value)
@@ -57,19 +65,10 @@ function installExternalPlugin(plugin: Plugin) {
 	pluginCopy.installed = true;
 	currentPlugins.push(pluginCopy);
 
-	const event = new CustomEvent("add-external-plugin", {
-		bubbles: true,
-		composed: true,
-		detail: {
-			pluginCopy,
-		},
-	});
-
-	dispatchEvent(event);
-
 	storePlugins(currentPlugins);
 	localPlugins = currentPlugins;
 
+	dispatchConfigurePlugin(pluginCopy);
 	console.log("Installed external plugin:", plugin.name);
 }
 
@@ -80,6 +79,7 @@ function uninstallExternalPlugin(plugin: Plugin) {
 	storePlugins(updatedPlugins);
 	localPlugins = updatedPlugins;
 
+	dispatchConfigurePlugin(plugin, true);
 	console.log("Uninstalled external plugin:", plugin.name);
 }
 
@@ -96,7 +96,25 @@ function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 	plugin.installed = isEnabled;
 	notificationSnackbar.open();
 
+	dispatchConfigurePlugin(plugin);
 	console.log("Set toggle state for", plugin.name);
+}
+
+function dispatchConfigurePlugin(plugin: Plugin, shouldDelete = false) {
+	const event = new CustomEvent<ConfigurePluginDetail>(
+		"oscd-configure-plugin",
+		{
+			bubbles: true,
+			composed: true,
+			detail: {
+				name: plugin.name,
+				kind: plugin.kind,
+				config: shouldDelete ? null : plugin,
+			},
+		},
+	);
+
+	dispatchEvent(event);
 }
 
 let showOnlyInstalled = false;
