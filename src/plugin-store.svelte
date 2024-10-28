@@ -82,7 +82,6 @@ function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 
 	localPlugins = currentPlugins;
 	plugin.installed = isEnabled;
-	notificationSnackbar.open();
 
 	dispatchConfigurePlugin(plugin);
 	console.log("Set toggle state for", plugin.name);
@@ -162,9 +161,7 @@ $: filteredPlugins = plugins
 // #endregion
 
 // #region UI
-let notificationSnackbar: Snackbar;
-
-let isDirty = false;
+let pluginStore: Element;
 
 let menus: Menu[];
 $: menus = filteredPlugins.map(() => null);
@@ -311,15 +308,9 @@ function getPluginSource(plugin: Plugin) {
                         </div>
                     {/if}
                 </plugin-store-items>
-                <Snackbar bind:this={notificationSnackbar}>
-                    <Label>Reload app to see changes.</Label>
-                </Snackbar>
             </plugin-store>
         </Content>
         <Actions>
-            <SMUIButton action="reject" disabled={!isDirty} on:click={() => location.reload()}>
-                <Label>Reload App</Label>
-            </SMUIButton>
             <SMUIButton action="accept">
                 <Label>Close</Label>
             </SMUIButton>
