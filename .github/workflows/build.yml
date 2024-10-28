@@ -41,10 +41,17 @@ jobs:
       - name: Build Plugin
         run: pnpm run build
 
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          keep_files: true
+    
       - name: Build Restricted Plugin
         run: pnpm run build:restricted
 
-      - name: Deploy
+      - name: Deploy Restricted
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
