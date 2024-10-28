@@ -49,15 +49,6 @@ function storedPlugins(): Plugin[] {
 	);
 }
 
-function withoutContent<P extends Plugin>(plugin: P): P {
-	return { ...plugin, content: undefined };
-}
-
-function storePlugins(plugins: Array<Plugin>) {
-	localStorage.setItem("plugins", JSON.stringify(plugins.map(withoutContent)));
-	isDirty = true;
-}
-
 function installExternalPlugin(plugin: Plugin) {
 	const currentPlugins = storedPlugins();
 
@@ -65,7 +56,6 @@ function installExternalPlugin(plugin: Plugin) {
 	pluginCopy.installed = true;
 	currentPlugins.push(pluginCopy);
 
-	storePlugins(currentPlugins);
 	localPlugins = currentPlugins;
 
 	dispatchConfigurePlugin(pluginCopy);
@@ -76,7 +66,6 @@ function installExternalPlugin(plugin: Plugin) {
 function uninstallExternalPlugin(plugin: Plugin) {
 	const currentPlugins = storedPlugins();
 	const updatedPlugins = currentPlugins.filter((it) => it.name !== plugin.name);
-	storePlugins(updatedPlugins);
 	localPlugins = updatedPlugins;
 
 	dispatchConfigurePlugin(plugin, true);
@@ -91,7 +80,6 @@ function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 		foundPlugin.installed = isEnabled;
 	}
 
-	storePlugins(currentPlugins);
 	localPlugins = currentPlugins;
 	plugin.installed = isEnabled;
 	notificationSnackbar.open();
