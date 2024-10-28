@@ -35,19 +35,18 @@ type Plugin = {
 	official?: boolean;
 };
 
+type ConfigurePluginDetail = {
+	name: string;
+	// The API describes only 'menu' and 'editor' kinds
+	// but we still use the 'validator' too, so I just use the type PluginKind
+	kind: PluginKind;
+	config: Plugin | null;
+};
+
 function storedPlugins(): Plugin[] {
 	return <Plugin[]>(
 		JSON.parse(localStorage.getItem("plugins") ?? "[]", (key, value) => value)
 	);
-}
-
-function withoutContent<P extends Plugin>(plugin: P): P {
-	return { ...plugin, content: undefined };
-}
-
-function storePlugins(plugins: Array<Plugin>) {
-	localStorage.setItem("plugins", JSON.stringify(plugins.map(withoutContent)));
-	isDirty = true;
 }
 
 function installExternalPlugin(plugin: Plugin) {
@@ -57,19 +56,9 @@ function installExternalPlugin(plugin: Plugin) {
 	pluginCopy.installed = true;
 	currentPlugins.push(pluginCopy);
 
-	const event = new CustomEvent("add-external-plugin", {
-		bubbles: true,
-		composed: true,
-		detail: {
-			pluginCopy,
-		},
-	});
-
-	dispatchEvent(event);
-
-	storePlugins(currentPlugins);
 	localPlugins = currentPlugins;
 
+	dispatchConfigurePlugin(pluginCopy);
 	console.log("Installed external plugin:", plugin.name);
 }
 
@@ -77,9 +66,9 @@ function installExternalPlugin(plugin: Plugin) {
 function uninstallExternalPlugin(plugin: Plugin) {
 	const currentPlugins = storedPlugins();
 	const updatedPlugins = currentPlugins.filter((it) => it.name !== plugin.name);
-	storePlugins(updatedPlugins);
 	localPlugins = updatedPlugins;
 
+	dispatchConfigurePlugin(plugin, true);
 	console.log("Uninstalled external plugin:", plugin.name);
 }
 
@@ -91,12 +80,28 @@ function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 		foundPlugin.installed = isEnabled;
 	}
 
-	storePlugins(currentPlugins);
 	localPlugins = currentPlugins;
 	plugin.installed = isEnabled;
-	notificationSnackbar.open();
 
+	dispatchConfigurePlugin(plugin);
 	console.log("Set toggle state for", plugin.name);
+}
+
+function dispatchConfigurePlugin(plugin: Plugin, shouldDelete = false) {
+	const event = new CustomEvent<ConfigurePluginDetail>(
+		"oscd-configure-plugin",
+		{
+			bubbles: true,
+			composed: true,
+			detail: {
+				name: plugin.name,
+				kind: plugin.kind,
+				config: shouldDelete ? null : plugin,
+			},
+		},
+	);
+
+	pluginStore.dispatchEvent(event);
 }
 
 let showOnlyInstalled = false;
@@ -156,9 +161,7 @@ $: filteredPlugins = plugins
 // #endregion
 
 // #region UI
-let notificationSnackbar: Snackbar;
-
-let isDirty = false;
+let pluginStore: Element;
 
 let menus: Menu[];
 $: menus = filteredPlugins.map(() => null);
@@ -193,7 +196,6 @@ function getPluginAuthor(plugin: Plugin) {
 function getPluginSource(plugin: Plugin) {
 	return plugin.src;
 }
-
 // #endregion
 </script>
 
@@ -212,7 +214,7 @@ function getPluginSource(plugin: Plugin) {
             </IconButton>
         </Header>
         <Content id="plugin-store-content">
-            <plugin-store>
+            <plugin-store bind:this={pluginStore}>
                 <plugin-store-toolbar>
                     <plugin-store-filters--switch>
                         <Switch
@@ -306,15 +308,9 @@ function getPluginSource(plugin: Plugin) {
                         </div>
                     {/if}
                 </plugin-store-items>
-                <Snackbar bind:this={notificationSnackbar}>
-                    <Label>Reload app to see changes.</Label>
-                </Snackbar>
             </plugin-store>
         </Content>
         <Actions>
-            <SMUIButton action="reject" disabled={!isDirty} on:click={() => location.reload()}>
-                <Label>Reload App</Label>
-            </SMUIButton>
             <SMUIButton action="accept">
                 <Label>Close</Label>
             </SMUIButton>
