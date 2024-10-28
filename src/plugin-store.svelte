@@ -33,6 +33,7 @@ type Plugin = {
 	position?: MenuPosition;
 	installed: boolean;
 	official?: boolean;
+	description?: string;
 };
 
 type ConfigurePluginDetail = {
@@ -196,6 +197,10 @@ function getPluginAuthor(plugin: Plugin) {
 function getPluginSource(plugin: Plugin) {
 	return plugin.src;
 }
+
+function getPluginDescription(plugin: Plugin) {
+	return plugin.description || "";
+}
 // #endregion
 </script>
 
@@ -241,6 +246,9 @@ function getPluginSource(plugin: Plugin) {
                                 </div>
                                 <div class="mdc-typography--caption">
                                     {getPluginSource(plugin)}
+                                </div>
+                                <div class="mdc-typography--caption plugin-store-item--description">
+                                    {getPluginDescription(plugin)}
                                 </div>
                             </plugin-store-item-meta>
                             {#if plugin.installed}
@@ -357,5 +365,12 @@ function getPluginSource(plugin: Plugin) {
         display: flex;
         flex-direction: column;
         gap: 1px;
+    }
+    .plugin-store-item--description {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
     }
 </style>
