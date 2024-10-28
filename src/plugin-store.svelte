@@ -102,7 +102,7 @@ function dispatchConfigurePlugin(plugin: Plugin, shouldDelete = false) {
 		},
 	);
 
-	dispatchEvent(event);
+	pluginStore.dispatchEvent(event);
 }
 
 let showOnlyInstalled = false;
@@ -199,7 +199,6 @@ function getPluginAuthor(plugin: Plugin) {
 function getPluginSource(plugin: Plugin) {
 	return plugin.src;
 }
-
 // #endregion
 </script>
 
@@ -218,7 +217,7 @@ function getPluginSource(plugin: Plugin) {
             </IconButton>
         </Header>
         <Content id="plugin-store-content">
-            <plugin-store>
+            <plugin-store bind:this={pluginStore}>
                 <plugin-store-toolbar>
                     <plugin-store-filters--switch>
                         <Switch
