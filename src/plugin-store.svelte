@@ -323,9 +323,10 @@ function getPluginDescription(plugin: Plugin) {
                 <SMUIButton action="accept" disabled={isRestricted}>
                     <Label>Add External Plugin</Label>
                 </SMUIButton>
-            <SMUIButton action="accept">
-                <Label>Close</Label>
-            </SMUIButton>
+                <SMUIButton action="accept">
+                    <Label>Close</Label>
+                </SMUIButton>
+            </plugin-store-action-buttons>
         </Actions>
     </Dialog>
 </Theme>
@@ -369,6 +370,7 @@ function getPluginDescription(plugin: Plugin) {
         display: flex;
         flex-direction: column;
         gap: 1px;
+        margin-right: 2em;
     }
     .plugin-store-item--description {
         overflow: hidden;
