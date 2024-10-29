@@ -319,6 +319,10 @@ function getPluginDescription(plugin: Plugin) {
             </plugin-store>
         </Content>
         <Actions>
+            <plugin-store-action-buttons>
+                <SMUIButton action="accept" disabled={isRestricted}>
+                    <Label>Add External Plugin</Label>
+                </SMUIButton>
             <SMUIButton action="accept">
                 <Label>Close</Label>
             </SMUIButton>
@@ -372,5 +376,10 @@ function getPluginDescription(plugin: Plugin) {
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
         line-clamp: 2;
+    }
+    plugin-store-action-buttons { 
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
     }
 </style>
