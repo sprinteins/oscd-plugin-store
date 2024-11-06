@@ -1,17 +1,14 @@
 <script lang="ts">
 import Theme from "./theme/theme.svelte";
 import { IconClose } from "./components/icons";
-import { Button, SplitButton } from "./components/button";
 import Textfield from "@smui/textfield";
 import { Label } from "@smui/button";
 import Switch from "@smui/switch";
 import SMUIButton from "@smui/button";
-import Menu from "@smui/menu";
 import IconButton from "@smui/icon-button";
 import Dialog, { Header, Title, Content, Actions } from "@smui/dialog";
-import List, { Item, Text } from "@smui/list";
-import Snackbar from "@smui/snackbar";
 import { plugins as externalPlugins } from "../public/plugins.json";
+import PluginStoreItem from "./plugin-store-item.svelte";
 
 const isRestricted = !import.meta.env.VITE_EXTERNAL_PLUGINS === true;
 
@@ -36,73 +33,10 @@ type Plugin = {
 	description?: string;
 };
 
-type ConfigurePluginDetail = {
-	name: string;
-	// The API describes only 'menu' and 'editor' kinds
-	// but we still use the 'validator' too, so I just use the type PluginKind
-	kind: PluginKind;
-	config: Plugin | null;
-};
-
 function storedPlugins(): Plugin[] {
 	return <Plugin[]>(
 		JSON.parse(localStorage.getItem("plugins") ?? "[]", (key, value) => value)
 	);
-}
-
-function installExternalPlugin(plugin: Plugin) {
-	const currentPlugins = storedPlugins();
-
-	const pluginCopy = { ...plugin };
-	pluginCopy.installed = true;
-	currentPlugins.push(pluginCopy);
-
-	localPlugins = currentPlugins;
-
-	dispatchConfigurePlugin(pluginCopy);
-	console.log("Installed external plugin:", plugin.name);
-}
-
-// Completely removes plugin from local browser cache.
-function uninstallExternalPlugin(plugin: Plugin) {
-	const currentPlugins = storedPlugins();
-	const updatedPlugins = currentPlugins.filter((it) => it.name !== plugin.name);
-	localPlugins = updatedPlugins;
-
-	dispatchConfigurePlugin(plugin, true);
-	console.log("Uninstalled external plugin:", plugin.name);
-}
-
-// Enables/disables plugin by toggling the "installed" property.
-function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
-	const currentPlugins = storedPlugins();
-	const foundPlugin = currentPlugins.find((it) => it.name === plugin.name);
-	if (foundPlugin) {
-		foundPlugin.installed = isEnabled;
-	}
-
-	localPlugins = currentPlugins;
-	plugin.installed = isEnabled;
-
-	dispatchConfigurePlugin(plugin);
-	console.log("Set toggle state for", plugin.name);
-}
-
-function dispatchConfigurePlugin(plugin: Plugin, shouldDelete = false) {
-	const event = new CustomEvent<ConfigurePluginDetail>(
-		"oscd-configure-plugin",
-		{
-			bubbles: true,
-			composed: true,
-			detail: {
-				name: plugin.name,
-				kind: plugin.kind,
-				config: shouldDelete ? null : plugin,
-			},
-		},
-	);
-
-	pluginStore.dispatchEvent(event);
 }
 
 let showOnlyInstalled = false;
@@ -159,48 +93,15 @@ $: filteredPlugins = plugins
 	.filter((plugin) => filterSearchResults(plugin, searchFilter))
 	.filter((plugin) => filterSelf(plugin));
 
+$: editorPlugins = filteredPlugins.filter((it) => it.kind === "editor");
+$: menuPlugins = filteredPlugins.filter((it) => it.kind === "menu");
+$: validatorPlugins = filteredPlugins.filter((it) => it.kind === "validator");
+
 // #endregion
 
 // #region UI
 let pluginStore: Element;
 
-let menus: Menu[];
-$: menus = filteredPlugins.map(() => null);
-$: menuStates = filteredPlugins.map(() => false);
-
-function openPluginMenu(index: number) {
-	menuStates = menuStates.map(() => false);
-	menuStates[index] = true;
-}
-
-function alternateRowColors(index: number) {
-	return `background: rgba(0, 0, 0, ${index % 2 === 0 ? "0" : "0.03"});`;
-}
-
-function convertPluginKindToText(kind: PluginKind): string {
-	if (kind === undefined) {
-		return "";
-	}
-
-	const capitalized = kind.toString()[0].toUpperCase() + kind.substring(1);
-	return capitalized;
-}
-
-function getTagline(plugin: Plugin) {
-	return `${getPluginAuthor(plugin)} · ${convertPluginKindToText(plugin.kind)}`;
-}
-
-function getPluginAuthor(plugin: Plugin) {
-	return plugin.official ? "Built-in" : plugin.author;
-}
-
-function getPluginSource(plugin: Plugin) {
-	return plugin.src;
-}
-
-function getPluginDescription(plugin: Plugin) {
-	return plugin.description || "";
-}
 // #endregion
 </script>
 
@@ -235,83 +136,57 @@ function getPluginDescription(plugin: Plugin) {
                     />
                 </plugin-store-toolbar>
                 <plugin-store-items>
-                    {#each filteredPlugins as plugin, index}
-                        <plugin-store-item style={alternateRowColors(index)}>
-                            <plugin-store-item-meta>
-                                <div class="mdc-typography--caption">
-                                    {getTagline(plugin)}
-                                </div>
-                                <div class="mdc-typography--body1">
-                                    <strong>{plugin.name}</strong>
-                                </div>
-                                <div class="mdc-typography--caption">
-                                    {getPluginSource(plugin)}
-                                </div>
-                                <div class="mdc-typography--caption plugin-store-item--description">
-                                    {getPluginDescription(plugin)}
-                                </div>
-                            </plugin-store-item-meta>
-                            {#if plugin.installed}
-                                    {#if plugin.official}
-                                        <Button variant="outlined" on:click={() => toggleOfficialPlugin(plugin, false)}>
-                                            Disable
-                                        </Button>
-                                    {:else}
-                                        <SplitButton variant="outlined" label="Disable" on:click={() => toggleOfficialPlugin(plugin, false)} on:menuOpen={() => openPluginMenu(index)}>
-                                            <Menu
-                                                bind:this={menus[index]}
-                                                open={menuStates[index]}
-                                                anchorCorner="BOTTOM_LEFT"
-                                                style="left: -70px;"
-                                            >
-                                                <List>
-                                                    <Item
-                                                        on:SMUI:action={() =>
-                                                            uninstallExternalPlugin(
-                                                                plugin
-                                                            )}
-                                                    >
-                                                        <Text>Uninstall</Text>
-                                                    </Item>
-                                                </List>
-                                            </Menu>
-                                        </SplitButton>
-                                    {/if}
-                            {:else if plugin.official}
-                            <Button on:click={() => toggleOfficialPlugin(plugin, true)}>
-                                Enable
-                            </Button>
-                            {:else}
-                                {#if localPlugins.includes(plugin)}
-                                    <SplitButton label="Enable" on:click={() => {toggleOfficialPlugin(plugin, true)}} on:menuOpen={() => openPluginMenu(index)}>
-                                        <Menu
-                                            bind:this={menus[index]}
-                                            open={menuStates[index]}
-                                            anchorCorner="BOTTOM_LEFT"
-                                            style="left: -70px;"
-                                        >
-                                            <List>
-                                                <Item
-                                                    on:SMUI:action={() =>
-                                                        uninstallExternalPlugin(
-                                                            plugin
-                                                        )}
-                                                >
-                                                    <Text>Uninstall</Text>
-                                                </Item>
-                                            </List>
-                                        </Menu>
-                                    </SplitButton>
-                                {:else}
-                                <Button on:click={() => installExternalPlugin(plugin)}>
-                                    Install
-                                </Button>
-                                {/if}
-                            {/if}
-                        </plugin-store-item>
+                    <plugin-store-items--category>
+                        <strong><div class="mdc-typography--headline6">Editor</div></strong>
+                        <hr class="plugin-store-items--divider">
+                    </plugin-store-items--category>
+                    {#each editorPlugins as plugin, index}
+                        <PluginStoreItem 
+                         plugin={plugin}
+                         index={index}
+                         filteredPlugins={filteredPlugins} 
+                         storedPlugins={storedPlugins()} 
+                         localPlugins={localPlugins} 
+                         pluginStore={pluginStore}/> 
                     {/each}
-                    {#if filteredPlugins.length === 0}
-                        <div class="mdc-typography--body2">
+                    {#if editorPlugins.length === 0}
+                        <div class="mdc-typography--body2" style="margin-top: 1em;">
+                            No plugins found.
+                        </div>
+                    {/if}
+                    <plugin-store-items--category>
+                        <strong><div class="mdc-typography--headline6">Menu</div></strong>
+                        <hr class="plugin-store-items--divider">
+                    </plugin-store-items--category>
+                    {#each menuPlugins as plugin, index}
+                        <PluginStoreItem 
+                         plugin={plugin}
+                         index={index}
+                         filteredPlugins={filteredPlugins} 
+                         storedPlugins={storedPlugins()} 
+                         localPlugins={localPlugins} 
+                         pluginStore={pluginStore}/> 
+                    {/each}
+                    {#if menuPlugins.length === 0}
+                        <div class="mdc-typography--body2" style="margin-top: 1em;">
+                            No plugins found.
+                        </div>
+                    {/if}
+                    <plugin-store-items--category>
+                        <strong><div class="mdc-typography--headline6">Validator</div></strong>
+                        <hr class="plugin-store-items--divider">
+                    </plugin-store-items--category>
+                    {#each validatorPlugins as plugin, index}
+                        <PluginStoreItem 
+                         plugin={plugin}
+                         index={index}
+                         filteredPlugins={filteredPlugins} 
+                         storedPlugins={storedPlugins()} 
+                         localPlugins={localPlugins} 
+                         pluginStore={pluginStore}/> 
+                    {/each}
+                    {#if validatorPlugins.length === 0}
+                        <div class="mdc-typography--body2" style="margin-top: 1em;">
                             No plugins found.
                         </div>
                     {/if}
@@ -319,14 +194,9 @@ function getPluginDescription(plugin: Plugin) {
             </plugin-store>
         </Content>
         <Actions>
-            <plugin-store-action-buttons>
-                <SMUIButton action="accept" disabled={isRestricted}>
-                    <Label>Add External Plugin</Label>
-                </SMUIButton>
-                <SMUIButton action="accept">
-                    <Label>Close</Label>
-                </SMUIButton>
-            </plugin-store-action-buttons>
+            <SMUIButton action="accept">
+                <Label>Close</Label>
+            </SMUIButton>
         </Actions>
     </Dialog>
 </Theme>
@@ -348,6 +218,7 @@ function getPluginDescription(plugin: Plugin) {
         justify-content: space-between;
         place-items: center;
         margin-top: 1rem;
+        margin-bottom: -1.5em;
     }
     plugin-store-filters--switch {
         display: flex;
@@ -359,29 +230,16 @@ function getPluginDescription(plugin: Plugin) {
         flex-direction: column;
         padding: 1rem 0;
     }
-    plugin-store-item {
-        display: flex;
-        justify-content: space-between;
-        place-items: center;
-        padding: 20px 24px;
-        margin: 0 -24px;
+    plugin-store-items--category {
+        margin-top: 2em; 
+        margin-bottom: -0.35em;
     }
-    plugin-store-item-meta {
+    .plugin-store-items--divider {
         display: flex;
-        flex-direction: column;
-        gap: 1px;
-        margin-right: 2em;
-    }
-    .plugin-store-item--description {
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-    }
-    plugin-store-action-buttons { 
-        display: flex;
-        justify-content: space-between;
         width: 100%;
+        border: 0;
+        height: 1px;
+        background: black;
+        opacity: 0.1;
     }
 </style>
