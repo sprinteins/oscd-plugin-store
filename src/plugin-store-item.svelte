@@ -140,7 +140,9 @@ function getPluginDescription(plugin: Plugin) {
             {getPluginSource(plugin)}
         </div>
         <div class="mdc-typography--caption plugin-store-item--description">
-            {getPluginDescription(plugin)}
+            <div title={getPluginDescription(plugin)}>
+                {getPluginDescription(plugin)}
+            </div>
         </div>
     </plugin-store-item-meta>
     {#if plugin.installed}
