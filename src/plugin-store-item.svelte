@@ -99,10 +99,6 @@ function openPluginMenu(index: number) {
 	menuStates[index] = true;
 }
 
-function alternateRowColors(index: number) {
-	return `background: rgba(0, 0, 0, ${index % 2 === 0 ? "0" : "0.03"});`;
-}
-
 function convertPluginKindToText(kind: PluginKind): string {
 	if (kind === undefined) {
 		return "";
@@ -128,7 +124,7 @@ function getPluginDescription(plugin: Plugin) {
 }
 </script>
 
-<plugin-store-item style={alternateRowColors(index)}>
+<plugin-store-item>
     <plugin-store-item-meta>
         <div class="mdc-typography--caption">
             {getTagline(plugin)}
@@ -190,6 +186,9 @@ function getPluginDescription(plugin: Plugin) {
         place-items: center;
         padding: 20px 24px;
         margin: 0 -24px;
+    }
+    plugin-store-item:nth-child(odd) {
+        background: rgba(0, 0, 0, 0.03);
     }
     plugin-store-item-meta {
         display: flex;
