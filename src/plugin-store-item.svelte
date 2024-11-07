@@ -146,61 +146,41 @@ function getPluginDescription(plugin: Plugin) {
         </div>
     </plugin-store-item-meta>
     {#if plugin.installed}
-    {#if plugin.official}
-    <Button variant="outlined" on:click={() => toggleOfficialPlugin(plugin, false)}>
-        Disable
-    </Button>
-    {:else}
-    <SplitButton variant="outlined" label="Disable" on:click={() => toggleOfficialPlugin(plugin, false)} on:menuOpen={() => openPluginMenu(index)}>
-    <Menu
-        bind:this={menus[index]}
-        open={menuStates[index]}
-        anchorCorner="BOTTOM_LEFT"
-        style="left: -70px;"
-        >
-        <List>
-        <Item
-        on:SMUI:action={() =>
-        uninstallExternalPlugin(
-        plugin
-        )}
-        >
-        <Text>Uninstall</Text>
-        </Item>
-        </List>
-    </Menu>
-    </SplitButton>
-    {/if}
+        {#if plugin.official}
+            <Button variant="outlined" on:click={() => toggleOfficialPlugin(plugin, false)}>
+                Disable
+            </Button>
+        {:else}
+            <SplitButton variant="outlined" label="Disable" on:click={() => toggleOfficialPlugin(plugin, false)} on:menuOpen={() => openPluginMenu(index)}>
+                <Menu bind:this={menus[index]} open={menuStates[index]} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
+                    <List>
+                        <Item on:SMUI:action={() => uninstallExternalPlugin(plugin)}>
+                            <Text>Uninstall</Text>
+                        </Item>
+                    </List>
+                </Menu>
+            </SplitButton>
+        {/if}
     {:else if plugin.official}
-    <Button on:click={() => toggleOfficialPlugin(plugin, true)}>
-        Enable
-    </Button>
+        <Button on:click={() => toggleOfficialPlugin(plugin, true)}>
+            Enable
+        </Button>
     {:else}
-    {#if localPlugins.includes(plugin)}
-    <SplitButton label="Enable" on:click={() => {toggleOfficialPlugin(plugin, true)}} on:menuOpen={() => openPluginMenu(index)}>
-    <Menu
-        bind:this={menus[index]}
-        open={menuStates[index]}
-        anchorCorner="BOTTOM_LEFT"
-        style="left: -70px;"
-        >
-        <List>
-        <Item
-        on:SMUI:action={() =>
-        uninstallExternalPlugin(
-        plugin
-        )}
-        >
-        <Text>Uninstall</Text>
-        </Item>
-        </List>
-    </Menu>
-    </SplitButton>
-    {:else}
-    <Button on:click={() => installExternalPlugin(plugin)}>
-        Install
-    </Button>
-    {/if}
+        {#if localPlugins.includes(plugin)}
+            <SplitButton label="Enable" on:click={() => {toggleOfficialPlugin(plugin, true)}} on:menuOpen={() => openPluginMenu(index)}>
+                <Menu bind:this={menus[index]} open={menuStates[index]} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
+                    <List>
+                        <Item on:SMUI:action={() => uninstallExternalPlugin(plugin)}>
+                            <Text>Uninstall</Text>
+                        </Item>
+                    </List>
+                </Menu>
+            </SplitButton>
+        {:else}
+            <Button on:click={() => installExternalPlugin(plugin)}>
+                Install
+            </Button>
+        {/if}
     {/if}
 </plugin-store-item>
 <style>
