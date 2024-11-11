@@ -209,18 +209,17 @@ function getPluginDescription(plugin: Plugin) {
         bind:open={isOpen}
         fullscreen
         surface$style="width: 850px; max-width: calc(100vw - 32px);"
-        aria-labelledby="plugin-store-title"
+        aria-labelledby="plugin-store-header--title"
         aria-describedby="plugin-store-content"
     >
-        <Header>
-            <Title id="plugin-store-title">Plugin Store</Title>
-            <IconButton class="material-icons" action="close">
-                <IconClose />
-            </IconButton>
-        </Header>
-        <Content id="plugin-store-content">
-            <plugin-store bind:this={pluginStore}>
-                <plugin-store-toolbar>
+        <Header style="flex-direction: column;">
+            <plugin-store-header--top>
+                <Title id="plugin-store-header--title">Plugin Store</Title>
+                <IconButton class="material-icons" action="close">
+                    <IconClose />
+                </IconButton>
+            </plugin-store-header--top>
+            <plugin-store-toolbar>
                     <plugin-store-filters--switch>
                         <Switch
                             bind:checked={showOnlyInstalled}
@@ -234,6 +233,9 @@ function getPluginDescription(plugin: Plugin) {
                         bind:value={searchFilter}
                     />
                 </plugin-store-toolbar>
+        </Header>
+        <Content id="plugin-store-content">
+            <plugin-store bind:this={pluginStore}>
                 <plugin-store-items>
                     {#each filteredPlugins as plugin, index}
                         <plugin-store-item style={alternateRowColors(index)}>
@@ -343,11 +345,18 @@ function getPluginDescription(plugin: Plugin) {
         align-items: stretch;
         position: relative;
     }
+    plugin-store-header--top {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
     plugin-store-toolbar {
+        background: rgb(242, 236, 220);
         display: flex;
         justify-content: space-between;
         place-items: center;
-        margin-top: 1rem;
+        margin-top: 0.8rem;
+        width: 100%;
     }
     plugin-store-filters--switch {
         display: flex;
