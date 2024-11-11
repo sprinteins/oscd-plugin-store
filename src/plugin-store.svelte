@@ -201,6 +201,10 @@ function getPluginSource(plugin: Plugin) {
 function getPluginDescription(plugin: Plugin) {
 	return plugin.description || "";
 }
+
+function openPluginDownloadUI() {
+    document.dispatchEvent(new Event("open-plugin-download"));
+}
 // #endregion
 </script>
 
@@ -320,7 +324,7 @@ function getPluginDescription(plugin: Plugin) {
         </Content>
         <Actions>
             <plugin-store-action-buttons>
-                <SMUIButton action="accept" disabled={isRestricted}>
+                <SMUIButton action="" disabled={isRestricted} on:click={() => openPluginDownloadUI()}>
                     <Label>Add External Plugin</Label>
                 </SMUIButton>
                 <SMUIButton action="accept">
