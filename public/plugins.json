@@ -27,6 +27,13 @@
 			"src": "https://sprinteins.github.io/oscd-plugins/type-switcher/index.js",
 			"kind": "editor",
 			"description": "When working with OpenSCD, various plug-ins can create unlinked and redundant elements. The Type Switcher makes it possible to link these unlinked elements correctly and then remove the redundancies using the Cleanup plugin. Elements to be linked can be Logical Node Types, Data Object Types, Data Attribute Types and Enum Types."
-		}
+		},
+		{
+			"name": "Type Designer",
+			"author": "SprintEins",
+			"src": "https://sprinteins.github.io/oscd-plugins/type-designer/index.js",
+			"kind": "editor",
+			"description": "The Type Designer plugin for OpenSCD simplifies the creation and management of types elements in SCL file."
+	}
 	]
 }
