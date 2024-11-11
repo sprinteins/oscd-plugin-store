@@ -113,7 +113,7 @@ let pluginStore: Element;
         aria-labelledby="plugin-store-header--title"
         aria-describedby="plugin-store-content"
     >
-        <Header style="flex-direction: column;">
+        <Header style="flex-direction: column; box-shadow: none;">
             <plugin-store-header--top>
                 <Title id="plugin-store-header--title">Plugin Store</Title>
                 <IconButton class="material-icons" action="close">
@@ -207,6 +207,7 @@ let pluginStore: Element;
     :root,
     :host {
         --header-height: 128px;
+        scrollbar-color: var(--color-grey-2) var(--mdc-theme-surface);
     }
     plugin-store {
         height: calc(100vh - var(--header-height));
@@ -221,7 +222,7 @@ let pluginStore: Element;
         width: 100%;
     }
     plugin-store-toolbar {
-        background: rgb(242, 236, 220);
+        background: var(--mdc-theme-surface);
         display: flex;
         justify-content: space-between;
         place-items: center;
@@ -243,7 +244,7 @@ let pluginStore: Element;
         margin-bottom: -0.35em;
         margin: 2em -1.5em -0.35em -1.5em;
         position: sticky;
-        background:rgb(242, 236, 220);
+        background: var(--mdc-theme-surface);
         top: 0;
         z-index: 10;
     }
