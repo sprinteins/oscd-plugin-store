@@ -138,8 +138,8 @@ let pluginStore: Element;
         <Content id="plugin-store-content">
             <plugin-store bind:this={pluginStore}>
                 <plugin-store-items>
-                    <plugin-store-items--category>
-                        <strong><div class="mdc-typography--headline6">Editor</div></strong>
+                    <plugin-store-items--category style="margin-top: 0;">
+                        <strong><div class="mdc-typography--headline6 plugin-store-items--category-title">Editor</div></strong>
                         <hr class="plugin-store-items--divider">
                     </plugin-store-items--category>
                     {#each editorPlugins as plugin, index}
@@ -157,7 +157,7 @@ let pluginStore: Element;
                         </div>
                     {/if}
                     <plugin-store-items--category>
-                        <strong><div class="mdc-typography--headline6">Menu</div></strong>
+                        <strong><div class="mdc-typography--headline6 plugin-store-items--category-title">Menu</div></strong>
                         <hr class="plugin-store-items--divider">
                     </plugin-store-items--category>
                     {#each menuPlugins as plugin, index}
@@ -175,7 +175,7 @@ let pluginStore: Element;
                         </div>
                     {/if}
                     <plugin-store-items--category>
-                        <strong><div class="mdc-typography--headline6">Validator</div></strong>
+                        <strong><div class="mdc-typography--headline6 plugin-store-items--category-title">Validator</div></strong>
                         <hr class="plugin-store-items--divider">
                     </plugin-store-items--category>
                     {#each validatorPlugins as plugin, index}
@@ -226,7 +226,6 @@ let pluginStore: Element;
         justify-content: space-between;
         place-items: center;
         margin-top: 0.8rem;
-        margin-bottom: -1.5em;
         width: 100%;
     }
     plugin-store-filters--switch {
@@ -242,6 +241,14 @@ let pluginStore: Element;
     plugin-store-items--category {
         margin-top: 2em; 
         margin-bottom: -0.35em;
+        margin: 2em -1.5em -0.35em -1.5em;
+        position: sticky;
+        background:rgb(242, 236, 220);
+        top: 0;
+        z-index: 10;
+    }
+    .plugin-store-items--category-title {
+        margin: 0 1.2em;
     }
     .plugin-store-items--divider {
         display: flex;
@@ -250,5 +257,6 @@ let pluginStore: Element;
         height: 1px;
         background: black;
         opacity: 0.1;
+        margin-bottom: 0;
     }
 </style>
