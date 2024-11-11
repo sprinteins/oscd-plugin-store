@@ -113,7 +113,7 @@ let pluginStore: Element;
         aria-labelledby="plugin-store-header--title"
         aria-describedby="plugin-store-content"
     >
-        <Header style="flex-direction: column; box-shadow: none;">
+        <Header class="plugin-store-header">
             <plugin-store-header--top>
                 <Title id="plugin-store-header--title">Plugin Store</Title>
                 <IconButton class="material-icons" action="close">
@@ -220,6 +220,12 @@ let pluginStore: Element;
         display: flex;
         justify-content: space-between;
         width: 100%;
+    }
+    :global(.plugin-store-header) {
+        flex-direction: column;
+    }
+    :global(.mdc-dialog.mdc-dialog-scroll-divider-header.mdc-dialog--fullscreen .mdc-dialog__header.plugin-store-header) {
+        box-shadow: none;
     }
     plugin-store-toolbar {
         background: var(--mdc-theme-surface);
