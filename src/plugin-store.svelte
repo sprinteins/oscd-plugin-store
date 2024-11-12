@@ -110,18 +110,17 @@ let pluginStore: Element;
         bind:open={isOpen}
         fullscreen
         surface$style="width: 850px; max-width: calc(100vw - 32px);"
-        aria-labelledby="plugin-store-title"
+        aria-labelledby="plugin-store-header--title"
         aria-describedby="plugin-store-content"
     >
-        <Header>
-            <Title id="plugin-store-title">Plugin Store</Title>
-            <IconButton class="material-icons" action="close">
-                <IconClose />
-            </IconButton>
-        </Header>
-        <Content id="plugin-store-content">
-            <plugin-store bind:this={pluginStore}>
-                <plugin-store-toolbar>
+        <Header class="plugin-store-header">
+            <plugin-store-header--top>
+                <Title id="plugin-store-header--title">Plugin Store</Title>
+                <IconButton class="material-icons" action="close">
+                    <IconClose />
+                </IconButton>
+            </plugin-store-header--top>
+            <plugin-store-toolbar>
                     <plugin-store-filters--switch>
                         <Switch
                             bind:checked={showOnlyInstalled}
@@ -135,9 +134,12 @@ let pluginStore: Element;
                         bind:value={searchFilter}
                     />
                 </plugin-store-toolbar>
+        </Header>
+        <Content id="plugin-store-content">
+            <plugin-store bind:this={pluginStore}>
                 <plugin-store-items>
-                    <plugin-store-items--category>
-                        <strong><div class="mdc-typography--headline6">Editor</div></strong>
+                    <plugin-store-items--category style="margin-top: 0;">
+                        <strong><div class="mdc-typography--headline6 plugin-store-items--category-title">Editor</div></strong>
                         <hr class="plugin-store-items--divider">
                     </plugin-store-items--category>
                     {#each editorPlugins as plugin, index}
@@ -155,7 +157,7 @@ let pluginStore: Element;
                         </div>
                     {/if}
                     <plugin-store-items--category>
-                        <strong><div class="mdc-typography--headline6">Menu</div></strong>
+                        <strong><div class="mdc-typography--headline6 plugin-store-items--category-title">Menu</div></strong>
                         <hr class="plugin-store-items--divider">
                     </plugin-store-items--category>
                     {#each menuPlugins as plugin, index}
@@ -173,7 +175,7 @@ let pluginStore: Element;
                         </div>
                     {/if}
                     <plugin-store-items--category>
-                        <strong><div class="mdc-typography--headline6">Validator</div></strong>
+                        <strong><div class="mdc-typography--headline6 plugin-store-items--category-title">Validator</div></strong>
                         <hr class="plugin-store-items--divider">
                     </plugin-store-items--category>
                     {#each validatorPlugins as plugin, index}
@@ -205,6 +207,7 @@ let pluginStore: Element;
     :root,
     :host {
         --header-height: 128px;
+        scrollbar-color: var(--color-grey-2) var(--mdc-theme-surface);
     }
     plugin-store {
         height: calc(100vh - var(--header-height));
@@ -213,12 +216,24 @@ let pluginStore: Element;
         align-items: stretch;
         position: relative;
     }
+    plugin-store-header--top {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    :global(.plugin-store-header) {
+        flex-direction: column;
+    }
+    :global(.mdc-dialog.mdc-dialog-scroll-divider-header.mdc-dialog--fullscreen .mdc-dialog__header.plugin-store-header) {
+        box-shadow: none;
+    }
     plugin-store-toolbar {
+        background: var(--mdc-theme-surface);
         display: flex;
         justify-content: space-between;
         place-items: center;
-        margin-top: 1rem;
-        margin-bottom: -1.5em;
+        margin-top: 0.8rem;
+        width: 100%;
     }
     plugin-store-filters--switch {
         display: flex;
@@ -233,6 +248,14 @@ let pluginStore: Element;
     plugin-store-items--category {
         margin-top: 2em; 
         margin-bottom: -0.35em;
+        margin: 2em -1.5em -0.35em -1.5em;
+        position: sticky;
+        background: var(--mdc-theme-surface);
+        top: 0;
+        z-index: 10;
+    }
+    .plugin-store-items--category-title {
+        margin: 0 1.2em;
     }
     .plugin-store-items--divider {
         display: flex;
@@ -241,5 +264,6 @@ let pluginStore: Element;
         height: 1px;
         background: black;
         opacity: 0.1;
+        margin-bottom: 0;
     }
 </style>
