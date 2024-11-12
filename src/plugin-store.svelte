@@ -148,7 +148,7 @@ let pluginStore: Element;
                          index={index}
                          filteredPlugins={filteredPlugins} 
                          storedPlugins={storedPlugins()} 
-                         localPlugins={localPlugins} 
+                         bind:localPlugins={localPlugins} 
                          pluginStore={pluginStore}/> 
                     {/each}
                     {#if editorPlugins.length === 0}
