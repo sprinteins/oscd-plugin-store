@@ -174,7 +174,7 @@ function Lt(n, e) {
 function Xn(n, e) {
   n.value = e ?? "";
 }
-function jn(n, e, t, i) {
+function Vn(n, e, t, i) {
   n.style.setProperty(e, t, "");
 }
 function sr(n, e, { bubbles: t = !1, cancelable: i = !1 } = {}) {
@@ -280,7 +280,7 @@ function ar(n) {
 }
 const on = /* @__PURE__ */ new Set();
 let Ut;
-function Ve() {
+function je() {
   Ut = {
     r: 0,
     c: [],
@@ -288,7 +288,7 @@ function Ve() {
     // parent group
   };
 }
-function je() {
+function Ve() {
   Ut.r || qe(Ut.c), Ut = Ut.p;
 }
 function F(n, e) {
@@ -2086,7 +2086,7 @@ function Je(n) {
         const I = u.split(f ? ":" : "$");
         u = I[0];
         const A = I.slice(1).reduce((C, L) => (C[L] = !0, C), {});
-        A.passive && (c = c || {}, c.passive = !0), A.nonpassive && (c = c || {}, c.passive = !1), A.capture && (c = c || {}, c.capture = !0), A.once && (c = c || {}, c.once = !0), A.preventDefault && (d = wr(d)), A.stopPropagation && (d = Vr(d)), A.stopImmediatePropagation && (d = jr(d)), A.self && (d = Gr(s, d)), A.trusted && (d = zr(d));
+        A.passive && (c = c || {}, c.passive = !0), A.nonpassive && (c = c || {}, c.passive = !1), A.capture && (c = c || {}, c.capture = !0), A.once && (c = c || {}, c.once = !0), A.preventDefault && (d = wr(d)), A.stopPropagation && (d = jr(d)), A.stopImmediatePropagation && (d = Vr(d)), A.self && (d = Gr(s, d)), A.trusted && (d = zr(d));
       }
       const y = ni(s, u, d, c), _ = () => {
         y();
@@ -2115,12 +2115,12 @@ function wr(n) {
     return e.preventDefault(), n.call(this, e);
   };
 }
-function Vr(n) {
+function jr(n) {
   return function(e) {
     return e.stopPropagation(), n.call(this, e);
   };
 }
-function jr(n) {
+function Vr(n) {
   return function(e) {
     return e.stopImmediatePropagation(), n.call(this, e);
   };
@@ -2394,11 +2394,11 @@ function qr(n) {
       4 && l !== (l = /*component*/
       r[2])) {
         if (e) {
-          Ve();
+          je();
           const u = e;
           M(u.$$.fragment, 1, 0, () => {
             Y(u, 1);
-          }), je();
+          }), Ve();
         }
         l ? (e = mt(l, a(r, o)), r[11](e), x(e.$$.fragment), F(e.$$.fragment, 1), J(e, t.parentNode, t)) : e = null;
       } else if (l) {
@@ -2839,9 +2839,9 @@ function Jr(n) {
     },
     p(o, [u]) {
       let d = e;
-      e = r(o), e === d ? a[e].p(o, u) : (Ve(), M(a[d], 1, 1, () => {
+      e = r(o), e === d ? a[e].p(o, u) : (je(), M(a[d], 1, 1, () => {
         a[d] = null;
-      }), je(), t = a[e], t ? t.p(o, u) : (t = a[e] = l[e](o), t.c()), F(t, 1), t.m(i.parentNode, i));
+      }), Ve(), t = a[e], t ? t.p(o, u) : (t = a[e] = l[e](o), t.c()), F(t, 1), t.m(i.parentNode, i));
     },
     i(o) {
       s || (F(t), s = !0);
@@ -3370,9 +3370,9 @@ function il(n) {
     },
     p(o, [u]) {
       let d = e;
-      e = r(o), e === d ? a[e].p(o, u) : (Ve(), M(a[d], 1, 1, () => {
+      e = r(o), e === d ? a[e].p(o, u) : (je(), M(a[d], 1, 1, () => {
         a[d] = null;
-      }), je(), t = a[e], t ? t.p(o, u) : (t = a[e] = l[e](o), t.c()), F(t, 1), t.m(i.parentNode, i));
+      }), Ve(), t = a[e], t ? t.p(o, u) : (t = a[e] = l[e](o), t.c()), F(t, 1), t.m(i.parentNode, i));
     },
     i(o) {
       s || (F(t), s = !0);
@@ -3411,17 +3411,17 @@ function sl(n, e, t) {
       removeClass: S,
       getWidth: () => {
         var R, z;
-        const fe = V(), ie = fe.cloneNode(!0);
+        const fe = j(), ie = fe.cloneNode(!0);
         (R = fe.parentNode) === null || R === void 0 || R.appendChild(ie), ie.classList.add("smui-floating-label--remove-transition"), ie.classList.add("smui-floating-label--force-size"), ie.classList.remove("mdc-floating-label--float-above");
         const Me = ie.scrollWidth;
         return (z = fe.parentNode) === null || z === void 0 || z.removeChild(ie), Me;
       },
-      registerInteractionHandler: (R, z) => V().addEventListener(R, z),
-      deregisterInteractionHandler: (R, z) => V().removeEventListener(R, z)
+      registerInteractionHandler: (R, z) => j().addEventListener(R, z),
+      deregisterInteractionHandler: (R, z) => j().removeEventListener(R, z)
     }));
     const B = {
       get element() {
-        return V();
+        return j();
       },
       addStyle: q,
       removeStyle: w
@@ -3454,7 +3454,7 @@ function sl(n, e, t) {
   function v() {
     return I.getWidth();
   }
-  function V() {
+  function j() {
     return _;
   }
   function G(B) {
@@ -3491,7 +3491,7 @@ function sl(n, e, t) {
     k,
     b,
     v,
-    V,
+    j,
     I,
     O,
     T,
@@ -3840,9 +3840,9 @@ function ol(n) {
     },
     p(h, [y]) {
       /*noLabel*/
-      h[3] ? c && (Ve(), M(c, 1, 1, () => {
+      h[3] ? c && (je(), M(c, 1, 1, () => {
         c = null;
-      }), je()) : c ? (c.p(h, y), y & /*noLabel*/
+      }), Ve()) : c ? (c.p(h, y), y & /*noLabel*/
       8 && F(c, 1)) : (c = li(h), c.c(), F(c, 1), c.m(e, s)), Ce(e, g = he(f, [
         (!o || y & /*className, notched, noLabel, internalClasses*/
         78 && a !== (a = re({
@@ -4128,11 +4128,11 @@ function fl(n) {
       4 && l !== (l = /*component*/
       r[2])) {
         if (e) {
-          Ve();
+          je();
           const u = e;
           M(u.$$.fragment, 1, 0, () => {
             Y(u, 1);
-          }), je();
+          }), Ve();
         }
         l ? (e = mt(l, a(r, o)), r[12](e), x(e.$$.fragment), F(e.$$.fragment, 1), J(e, t.parentNode, t)) : e = null;
       } else if (l) {
@@ -4480,7 +4480,7 @@ function vl(n, e, t) {
   function v() {
     return L;
   }
-  function V(R) {
+  function j(R) {
     cn.call(this, n, R);
   }
   function G(R) {
@@ -4522,7 +4522,7 @@ function vl(n, e, t) {
     k,
     b,
     v,
-    V,
+    j,
     G,
     ae,
     B
@@ -4837,7 +4837,7 @@ function Nl(n) {
     props: {
       key: "SMUI:textfield:icon:leading",
       value: !1,
-      $$slots: { default: [Vl] },
+      $$slots: { default: [jl] },
       $$scope: { ctx: n }
     }
   });
@@ -5376,17 +5376,17 @@ function Bl(n) {
       !/*textarea*/
       b[14] && /*variant*/
       b[15] !== "outlined" ? C ? (C.p(b, v), v[0] & /*textarea, variant*/
-      49152 && F(C, 1)) : (C = Ei(b), C.c(), F(C, 1), C.m(e, t)) : C && (Ve(), M(C, 1, 1, () => {
+      49152 && F(C, 1)) : (C = Ei(b), C.c(), F(C, 1), C.m(e, t)) : C && (je(), M(C, 1, 1, () => {
         C = null;
-      }), je()), /*textarea*/
+      }), Ve()), /*textarea*/
       b[14] || /*variant*/
       b[15] === "outlined" ? L ? (L.p(b, v), v[0] & /*textarea, variant*/
-      49152 && F(L, 1)) : (L = Si(b), L.c(), F(L, 1), L.m(e, i)) : L && (Ve(), M(L, 1, 1, () => {
+      49152 && F(L, 1)) : (L = Si(b), L.c(), F(L, 1), L.m(e, i)) : L && (je(), M(L, 1, 1, () => {
         L = null;
-      }), je());
-      const V = {};
+      }), Ve());
+      const j = {};
       v[2] & /*$$scope*/
-      33554432 && (V.$$scope = { dirty: v, ctx: b }), s.$set(V), T && T.p && (!_ || v[2] & /*$$scope*/
+      33554432 && (j.$$scope = { dirty: v, ctx: b }), s.$set(j), T && T.p && (!_ || v[2] & /*$$scope*/
       33554432) && Ee(
         T,
         O,
@@ -5406,18 +5406,18 @@ function Bl(n) {
         null
       );
       let G = r;
-      r = q(b), r === G ? S[r].p(b, v) : (Ve(), M(S[G], 1, 1, () => {
+      r = q(b), r === G ? S[r].p(b, v) : (je(), M(S[G], 1, 1, () => {
         S[G] = null;
-      }), je(), o = S[r], o ? o.p(b, v) : (o = S[r] = m[r](b), o.c()), F(o, 1), o.m(e, u));
+      }), Ve(), o = S[r], o ? o.p(b, v) : (o = S[r] = m[r](b), o.c()), F(o, 1), o.m(e, u));
       const ae = {};
       v[2] & /*$$scope*/
       33554432 && (ae.$$scope = { dirty: v, ctx: b }), d.$set(ae), !/*textarea*/
       b[14] && /*variant*/
       b[15] !== "outlined" && /*ripple*/
       b[11] ? w ? (w.p(b, v), v[0] & /*textarea, variant, ripple*/
-      51200 && F(w, 1)) : (w = Ti(b), w.c(), F(w, 1), w.m(e, null)) : w && (Ve(), M(w, 1, 1, () => {
+      51200 && F(w, 1)) : (w = Ti(b), w.c(), F(w, 1), w.m(e, null)) : w && (je(), M(w, 1, 1, () => {
         w = null;
-      }), je()), Ce(e, k = he(p, [
+      }), Ve()), Ce(e, k = he(p, [
         (!_ || v[0] & /*className, disabled, textarea, variant, noLabel, label, focused, value, withLeadingIcon, withTrailingIcon, invalid, internalClasses*/
         314823171 | v[1] & /*$$slots*/
         65536 && f !== (f = re({
@@ -5617,7 +5617,7 @@ function wl(n) {
     }
   };
 }
-function Vl(n) {
+function jl(n) {
   let e;
   const t = (
     /*#slots*/
@@ -5690,9 +5690,9 @@ function Ei(n) {
       (a[17] != null || /*$$slots*/
       a[47].label) ? l ? (l.p(a, r), r[0] & /*noLabel, label*/
       196608 | r[1] & /*$$slots*/
-      65536 && F(l, 1)) : (l = Ci(a), l.c(), F(l, 1), l.m(t.parentNode, t)) : l && (Ve(), M(l, 1, 1, () => {
+      65536 && F(l, 1)) : (l = Ci(a), l.c(), F(l, 1), l.m(t.parentNode, t)) : l && (je(), M(l, 1, 1, () => {
         l = null;
-      }), je());
+      }), Ve());
     },
     i(a) {
       i || (F(l), i = !0);
@@ -5746,7 +5746,7 @@ function Ci(n) {
     )
   ];
   let s = {
-    $$slots: { default: [jl] },
+    $$slots: { default: [Vl] },
     $$scope: { ctx: n }
   };
   for (let l = 0; l < i.length; l += 1)
@@ -5803,7 +5803,7 @@ function Ci(n) {
     }
   };
 }
-function jl(n) {
+function Vl(n) {
   let e = (
     /*label*/
     (n[17] == null ? "" : (
@@ -6096,9 +6096,9 @@ function zl(n) {
       (s[17] != null || /*$$slots*/
       s[47].label) ? i ? (i.p(s, l), l[0] & /*noLabel, label*/
       196608 | l[1] & /*$$slots*/
-      65536 && F(i, 1)) : (i = yi(s), i.c(), F(i, 1), i.m(e.parentNode, e)) : i && (Ve(), M(i, 1, 1, () => {
+      65536 && F(i, 1)) : (i = yi(s), i.c(), F(i, 1), i.m(e.parentNode, e)) : i && (je(), M(i, 1, 1, () => {
         i = null;
-      }), je());
+      }), Ve());
     },
     i(s) {
       t || (F(i), t = !0);
@@ -6297,9 +6297,9 @@ function ql(n) {
         pi
       ), /*prefix*/
       m[20] != null ? g ? (g.p(m, S), S[0] & /*prefix*/
-      1048576 && F(g, 1)) : (g = Li(m), g.c(), F(g, 1), g.m(t.parentNode, t)) : g && (Ve(), M(g, 1, 1, () => {
+      1048576 && F(g, 1)) : (g = Li(m), g.c(), F(g, 1), g.m(t.parentNode, t)) : g && (je(), M(g, 1, 1, () => {
         g = null;
-      }), je());
+      }), Ve());
       const q = S[0] & /*type, disabled, required, updateInvalid, helperId, noLabel, label*/
       135213056 | S[1] & /*$$restProps*/
       32768 ? he(h, [
@@ -6359,9 +6359,9 @@ function ql(n) {
       2 && (r = !0, q.invalid = /*invalid*/
       m[1], ct(() => r = !1)), i.$set(q), /*suffix*/
       m[21] != null ? L ? (L.p(m, S), S[0] & /*suffix*/
-      2097152 && F(L, 1)) : (L = Oi(m), L.c(), F(L, 1), L.m(u.parentNode, u)) : L && (Ve(), M(L, 1, 1, () => {
+      2097152 && F(L, 1)) : (L = Oi(m), L.c(), F(L, 1), L.m(u.parentNode, u)) : L && (je(), M(L, 1, 1, () => {
         L = null;
-      }), je()), T && T.p && (!d || S[2] & /*$$scope*/
+      }), Ve()), T && T.p && (!d || S[2] & /*$$scope*/
       33554432) && Ee(
         T,
         O,
@@ -6891,9 +6891,9 @@ function Yl(n) {
     p(d, c) {
       t.p(d, c), /*$$slots*/
       d[47].helper ? u ? (u.p(d, c), c[1] & /*$$slots*/
-      65536 && F(u, 1)) : (u = Fi(d), u.c(), F(u, 1), u.m(s.parentNode, s)) : u && (Ve(), M(u, 1, 1, () => {
+      65536 && F(u, 1)) : (u = Fi(d), u.c(), F(u, 1), u.m(s.parentNode, s)) : u && (je(), M(u, 1, 1, () => {
         u = null;
-      }), je());
+      }), Ve());
     },
     i(d) {
       l || (F(t), F(u), l = !0);
@@ -6953,7 +6953,7 @@ function xl(n, e, t) {
   f(S) && (S = void 0), f(q) && (q = null);
   let { invalid: p = c } = e, { updateInvalid: k = f(p) } = e;
   f(p) && (p = !1);
-  let { dirty: b = !1 } = e, { prefix: v = void 0 } = e, { suffix: V = void 0 } = e, { validateOnValueChange: G = k } = e, { useNativeValidation: ae = k } = e, { withLeadingIcon: B = c } = e, { withTrailingIcon: R = c } = e, { input: z = void 0 } = e, { floatingLabel: fe = void 0 } = e, { lineRipple: ie = void 0 } = e, { notchedOutline: Me = void 0 } = e, j, U, $ = {}, ce = {}, Ye, xe = !1, D = Ge("SMUI:addLayoutListener"), P, Oe, He = new Promise((E) => Oe = E), ut, N, de, ke, _t = S;
+  let { dirty: b = !1 } = e, { prefix: v = void 0 } = e, { suffix: j = void 0 } = e, { validateOnValueChange: G = k } = e, { useNativeValidation: ae = k } = e, { withLeadingIcon: B = c } = e, { withTrailingIcon: R = c } = e, { input: z = void 0 } = e, { floatingLabel: fe = void 0 } = e, { lineRipple: ie = void 0 } = e, { notchedOutline: Me = void 0 } = e, V, U, $ = {}, ce = {}, Ye, xe = !1, D = Ge("SMUI:addLayoutListener"), P, Oe, He = new Promise((E) => Oe = E), ut, N, de, ke, _t = S;
   D && (P = D(H)), pt(() => {
     if (t(54, U = new Ur(
       {
@@ -7076,7 +7076,7 @@ function xl(n, e, t) {
     }
   }
   function ee() {
-    return j;
+    return V;
   }
   function ne(E) {
     ue[E ? "unshift" : "push"](() => {
@@ -7107,7 +7107,7 @@ function xl(n, e, t) {
   function Ss(E) {
     p = E, t(1, p), t(54, U), t(19, k);
   }
-  const ys = () => t(28, xe = !1), Ls = () => t(28, xe = !0), Os = (E) => ye(j, "blur", E), Ts = (E) => ye(j, "focus", E);
+  const ys = () => t(28, xe = !1), Ls = () => t(28, xe = !0), Os = (E) => ye(V, "blur", E), Ts = (E) => ye(V, "focus", E);
   function Fs(E) {
     ue[E ? "unshift" : "push"](() => {
       z = E, t(2, z);
@@ -7125,7 +7125,7 @@ function xl(n, e, t) {
   function Ds(E) {
     p = E, t(1, p), t(54, U), t(19, k);
   }
-  const Ps = () => t(28, xe = !1), Us = () => t(28, xe = !0), Hs = (E) => ye(j, "blur", E), Ns = (E) => ye(j, "focus", E);
+  const Ps = () => t(28, xe = !1), Us = () => t(28, xe = !0), Hs = (E) => ye(V, "blur", E), Ns = (E) => ye(V, "focus", E);
   function Bs(E) {
     ue[E ? "unshift" : "push"](() => {
       ie = E, t(6, ie);
@@ -7133,20 +7133,20 @@ function xl(n, e, t) {
   }
   function ws(E) {
     ue[E ? "unshift" : "push"](() => {
-      j = E, t(24, j);
+      V = E, t(24, V);
     });
   }
-  const Vs = () => t(29, ut = void 0), js = () => t(30, N = void 0), Gs = () => t(32, ke = void 0);
+  const js = () => t(29, ut = void 0), Vs = () => t(30, N = void 0), Gs = () => t(32, ke = void 0);
   function zs(E) {
     ue[E ? "unshift" : "push"](() => {
-      j = E, t(24, j);
+      V = E, t(24, V);
     });
   }
   const Ws = () => t(29, ut = void 0), qs = () => t(30, N = void 0), Ks = () => {
     t(27, Ye = void 0), t(31, de = void 0);
   }, Xs = () => t(32, ke = void 0);
   return n.$$set = (E) => {
-    e = X(X({}, e), Qe(E)), t(46, l = ge(e, s)), "use" in E && t(8, g = E.use), "class" in E && t(9, h = E.class), "style" in E && t(10, y = E.style), "ripple" in E && t(11, _ = E.ripple), "disabled" in E && t(12, I = E.disabled), "required" in E && t(13, A = E.required), "textarea" in E && t(14, C = E.textarea), "variant" in E && t(15, L = E.variant), "noLabel" in E && t(16, O = E.noLabel), "label" in E && t(17, T = E.label), "type" in E && t(18, m = E.type), "value" in E && t(0, S = E.value), "files" in E && t(3, q = E.files), "invalid" in E && t(1, p = E.invalid), "updateInvalid" in E && t(19, k = E.updateInvalid), "dirty" in E && t(4, b = E.dirty), "prefix" in E && t(20, v = E.prefix), "suffix" in E && t(21, V = E.suffix), "validateOnValueChange" in E && t(48, G = E.validateOnValueChange), "useNativeValidation" in E && t(49, ae = E.useNativeValidation), "withLeadingIcon" in E && t(22, B = E.withLeadingIcon), "withTrailingIcon" in E && t(23, R = E.withTrailingIcon), "input" in E && t(2, z = E.input), "floatingLabel" in E && t(5, fe = E.floatingLabel), "lineRipple" in E && t(6, ie = E.lineRipple), "notchedOutline" in E && t(7, Me = E.notchedOutline), "$$scope" in E && t(87, r = E.$$scope);
+    e = X(X({}, e), Qe(E)), t(46, l = ge(e, s)), "use" in E && t(8, g = E.use), "class" in E && t(9, h = E.class), "style" in E && t(10, y = E.style), "ripple" in E && t(11, _ = E.ripple), "disabled" in E && t(12, I = E.disabled), "required" in E && t(13, A = E.required), "textarea" in E && t(14, C = E.textarea), "variant" in E && t(15, L = E.variant), "noLabel" in E && t(16, O = E.noLabel), "label" in E && t(17, T = E.label), "type" in E && t(18, m = E.type), "value" in E && t(0, S = E.value), "files" in E && t(3, q = E.files), "invalid" in E && t(1, p = E.invalid), "updateInvalid" in E && t(19, k = E.updateInvalid), "dirty" in E && t(4, b = E.dirty), "prefix" in E && t(20, v = E.prefix), "suffix" in E && t(21, j = E.suffix), "validateOnValueChange" in E && t(48, G = E.validateOnValueChange), "useNativeValidation" in E && t(49, ae = E.useNativeValidation), "withLeadingIcon" in E && t(22, B = E.withLeadingIcon), "withTrailingIcon" in E && t(23, R = E.withTrailingIcon), "input" in E && t(2, z = E.input), "floatingLabel" in E && t(5, fe = E.floatingLabel), "lineRipple" in E && t(6, ie = E.lineRipple), "notchedOutline" in E && t(7, Me = E.notchedOutline), "$$scope" in E && t(87, r = E.$$scope);
   }, n.$$.update = () => {
     if (n.$$.dirty[0] & /*input*/
     4 && t(33, i = z && z.getElement()), n.$$.dirty[0] & /*invalid, updateInvalid*/
@@ -7184,10 +7184,10 @@ function xl(n, e, t) {
     m,
     k,
     v,
-    V,
+    j,
     B,
     R,
-    j,
+    V,
     $,
     ce,
     Ye,
@@ -7242,8 +7242,8 @@ function xl(n, e, t) {
     Ns,
     Bs,
     ws,
-    Vs,
     js,
+    Vs,
     Gs,
     zs,
     Ws,
@@ -7692,11 +7692,11 @@ function ta(n) {
       512 && l !== (l = /*component*/
       r[9])) {
         if (e) {
-          Ve();
+          je();
           const u = e;
           M(u.$$.fragment, 1, 0, () => {
             Y(u, 1);
-          }), je();
+          }), Ve();
         }
         l ? (e = mt(l, a(r, o)), r[29](e), e.$on(
           "click",
@@ -7898,7 +7898,7 @@ function na(n, e, t) {
   function v(R) {
     (!(R in m) || m[R]) && t(12, m[R] = !1, m);
   }
-  function V(R, z) {
+  function j(R, z) {
     S[R] != z && (z === "" || z == null ? (delete S[R], t(13, S)) : t(13, S[R] = z, S));
   }
   function G() {
@@ -7944,7 +7944,7 @@ function na(n, e, t) {
     q,
     b,
     v,
-    V,
+    j,
     G,
     r,
     C,
@@ -8700,29 +8700,29 @@ function ma(n, e, t) {
   const a = Je(Be());
   let r = () => {
   };
-  function o(j) {
-    return j === r;
+  function o(V) {
+    return V === r;
   }
   let { use: u = [] } = e, { class: d = "" } = e, { disabled: c = !1 } = e, { focusRing: f = !1 } = e, { color: g = "primary" } = e, { group: h = r } = e, { checked: y = r } = e, { value: _ = null } = e, { processing: I = !1 } = e, { icons: A = !0 } = e, { icons$use: C = [] } = e, { icons$class: L = "" } = e, O, T, m = {}, S, q = !1, w = (l = Ge("SMUI:generic:input:props")) !== null && l !== void 0 ? l : {}, p = o(h) ? o(y) ? !1 : y : h.indexOf(_) !== -1, k = {
     get disabled() {
       return c;
     },
-    set disabled(j) {
-      t(0, c = j);
+    set disabled(V) {
+      t(0, c = V);
     },
     get processing() {
       return I;
     },
-    set processing(j) {
-      t(1, I = j);
+    set processing(V) {
+      t(1, I = V);
     },
     get selected() {
       return p;
     },
-    set selected(j) {
-      t(10, p = j);
+    set selected(V) {
+      t(10, p = V);
     }
-  }, b = y, v = o(h) ? [] : [...h], V = p;
+  }, b = y, v = o(h) ? [] : [...h], j = p;
   pt(() => {
     t(11, T = new fa({
       addClass: ae,
@@ -8737,7 +8737,7 @@ function ma(n, e, t) {
       },
       state: k
     }));
-    const j = {
+    const V = {
       get element() {
         return z();
       },
@@ -8754,18 +8754,18 @@ function ma(n, e, t) {
         t(14, q = !1);
       }
     };
-    return ye(O, "SMUIGenericInput:mount", j), T.init(), T.initFromDOM(), () => {
-      ye(O, "SMUIGenericInput:unmount", j), T.destroy();
+    return ye(O, "SMUIGenericInput:mount", V), T.init(), T.initFromDOM(), () => {
+      ye(O, "SMUIGenericInput:unmount", V), T.destroy();
     };
   });
-  function G(j) {
-    return j in m ? m[j] : z().classList.contains(j);
+  function G(V) {
+    return V in m ? m[V] : z().classList.contains(V);
   }
-  function ae(j) {
-    m[j] || t(12, m[j] = !0, m);
+  function ae(V) {
+    m[V] || t(12, m[V] = !0, m);
   }
-  function B(j) {
-    (!(j in m) || m[j]) && t(12, m[j] = !1, m);
+  function B(V) {
+    (!(V in m) || m[V]) && t(12, m[V] = !1, m);
   }
   function R() {
     return w && w.id;
@@ -8773,32 +8773,32 @@ function ma(n, e, t) {
   function z() {
     return O;
   }
-  function fe(j) {
-    ue[j ? "unshift" : "push"](() => {
-      S = j, t(13, S);
+  function fe(V) {
+    ue[V ? "unshift" : "push"](() => {
+      S = V, t(13, S);
     });
   }
-  function ie(j) {
-    ue[j ? "unshift" : "push"](() => {
-      O = j, t(9, O);
+  function ie(V) {
+    ue[V ? "unshift" : "push"](() => {
+      O = V, t(9, O);
     });
   }
   const Me = () => T && T.handleClick();
-  return n.$$set = (j) => {
-    e = X(X({}, e), Qe(j)), t(19, s = ge(e, i)), "use" in j && t(2, u = j.use), "class" in j && t(3, d = j.class), "disabled" in j && t(0, c = j.disabled), "focusRing" in j && t(4, f = j.focusRing), "color" in j && t(5, g = j.color), "group" in j && t(20, h = j.group), "checked" in j && t(21, y = j.checked), "value" in j && t(22, _ = j.value), "processing" in j && t(1, I = j.processing), "icons" in j && t(6, A = j.icons), "icons$use" in j && t(7, C = j.icons$use), "icons$class" in j && t(8, L = j.icons$class);
+  return n.$$set = (V) => {
+    e = X(X({}, e), Qe(V)), t(19, s = ge(e, i)), "use" in V && t(2, u = V.use), "class" in V && t(3, d = V.class), "disabled" in V && t(0, c = V.disabled), "focusRing" in V && t(4, f = V.focusRing), "color" in V && t(5, g = V.color), "group" in V && t(20, h = V.group), "checked" in V && t(21, y = V.checked), "value" in V && t(22, _ = V.value), "processing" in V && t(1, I = V.processing), "icons" in V && t(6, A = V.icons), "icons$use" in V && t(7, C = V.icons$use), "icons$class" in V && t(8, L = V.icons$class);
   }, n.$$.update = () => {
     if (n.$$.dirty[0] & /*group, previousSelected, selected, value, previousGroup, checked, previousChecked, element*/
     242222592) {
-      let j = !1;
+      let V = !1;
       if (!o(h))
-        if (V !== p) {
+        if (j !== p) {
           const U = h.indexOf(_);
-          p && U === -1 ? (h.push(_), t(20, h), t(27, V), t(10, p), t(22, _), t(26, v), t(21, y), t(25, b), t(9, O)) : !p && U !== -1 && (h.splice(U, 1), t(20, h), t(27, V), t(10, p), t(22, _), t(26, v), t(21, y), t(25, b), t(9, O)), j = !0;
+          p && U === -1 ? (h.push(_), t(20, h), t(27, j), t(10, p), t(22, _), t(26, v), t(21, y), t(25, b), t(9, O)) : !p && U !== -1 && (h.splice(U, 1), t(20, h), t(27, j), t(10, p), t(22, _), t(26, v), t(21, y), t(25, b), t(9, O)), V = !0;
         } else {
           const U = v.indexOf(_), $ = h.indexOf(_);
           U > -1 && $ === -1 ? k.selected = !1 : $ > -1 && U === -1 && (k.selected = !0);
         }
-      o(y) ? V !== p && (j = !0) : y !== p && (y === b ? (t(21, y = p), j = !0) : k.selected = y), t(25, b = y), t(26, v = o(h) ? [] : [...h]), t(27, V = p), j && O && ye(O, "SMUISwitch:change", { selected: p, value: _ });
+      o(y) ? j !== p && (V = !0) : y !== p && (y === b ? (t(21, y = p), V = !0) : k.selected = y), t(25, b = y), t(26, v = o(h) ? [] : [...h]), t(27, j = p), V && O && ye(O, "SMUISwitch:change", { selected: p, value: _ });
     }
   }, [
     c,
@@ -8828,7 +8828,7 @@ function ma(n, e, t) {
     z,
     b,
     v,
-    V,
+    j,
     fe,
     ie,
     Me
@@ -9453,11 +9453,11 @@ function ba(n) {
       8192 && l !== (l = /*component*/
       r[13])) {
         if (e) {
-          Ve();
+          je();
           const u = e;
           M(u.$$.fragment, 1, 0, () => {
             Y(u, 1);
-          }), je();
+          }), Ve();
         }
         l ? (e = mt(l, a(r, o)), r[34](e), e.$on(
           "click",
@@ -9706,7 +9706,7 @@ function Ia(n, e, t) {
   function d(P) {
     return P === u;
   }
-  let { use: c = [] } = e, { class: f = "" } = e, { style: g = "" } = e, { ripple: h = !0 } = e, { color: y = void 0 } = e, { toggle: _ = !1 } = e, { pressed: I = u } = e, { ariaLabelOn: A = void 0 } = e, { ariaLabelOff: C = void 0 } = e, { touch: L = !1 } = e, { displayFlex: O = !0 } = e, { size: T = "normal" } = e, { href: m = void 0 } = e, { action: S = void 0 } = e, q, w, p = {}, k = {}, b = {}, v = Ge("SMUI:icon-button:context"), V = Ge("SMUI:icon-button:aria-describedby"), { component: G = gt } = e, { tag: ae = G === gt ? m == null ? "button" : "a" : void 0 } = e, B = l.disabled;
+  let { use: c = [] } = e, { class: f = "" } = e, { style: g = "" } = e, { ripple: h = !0 } = e, { color: y = void 0 } = e, { toggle: _ = !1 } = e, { pressed: I = u } = e, { ariaLabelOn: A = void 0 } = e, { ariaLabelOff: C = void 0 } = e, { touch: L = !1 } = e, { displayFlex: O = !0 } = e, { size: T = "normal" } = e, { href: m = void 0 } = e, { action: S = void 0 } = e, q, w, p = {}, k = {}, b = {}, v = Ge("SMUI:icon-button:context"), j = Ge("SMUI:icon-button:aria-describedby"), { component: G = gt } = e, { tag: ae = G === gt ? m == null ? "button" : "a" : void 0 } = e, B = l.disabled;
   we("SMUI:icon:context", "icon-button");
   let R = null;
   Mt(() => {
@@ -9724,7 +9724,7 @@ function Ia(n, e, t) {
   function Me(P, Oe) {
     k[P] != Oe && (Oe === "" || Oe == null ? (delete k[P], t(19, k)) : t(19, k[P] = Oe, k));
   }
-  function j(P) {
+  function V(P) {
     var Oe;
     return P in b ? (Oe = b[P]) !== null && Oe !== void 0 ? Oe : null : ce().getAttribute(P);
   }
@@ -9778,7 +9778,7 @@ function Ia(n, e, t) {
         $(P), ye(ce(), "SMUIIconButtonToggle:change", P, void 0, !0);
       },
       removeClass: ie,
-      getAttr: j,
+      getAttr: V,
       setAttr: U
     })), w.init()) : !_ && w && (w.destroy(), t(17, w = void 0), t(18, p = {}), t(20, b = {})), t(32, R = _)), n.$$.dirty[0] & /*instance, pressed*/
     131073 && w && !d(I) && w.isOn() !== I && w.toggle(I);
@@ -9808,7 +9808,7 @@ function Ia(n, e, t) {
     o,
     d,
     v,
-    V,
+    j,
     fe,
     ie,
     Me,
@@ -10607,13 +10607,13 @@ function Ra(n, e, t) {
   const { FocusTrap: d } = Nr, { closest: c, matches: f } = gn, g = Je(Be());
   let { use: h = [] } = e, { class: y = "" } = e, { open: _ = !1 } = e, { selection: I = !1 } = e, { escapeKeyAction: A = "close" } = e, { scrimClickAction: C = "close" } = e, { autoStackButtons: L = !0 } = e, { fullscreen: O = !1 } = e, { sheet: T = !1 } = e, { noContentPadding: m = !1 } = e, { container$class: S = "" } = e, { surface$class: q = "" } = e, w, p, k = {}, b, v = wn(!1);
   Dn(n, v, (Z) => t(37, a = Z));
-  let V = Ge("SMUI:dialog:aboveFullscreen"), G = (u = Ge("SMUI:dialog:aboveFullscreenShown")) !== null && u !== void 0 ? u : wn(!1);
+  let j = Ge("SMUI:dialog:aboveFullscreen"), G = (u = Ge("SMUI:dialog:aboveFullscreenShown")) !== null && u !== void 0 ? u : wn(!1);
   Dn(n, G, (Z) => t(27, l = Z));
   let ae = Ge("SMUI:addLayoutListener"), B, R = [], z = (Z) => (R.push(Z), () => {
     const me = R.indexOf(Z);
     me >= 0 && R.splice(me, 1);
   });
-  we("SMUI:dialog:actions:reversed", v), we("SMUI:addLayoutListener", z), we("SMUI:dialog:selection", I), we("SMUI:dialog:aboveFullscreen", V || O), we("SMUI:dialog:aboveFullscreenShown", G), T && we("SMUI:icon-button:context", "dialog:sheet"), ae && (B = ae(ut));
+  we("SMUI:dialog:actions:reversed", v), we("SMUI:addLayoutListener", z), we("SMUI:dialog:selection", I), we("SMUI:dialog:aboveFullscreen", j || O), we("SMUI:dialog:aboveFullscreenShown", G), T && we("SMUI:icon-button:context", "dialog:sheet"), ae && (B = ae(ut));
   let fe = l;
   pt(() => {
     var Z;
@@ -10648,7 +10648,7 @@ function Ra(n, e, t) {
       notifyOpening: () => ye(N(), "SMUIDialog:opening", {}, void 0, !0),
       releaseFocus: () => b.releaseFocus(),
       removeBodyClass: (me) => document.body.classList.remove(me),
-      removeClass: j,
+      removeClass: V,
       reverseButtons: () => {
         Yt(v, a = !0, a);
       },
@@ -10681,7 +10681,7 @@ function Ra(n, e, t) {
   function Me(Z) {
     k[Z] || t(12, k[Z] = !0, k);
   }
-  function j(Z) {
+  function V(Z) {
     (!(Z in k) || k[Z]) && t(12, k[Z] = !1, k);
   }
   function U() {
@@ -10697,7 +10697,7 @@ function Ra(n, e, t) {
     return w.querySelector("[data-mdc-dialog-initial-focus]");
   }
   function xe() {
-    V && Yt(G, l = !0, l), requestAnimationFrame(() => {
+    j && Yt(G, l = !0, l), requestAnimationFrame(() => {
       R.forEach((Z) => Z());
     });
   }
@@ -10705,7 +10705,7 @@ function Ra(n, e, t) {
     R.forEach((Z) => Z());
   }
   function P() {
-    V && Yt(G, l = !1, l);
+    j && Yt(G, l = !1, l);
   }
   function Oe() {
     return _;
@@ -10734,7 +10734,7 @@ function Ra(n, e, t) {
     1040 && p && p.getAutoStackButtons() !== L && p.setAutoStackButtons(L), n.$$.dirty[0] & /*autoStackButtons*/
     16 && (L || Yt(v, a = !0, a)), n.$$.dirty[0] & /*instance, open*/
     1025 && p && p.isOpen() !== _ && (_ ? p.open({
-      isAboveFullscreenDialog: !!V
+      isAboveFullscreenDialog: !!j
     }) : p.close()), n.$$.dirty[0] & /*fullscreen, instance, previousAboveFullscreenShown, $aboveFullscreenShown*/
     201327648 && O && p && fe !== l && (t(26, fe = l), l ? p.showSurfaceScrim() : p.hideSurfaceScrim());
   }, [
@@ -10866,6 +10866,13 @@ const ka = lt({
     src: "https://sprinteins.github.io/oscd-plugins/type-switcher/index.js",
     kind: "editor",
     description: "When working with OpenSCD, various plug-ins can create unlinked and redundant elements. The Type Switcher makes it possible to link these unlinked elements correctly and then remove the redundancies using the Cleanup plugin. Elements to be linked can be Logical Node Types, Data Object Types, Data Attribute Types and Enum Types."
+  },
+  {
+    name: "Type Designer",
+    author: "SprintEins",
+    src: "https://sprinteins.github.io/oscd-plugins/type-designer/index.js",
+    kind: "editor",
+    description: "The Type Designer plugin for OpenSCD simplifies the creation and management of types elements in SCL file."
   }
 ];
 /**
@@ -10973,7 +10980,7 @@ var Tt, Ct, be = {
   ROOT: "mdc-list"
 };
 Tt = {}, Tt["" + be.LIST_ITEM_ACTIVATED_CLASS] = "mdc-list-item--activated", Tt["" + be.LIST_ITEM_CLASS] = "mdc-list-item", Tt["" + be.LIST_ITEM_DISABLED_CLASS] = "mdc-list-item--disabled", Tt["" + be.LIST_ITEM_SELECTED_CLASS] = "mdc-list-item--selected", Tt["" + be.LIST_ITEM_PRIMARY_TEXT_CLASS] = "mdc-list-item__primary-text", Tt["" + be.ROOT] = "mdc-list";
-var Vt = (Ct = {}, Ct["" + be.LIST_ITEM_ACTIVATED_CLASS] = "mdc-deprecated-list-item--activated", Ct["" + be.LIST_ITEM_CLASS] = "mdc-deprecated-list-item", Ct["" + be.LIST_ITEM_DISABLED_CLASS] = "mdc-deprecated-list-item--disabled", Ct["" + be.LIST_ITEM_SELECTED_CLASS] = "mdc-deprecated-list-item--selected", Ct["" + be.LIST_ITEM_TEXT_CLASS] = "mdc-deprecated-list-item__text", Ct["" + be.LIST_ITEM_PRIMARY_TEXT_CLASS] = "mdc-deprecated-list-item__primary-text", Ct["" + be.ROOT] = "mdc-deprecated-list", Ct), Ft = {
+var jt = (Ct = {}, Ct["" + be.LIST_ITEM_ACTIVATED_CLASS] = "mdc-deprecated-list-item--activated", Ct["" + be.LIST_ITEM_CLASS] = "mdc-deprecated-list-item", Ct["" + be.LIST_ITEM_DISABLED_CLASS] = "mdc-deprecated-list-item--disabled", Ct["" + be.LIST_ITEM_SELECTED_CLASS] = "mdc-deprecated-list-item--selected", Ct["" + be.LIST_ITEM_TEXT_CLASS] = "mdc-deprecated-list-item__text", Ct["" + be.LIST_ITEM_PRIMARY_TEXT_CLASS] = "mdc-deprecated-list-item__primary-text", Ct["" + be.ROOT] = "mdc-deprecated-list", Ct), Ft = {
   ACTION_EVENT: "MDCList:action",
   SELECTION_CHANGE_EVENT: "MDCList:selectionChange",
   ARIA_CHECKED: "aria-checked",
@@ -10992,8 +10999,8 @@ var Vt = (Ct = {}, Ct["" + be.LIST_ITEM_ACTIVATED_CLASS] = "mdc-deprecated-list-
   CHILD_ELEMENTS_TO_TOGGLE_TABINDEX: `
     .` + be.LIST_ITEM_CLASS + ` button:not(:disabled),
     .` + be.LIST_ITEM_CLASS + ` a,
-    .` + Vt[be.LIST_ITEM_CLASS] + ` button:not(:disabled),
-    .` + Vt[be.LIST_ITEM_CLASS] + ` a
+    .` + jt[be.LIST_ITEM_CLASS] + ` button:not(:disabled),
+    .` + jt[be.LIST_ITEM_CLASS] + ` a
   `,
   DEPRECATED_SELECTOR: ".mdc-deprecated-list",
   FOCUSABLE_CHILD_ELEMENTS: `
@@ -11001,10 +11008,10 @@ var Vt = (Ct = {}, Ct["" + be.LIST_ITEM_ACTIVATED_CLASS] = "mdc-deprecated-list-
     .` + be.LIST_ITEM_CLASS + ` a,
     .` + be.LIST_ITEM_CLASS + ` input[type="radio"]:not(:disabled),
     .` + be.LIST_ITEM_CLASS + ` input[type="checkbox"]:not(:disabled),
-    .` + Vt[be.LIST_ITEM_CLASS] + ` button:not(:disabled),
-    .` + Vt[be.LIST_ITEM_CLASS] + ` a,
-    .` + Vt[be.LIST_ITEM_CLASS] + ` input[type="radio"]:not(:disabled),
-    .` + Vt[be.LIST_ITEM_CLASS] + ` input[type="checkbox"]:not(:disabled)
+    .` + jt[be.LIST_ITEM_CLASS] + ` button:not(:disabled),
+    .` + jt[be.LIST_ITEM_CLASS] + ` a,
+    .` + jt[be.LIST_ITEM_CLASS] + ` input[type="radio"]:not(:disabled),
+    .` + jt[be.LIST_ITEM_CLASS] + ` input[type="checkbox"]:not(:disabled)
   `,
   RADIO_SELECTOR: 'input[type="radio"]',
   SELECTED_ITEM_SELECTOR: '[aria-selected="true"], [aria-current="true"]'
@@ -11063,7 +11070,7 @@ var wa = ["input", "button", "textarea", "select"], dt = function(n) {
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-function Va() {
+function ja() {
   var n = {
     bufferClearTimeout: 0,
     currentFirstChar: "",
@@ -11072,7 +11079,7 @@ function Va() {
   };
   return n;
 }
-function ja(n, e) {
+function Va(n, e) {
   for (var t = /* @__PURE__ */ new Map(), i = 0; i < n; i++) {
     var s = e(i).trim();
     if (s) {
@@ -11086,7 +11093,7 @@ function ja(n, e) {
     });
   }), t;
 }
-function Vn(n, e) {
+function jn(n, e) {
   var t = n.nextChar, i = n.focusItemAtIndex, s = n.sortedIndexByFirstChar, l = n.focusedItemIndex, a = n.skipFocus, r = n.isItemAtIndexDisabled;
   clearTimeout(e.bufferClearTimeout), e.bufferClearTimeout = setTimeout(function() {
     gs(e);
@@ -11141,7 +11148,7 @@ function ms(n) {
 function gs(n) {
   n.typeaheadBuffer = "";
 }
-function Vi(n, e) {
+function ji(n, e) {
   var t = n.event, i = n.isTargetListItem, s = n.focusedItemIndex, l = n.focusItemAtIndex, a = n.sortedIndexByFirstChar, r = n.isItemAtIndexDisabled, o = nt(t) === "ArrowLeft", u = nt(t) === "ArrowUp", d = nt(t) === "ArrowRight", c = nt(t) === "ArrowDown", f = nt(t) === "Home", g = nt(t) === "End", h = nt(t) === "Enter", y = nt(t) === "Spacebar";
   if (t.altKey || t.ctrlKey || t.metaKey || o || u || d || c || f || g || h)
     return -1;
@@ -11156,7 +11163,7 @@ function Vi(n, e) {
       skipFocus: !1,
       isItemAtIndexDisabled: r
     };
-    return Vn(I, e);
+    return jn(I, e);
   }
   if (!y)
     return -1;
@@ -11171,7 +11178,7 @@ function Vi(n, e) {
       skipFocus: !1,
       isItemAtIndexDisabled: r
     };
-    return Vn(I, e);
+    return jn(I, e);
   }
   return -1;
 }
@@ -11201,7 +11208,7 @@ function Wa(n) {
   return n instanceof Array;
 }
 var qa = ["Alt", "Control", "Meta", "Shift"];
-function ji(n) {
+function Vi(n) {
   var e = new Set(n ? qa.filter(function(t) {
     return n.getModifierState(t);
   }) : []);
@@ -11217,7 +11224,7 @@ var Ka = (
     ot(e, n);
     function e(t) {
       var i = n.call(this, Ne(Ne({}, e.defaultAdapter), t)) || this;
-      return i.wrapFocus = !1, i.isVertical = !0, i.isSingleSelectionList = !1, i.areDisabledItemsFocusable = !0, i.selectedIndex = ze.UNSET_INDEX, i.focusedItemIndex = ze.UNSET_INDEX, i.useActivatedClass = !1, i.useSelectedAttr = !1, i.ariaCurrentAttrValue = null, i.isCheckboxList = !1, i.isRadioList = !1, i.lastSelectedIndex = null, i.hasTypeahead = !1, i.typeaheadState = Va(), i.sortedIndexByFirstChar = /* @__PURE__ */ new Map(), i;
+      return i.wrapFocus = !1, i.isVertical = !0, i.isSingleSelectionList = !1, i.areDisabledItemsFocusable = !0, i.selectedIndex = ze.UNSET_INDEX, i.focusedItemIndex = ze.UNSET_INDEX, i.useActivatedClass = !1, i.useSelectedAttr = !1, i.ariaCurrentAttrValue = null, i.isCheckboxList = !1, i.isRadioList = !1, i.lastSelectedIndex = null, i.hasTypeahead = !1, i.typeaheadState = ja(), i.sortedIndexByFirstChar = /* @__PURE__ */ new Map(), i;
     }
     return Object.defineProperty(e, "strings", {
       get: function() {
@@ -11339,7 +11346,7 @@ var Ka = (
     }, e.prototype.isIndexDisabled = function(t) {
       return this.adapter.listItemAtIndexHasClass(t, be.LIST_ITEM_DISABLED_CLASS);
     }, e.prototype.handleKeydown = function(t, i, s) {
-      var l = this, a, r = nt(t) === "ArrowLeft", o = nt(t) === "ArrowUp", u = nt(t) === "ArrowRight", d = nt(t) === "ArrowDown", c = nt(t) === "Home", f = nt(t) === "End", g = nt(t) === "Enter", h = nt(t) === "Spacebar", y = this.isVertical && d || !this.isVertical && u, _ = this.isVertical && o || !this.isVertical && r, I = t.key === "A" || t.key === "a", A = ji(t);
+      var l = this, a, r = nt(t) === "ArrowLeft", o = nt(t) === "ArrowUp", u = nt(t) === "ArrowRight", d = nt(t) === "ArrowDown", c = nt(t) === "Home", f = nt(t) === "End", g = nt(t) === "Enter", h = nt(t) === "Spacebar", y = this.isVertical && d || !this.isVertical && u, _ = this.isVertical && o || !this.isVertical && r, I = t.key === "A" || t.key === "a", A = Vi(t);
       if (this.adapter.isRootFocused()) {
         if ((_ || f) && A([]))
           t.preventDefault(), this.focusLastElement();
@@ -11367,7 +11374,7 @@ var Ka = (
               return l.isIndexDisabled(m);
             }
           };
-          Vi(L, this.typeaheadState);
+          ji(L, this.typeaheadState);
         }
         return;
       }
@@ -11425,11 +11432,11 @@ var Ka = (
               return l.isIndexDisabled(S);
             }
           };
-          Vi(L, this.typeaheadState);
+          ji(L, this.typeaheadState);
         }
       }
     }, e.prototype.handleClick = function(t, i, s) {
-      var l, a = ji(s);
+      var l, a = Vi(s);
       t !== ze.UNSET_INDEX && (this.isIndexDisabled(t) || (a([]) ? (this.isSelectableList() && this.setSelectedIndexOnAction(t, i), this.adapter.notifyAction(t)) : this.isCheckboxList && a(["Shift"]) && (this.toggleCheckboxRange((l = this.lastSelectedIndex) !== null && l !== void 0 ? l : t, t, t), this.adapter.notifyAction(t))));
     }, e.prototype.focusNextElement = function(t) {
       var i = this.adapter.getListItemCount(), s = t, l = null;
@@ -11562,9 +11569,9 @@ var Ka = (
           return l.isIndexDisabled(r);
         }
       };
-      return Vn(a, this.typeaheadState);
+      return jn(a, this.typeaheadState);
     }, e.prototype.typeaheadInitSortedIndex = function() {
-      return ja(this.adapter.getListItemCount(), this.adapter.getPrimaryTextAtIndex);
+      return Va(this.adapter.getListItemCount(), this.adapter.getPrimaryTextAtIndex);
     }, e.prototype.clearTypeaheadBuffer = function() {
       gs(this.typeaheadState);
     }, e;
@@ -11860,7 +11867,7 @@ var Kt = {
   MENU_SELECTED_LIST_ITEM: "mdc-menu-item--selected",
   MENU_SELECTION_GROUP: "mdc-menu__selection-group",
   ROOT: "mdc-menu"
-}, jt = {
+}, Vt = {
   ARIA_CHECKED_ATTR: "aria-checked",
   ARIA_DISABLED_ATTR: "aria-disabled",
   CHECKBOX_SELECTOR: 'input[type="checkbox"]',
@@ -11911,7 +11918,7 @@ var Qa = (
       configurable: !0
     }), Object.defineProperty(e, "strings", {
       get: function() {
-        return jt;
+        return Vt;
       },
       enumerable: !1,
       configurable: !0
@@ -11977,7 +11984,7 @@ var Qa = (
       var i = this, s = this.adapter.getElementIndex(t);
       if (!(s < 0)) {
         this.adapter.notifySelected({ index: s });
-        var l = this.adapter.getAttributeFromElementAtIndex(s, jt.SKIP_RESTORE_FOCUS) === "true";
+        var l = this.adapter.getAttributeFromElementAtIndex(s, Vt.SKIP_RESTORE_FOCUS) === "true";
         this.adapter.closeSurface(l), this.closeAnimationEndTimerId = setTimeout(function() {
           var a = i.adapter.getElementIndex(t);
           a >= 0 && i.adapter.isSelectableItemAtIndex(a) && i.setSelectedIndex(a);
@@ -12005,9 +12012,9 @@ var Qa = (
       if (this.validatedIndex(t), !this.adapter.isSelectableItemAtIndex(t))
         throw new Error("MDCMenuFoundation: No selection group at specified index.");
       var i = this.adapter.getSelectedSiblingOfItemAtIndex(t);
-      i >= 0 && (this.adapter.removeAttributeFromElementAtIndex(i, jt.ARIA_CHECKED_ATTR), this.adapter.removeClassFromElementAtIndex(i, Kt.MENU_SELECTED_LIST_ITEM)), this.adapter.addClassToElementAtIndex(t, Kt.MENU_SELECTED_LIST_ITEM), this.adapter.addAttributeToElementAtIndex(t, jt.ARIA_CHECKED_ATTR, "true"), this.selectedIndex = t;
+      i >= 0 && (this.adapter.removeAttributeFromElementAtIndex(i, Vt.ARIA_CHECKED_ATTR), this.adapter.removeClassFromElementAtIndex(i, Kt.MENU_SELECTED_LIST_ITEM)), this.adapter.addClassToElementAtIndex(t, Kt.MENU_SELECTED_LIST_ITEM), this.adapter.addAttributeToElementAtIndex(t, Vt.ARIA_CHECKED_ATTR, "true"), this.selectedIndex = t;
     }, e.prototype.setEnabled = function(t, i) {
-      this.validatedIndex(t), i ? (this.adapter.removeClassFromElementAtIndex(t, be.LIST_ITEM_DISABLED_CLASS), this.adapter.addAttributeToElementAtIndex(t, jt.ARIA_DISABLED_ATTR, "false")) : (this.adapter.addClassToElementAtIndex(t, be.LIST_ITEM_DISABLED_CLASS), this.adapter.addAttributeToElementAtIndex(t, jt.ARIA_DISABLED_ATTR, "true"));
+      this.validatedIndex(t), i ? (this.adapter.removeClassFromElementAtIndex(t, be.LIST_ITEM_DISABLED_CLASS), this.adapter.addAttributeToElementAtIndex(t, Vt.ARIA_DISABLED_ATTR, "false")) : (this.adapter.addClassToElementAtIndex(t, be.LIST_ITEM_DISABLED_CLASS), this.adapter.addAttributeToElementAtIndex(t, Vt.ARIA_DISABLED_ATTR, "true"));
     }, e.prototype.validatedIndex = function(t) {
       var i = this.adapter.getMenuItemCount(), s = t >= 0 && t < i;
       if (!s)
@@ -12217,7 +12224,7 @@ function Ya(n, e, t) {
   let s = ge(e, i), { $$slots: l = {}, $$scope: a } = e;
   var r, o, u;
   const d = Je(Be());
-  let { use: c = [] } = e, { class: f = "" } = e, { style: g = "" } = e, { static: h = !1 } = e, { anchor: y = !0 } = e, { fixed: _ = !1 } = e, { open: I = h } = e, { managed: A = !1 } = e, { fullWidth: C = !1 } = e, { quickOpen: L = !1 } = e, { anchorElement: O = void 0 } = e, { anchorCorner: T = void 0 } = e, { anchorMargin: m = { top: 0, right: 0, bottom: 0, left: 0 } } = e, { maxHeight: S = 0 } = e, { horizontallyCenteredOnViewport: q = !1 } = e, { openBottomBias: w = 0 } = e, { neverRestoreFocus: p = !1 } = e, k, b, v = {}, V = {}, G;
+  let { use: c = [] } = e, { class: f = "" } = e, { style: g = "" } = e, { static: h = !1 } = e, { anchor: y = !0 } = e, { fixed: _ = !1 } = e, { open: I = h } = e, { managed: A = !1 } = e, { fullWidth: C = !1 } = e, { quickOpen: L = !1 } = e, { anchorElement: O = void 0 } = e, { anchorCorner: T = void 0 } = e, { anchorMargin: m = { top: 0, right: 0, bottom: 0, left: 0 } } = e, { maxHeight: S = 0 } = e, { horizontallyCenteredOnViewport: q = !1 } = e, { openBottomBias: w = 0 } = e, { neverRestoreFocus: p = !1 } = e, k, b, v = {}, j = {}, G;
   we("SMUI:list:role", "menu"), we("SMUI:list:item:role", "menuitem");
   const ae = qt;
   pt(() => (t(7, b = new ps({
@@ -12240,7 +12247,7 @@ function Ya(n, e, t) {
     isElementInContainer: (P) => k.contains(P),
     isRtl: () => getComputedStyle(k).getPropertyValue("direction") === "rtl",
     setTransformOrigin: (P) => {
-      t(9, V["transform-origin"] = P, V);
+      t(9, j["transform-origin"] = P, j);
     },
     isFocused: () => document.activeElement === k,
     saveFocus: () => {
@@ -12268,10 +12275,10 @@ function Ya(n, e, t) {
       y: window.pageYOffset
     }),
     setPosition: (P) => {
-      t(9, V.left = "left" in P ? `${P.left}px` : "", V), t(9, V.right = "right" in P ? `${P.right}px` : "", V), t(9, V.top = "top" in P ? `${P.top}px` : "", V), t(9, V.bottom = "bottom" in P ? `${P.bottom}px` : "", V);
+      t(9, j.left = "left" in P ? `${P.left}px` : "", j), t(9, j.right = "right" in P ? `${P.right}px` : "", j), t(9, j.top = "top" in P ? `${P.top}px` : "", j), t(9, j.bottom = "bottom" in P ? `${P.bottom}px` : "", j);
     },
     setMaxHeight: (P) => {
-      t(9, V["max-height"] = P, V);
+      t(9, j["max-height"] = P, j);
     }
   })), ye(k, "SMUIMenuSurface:mount", {
     get open() {
@@ -12307,7 +12314,7 @@ function Ya(n, e, t) {
   function Me() {
     return I;
   }
-  function j(D) {
+  function V(D) {
     t(13, I = D);
   }
   function U(D, P) {
@@ -12351,7 +12358,7 @@ function Ya(n, e, t) {
     k,
     b,
     v,
-    V,
+    j,
     d,
     ie,
     s,
@@ -12367,7 +12374,7 @@ function Ya(n, e, t) {
     w,
     p,
     Me,
-    j,
+    V,
     U,
     $,
     ce,
@@ -12603,24 +12610,24 @@ function to(n, e, t) {
   const { closest: o } = gn, u = Je(Be());
   let { use: d = [] } = e, { class: c = "" } = e, { open: f = !1 } = e, g, h, y, _;
   pt(() => (t(3, h = new Qa({
-    addClassToElementAtIndex: (v, V) => {
-      _.addClassForElementIndex(v, V);
+    addClassToElementAtIndex: (v, j) => {
+      _.addClassForElementIndex(v, j);
     },
-    removeClassFromElementAtIndex: (v, V) => {
-      _.removeClassForElementIndex(v, V);
+    removeClassFromElementAtIndex: (v, j) => {
+      _.removeClassForElementIndex(v, j);
     },
-    addAttributeToElementAtIndex: (v, V, G) => {
-      _.setAttributeForElementIndex(v, V, G);
+    addAttributeToElementAtIndex: (v, j, G) => {
+      _.setAttributeForElementIndex(v, j, G);
     },
-    removeAttributeFromElementAtIndex: (v, V) => {
-      _.removeAttributeForElementIndex(v, V);
+    removeAttributeFromElementAtIndex: (v, j) => {
+      _.removeAttributeForElementIndex(v, j);
     },
-    getAttributeFromElementAtIndex: (v, V) => _.getAttributeFromElementIndex(v, V),
-    elementContainsClass: (v, V) => v.classList.contains(V),
+    getAttributeFromElementAtIndex: (v, j) => _.getAttributeFromElementIndex(v, j),
+    elementContainsClass: (v, j) => v.classList.contains(j),
     closeSurface: (v) => {
       y.closeProgrammatic(v), ye(q(), "SMUIMenu:closedProgrammatically");
     },
-    getElementIndex: (v) => _.getOrderedList().map((V) => V.element).indexOf(v),
+    getElementIndex: (v) => _.getOrderedList().map((j) => j.element).indexOf(v),
     notifySelected: (v) => ye(
       q(),
       "SMUIMenu:selected",
@@ -12636,8 +12643,8 @@ function to(n, e, t) {
     focusListRoot: () => "focus" in _.element && _.element.focus(),
     isSelectableItemAtIndex: (v) => !!o(_.getOrderedList()[v].element, `.${Kt.MENU_SELECTION_GROUP}`),
     getSelectedSiblingOfItemAtIndex: (v) => {
-      const V = _.getOrderedList(), G = o(V[v].element, `.${Kt.MENU_SELECTION_GROUP}`), ae = G == null ? void 0 : G.querySelector(`.${Kt.MENU_SELECTED_LIST_ITEM}`);
-      return ae ? V.map((B) => B.element).indexOf(ae) : -1;
+      const j = _.getOrderedList(), G = o(j[v].element, `.${Kt.MENU_SELECTION_GROUP}`), ae = G == null ? void 0 : G.querySelector(`.${Kt.MENU_SELECTED_LIST_ITEM}`);
+      return ae ? j.map((B) => B.element).indexOf(ae) : -1;
     }
   })), ye(q(), "SMUIMenu:mount", h), h.init(), () => {
     h.destroy();
@@ -12997,11 +13004,11 @@ function io(n) {
       4096 && l !== (l = /*component*/
       r[12])) {
         if (e) {
-          Ve();
+          je();
           const u = e;
           M(u.$$.fragment, 1, 0, () => {
             Y(u, 1);
-          }), je();
+          }), Ve();
         }
         l ? (e = mt(l, a(r, o)), r[43](e), e.$on(
           "keydown",
@@ -13162,9 +13169,9 @@ function so(n, e, t) {
   let s = ge(e, i), { $$slots: l = {}, $$scope: a } = e;
   var r;
   const { closest: o, matches: u } = gn, d = Je(Be());
-  let { use: c = [] } = e, { class: f = "" } = e, { nonInteractive: g = !1 } = e, { dense: h = !1 } = e, { textualList: y = !1 } = e, { avatarList: _ = !1 } = e, { iconList: I = !1 } = e, { imageList: A = !1 } = e, { thumbnailList: C = !1 } = e, { videoList: L = !1 } = e, { twoLine: O = !1 } = e, { threeLine: T = !1 } = e, { vertical: m = !0 } = e, { wrapFocus: S = (r = Ge("SMUI:list:wrapFocus")) !== null && r !== void 0 ? r : !1 } = e, { singleSelection: q = !1 } = e, { disabledItemsFocusable: w = !1 } = e, { selectedIndex: p = -1 } = e, { radioList: k = !1 } = e, { checkList: b = !1 } = e, { hasTypeahead: v = !1 } = e, V, G, ae = [], B = Ge("SMUI:list:role"), R = Ge("SMUI:list:nav");
+  let { use: c = [] } = e, { class: f = "" } = e, { nonInteractive: g = !1 } = e, { dense: h = !1 } = e, { textualList: y = !1 } = e, { avatarList: _ = !1 } = e, { iconList: I = !1 } = e, { imageList: A = !1 } = e, { thumbnailList: C = !1 } = e, { videoList: L = !1 } = e, { twoLine: O = !1 } = e, { threeLine: T = !1 } = e, { vertical: m = !0 } = e, { wrapFocus: S = (r = Ge("SMUI:list:wrapFocus")) !== null && r !== void 0 ? r : !1 } = e, { singleSelection: q = !1 } = e, { disabledItemsFocusable: w = !1 } = e, { selectedIndex: p = -1 } = e, { radioList: k = !1 } = e, { checkList: b = !1 } = e, { hasTypeahead: v = !1 } = e, j, G, ae = [], B = Ge("SMUI:list:role"), R = Ge("SMUI:list:nav");
   const z = /* @__PURE__ */ new WeakMap();
-  let fe = Ge("SMUI:dialog:selection"), ie = Ge("SMUI:addLayoutListener"), Me, { component: j = gt } = e, { tag: U = j === gt ? R ? "nav" : "ul" : void 0 } = e;
+  let fe = Ge("SMUI:dialog:selection"), ie = Ge("SMUI:addLayoutListener"), Me, { component: V = gt } = e, { tag: U = V === gt ? R ? "nav" : "ul" : void 0 } = e;
   we("SMUI:list:nonInteractive", g), we("SMUI:separator:context", "list"), B || (q ? (B = "listbox", we("SMUI:list:item:role", "option")) : k ? (B = "radiogroup", we("SMUI:list:item:role", "radio")) : b ? (B = "group", we("SMUI:list:item:role", "checkbox")) : (B = "list", we("SMUI:list:item:role", void 0))), ie && (Me = ie($e)), pt(() => {
     t(41, G = new Ka({
       addClassForElementIndex: N,
@@ -13189,14 +13196,14 @@ function so(n, e, t) {
         const Pe = He()[ee];
         return (ne = (Pe == null ? void 0 : Pe.hasCheckbox) && Pe.checked) !== null && ne !== void 0 ? ne : !1;
       },
-      isFocusInsideList: () => V != null && bt() !== document.activeElement && bt().contains(document.activeElement),
-      isRootFocused: () => V != null && document.activeElement === bt(),
+      isFocusInsideList: () => j != null && bt() !== document.activeElement && bt().contains(document.activeElement),
+      isRootFocused: () => j != null && document.activeElement === bt(),
       listItemAtIndexHasClass: ut,
       notifyAction: (ee) => {
-        t(26, p = ee), V != null && ye(bt(), "SMUIList:action", { index: ee }, void 0, !0);
+        t(26, p = ee), j != null && ye(bt(), "SMUIList:action", { index: ee }, void 0, !0);
       },
       notifySelectionChange: (ee) => {
-        V != null && ye(bt(), "SMUIList:selectionChange", { changedIndices: ee });
+        j != null && ye(bt(), "SMUIList:selectionChange", { changedIndices: ee });
       },
       removeClassForElementIndex: de,
       setAttributeForElementIndex: ke,
@@ -13275,7 +13282,7 @@ function so(n, e, t) {
     }
   }
   function He() {
-    return V == null ? [] : [...bt().children].map((H) => z.get(H)).filter((H) => H && H._smui_list_item_accessor);
+    return j == null ? [] : [...bt().children].map((H) => z.get(H)).filter((H) => H && H._smui_list_item_accessor);
   }
   function ut(H, ee) {
     var ne;
@@ -13331,15 +13338,15 @@ function so(n, e, t) {
     ee && "focus" in ee.element && ee.element.focus();
   }
   function bt() {
-    return V.getElement();
+    return j.getElement();
   }
   function In(H) {
     ue[H ? "unshift" : "push"](() => {
-      V = H, t(14, V);
+      j = H, t(14, j);
     });
   }
   return n.$$set = (H) => {
-    e = X(X({}, e), Qe(H)), t(25, s = ge(e, i)), "use" in H && t(0, c = H.use), "class" in H && t(1, f = H.class), "nonInteractive" in H && t(2, g = H.nonInteractive), "dense" in H && t(3, h = H.dense), "textualList" in H && t(4, y = H.textualList), "avatarList" in H && t(5, _ = H.avatarList), "iconList" in H && t(6, I = H.iconList), "imageList" in H && t(7, A = H.imageList), "thumbnailList" in H && t(8, C = H.thumbnailList), "videoList" in H && t(9, L = H.videoList), "twoLine" in H && t(10, O = H.twoLine), "threeLine" in H && t(11, T = H.threeLine), "vertical" in H && t(27, m = H.vertical), "wrapFocus" in H && t(28, S = H.wrapFocus), "singleSelection" in H && t(29, q = H.singleSelection), "disabledItemsFocusable" in H && t(30, w = H.disabledItemsFocusable), "selectedIndex" in H && t(26, p = H.selectedIndex), "radioList" in H && t(31, k = H.radioList), "checkList" in H && t(32, b = H.checkList), "hasTypeahead" in H && t(33, v = H.hasTypeahead), "component" in H && t(12, j = H.component), "tag" in H && t(13, U = H.tag), "$$scope" in H && t(44, a = H.$$scope);
+    e = X(X({}, e), Qe(H)), t(25, s = ge(e, i)), "use" in H && t(0, c = H.use), "class" in H && t(1, f = H.class), "nonInteractive" in H && t(2, g = H.nonInteractive), "dense" in H && t(3, h = H.dense), "textualList" in H && t(4, y = H.textualList), "avatarList" in H && t(5, _ = H.avatarList), "iconList" in H && t(6, I = H.iconList), "imageList" in H && t(7, A = H.imageList), "thumbnailList" in H && t(8, C = H.thumbnailList), "videoList" in H && t(9, L = H.videoList), "twoLine" in H && t(10, O = H.twoLine), "threeLine" in H && t(11, T = H.threeLine), "vertical" in H && t(27, m = H.vertical), "wrapFocus" in H && t(28, S = H.wrapFocus), "singleSelection" in H && t(29, q = H.singleSelection), "disabledItemsFocusable" in H && t(30, w = H.disabledItemsFocusable), "selectedIndex" in H && t(26, p = H.selectedIndex), "radioList" in H && t(31, k = H.radioList), "checkList" in H && t(32, b = H.checkList), "hasTypeahead" in H && t(33, v = H.hasTypeahead), "component" in H && t(12, V = H.component), "tag" in H && t(13, U = H.tag), "$$scope" in H && t(44, a = H.$$scope);
   }, n.$$.update = () => {
     n.$$.dirty[0] & /*vertical*/
     134217728 | n.$$.dirty[1] & /*instance*/
@@ -13366,9 +13373,9 @@ function so(n, e, t) {
     L,
     O,
     T,
-    j,
-    U,
     V,
+    U,
+    j,
     B,
     d,
     fe,
@@ -13892,11 +13899,11 @@ function lo(n) {
       8192 && l !== (l = /*component*/
       r[13])) {
         if (e) {
-          Ve();
+          je();
           const u = e;
           M(u.$$.fragment, 1, 0, () => {
             Y(u, 1);
-          }), je();
+          }), Ve();
         }
         l ? (e = mt(l, a(r, o)), r[35](e), e.$on(
           "click",
@@ -14138,7 +14145,7 @@ function oo(n, e, t) {
   we("SMUI:list:nonInteractive", void 0);
   let { ripple: I = !_ } = e, { wrapper: A = !1 } = e, { activated: C = !1 } = e, { role: L = A ? "presentation" : Ge("SMUI:list:item:role") } = e;
   we("SMUI:list:item:role", void 0);
-  let { selected: O = !1 } = e, { disabled: T = !1 } = e, { skipRestoreFocus: m = !1 } = e, { tabindex: S = d } = e, { inputId: q = "SMUI-form-field-list-" + ao++ } = e, { href: w = void 0 } = e, p, k = {}, b = {}, v = {}, V, G, ae = Ge("SMUI:list:item:nav"), { component: B = gt } = e, { tag: R = B === gt ? ae ? w ? "a" : "span" : "li" : void 0 } = e;
+  let { selected: O = !1 } = e, { disabled: T = !1 } = e, { skipRestoreFocus: m = !1 } = e, { tabindex: S = d } = e, { inputId: q = "SMUI-form-field-list-" + ao++ } = e, { href: w = void 0 } = e, p, k = {}, b = {}, v = {}, j, G, ae = Ge("SMUI:list:item:nav"), { component: B = gt } = e, { tag: R = B === gt ? ae ? w ? "a" : "span" : "li" : void 0 } = e;
   we("SMUI:generic:input:props", { id: q }), we("SMUI:separator:context", void 0), pt(() => {
     if (!O && !_) {
       let de = !0, ke = p.getElement();
@@ -14163,29 +14170,29 @@ function oo(n, e, t) {
       hasClass: z,
       addClass: fe,
       removeClass: ie,
-      getAttr: j,
+      getAttr: V,
       addAttr: U,
       removeAttr: $,
       getPrimaryText: P,
       // For inputs within item.
       get checked() {
         var de;
-        return (de = V && V.checked) !== null && de !== void 0 ? de : !1;
+        return (de = j && j.checked) !== null && de !== void 0 ? de : !1;
       },
       set checked(de) {
-        V && t(16, V.checked = !!de, V);
+        j && t(16, j.checked = !!de, j);
       },
       get hasCheckbox() {
-        return !!(V && "_smui_checkbox_accessor" in V);
+        return !!(j && "_smui_checkbox_accessor" in j);
       },
       get hasRadio() {
-        return !!(V && "_smui_radio_accessor" in V);
+        return !!(j && "_smui_radio_accessor" in j);
       },
       activateRipple() {
-        V && V.activateRipple();
+        j && j.activateRipple();
       },
       deactivateRipple() {
-        V && V.deactivateRipple();
+        j && j.deactivateRipple();
       },
       // For select options.
       getValue() {
@@ -14227,7 +14234,7 @@ function oo(n, e, t) {
   function Me(N, de) {
     b[N] != de && (de === "" || de == null ? (delete b[N], t(19, b)) : t(19, b[N] = de, b));
   }
-  function j(N) {
+  function V(N) {
     var de;
     return N in v ? (de = v[N]) !== null && de !== void 0 ? de : null : Oe().getAttribute(N);
   }
@@ -14254,7 +14261,7 @@ function oo(n, e, t) {
     (de || ke) && D(N);
   }
   function xe(N) {
-    ("_smui_checkbox_accessor" in N.detail || "_smui_radio_accessor" in N.detail) && t(16, V = N.detail);
+    ("_smui_checkbox_accessor" in N.detail || "_smui_radio_accessor" in N.detail) && t(16, j = N.detail);
   }
   function D(N) {
     T || ye(Oe(), "SMUI:action", N);
@@ -14275,12 +14282,12 @@ function oo(n, e, t) {
       p = N, t(17, p);
     });
   }
-  const ut = () => t(16, V = void 0);
+  const ut = () => t(16, j = void 0);
   return n.$$set = (N) => {
     e = X(X({}, e), Qe(N)), t(29, l = ge(e, s)), "use" in N && t(2, f = N.use), "class" in N && t(3, g = N.class), "style" in N && t(4, h = N.style), "color" in N && t(5, y = N.color), "nonInteractive" in N && t(6, _ = N.nonInteractive), "ripple" in N && t(7, I = N.ripple), "wrapper" in N && t(8, A = N.wrapper), "activated" in N && t(1, C = N.activated), "role" in N && t(9, L = N.role), "selected" in N && t(0, O = N.selected), "disabled" in N && t(10, T = N.disabled), "skipRestoreFocus" in N && t(11, m = N.skipRestoreFocus), "tabindex" in N && t(30, S = N.tabindex), "inputId" in N && t(31, q = N.inputId), "href" in N && t(12, w = N.href), "component" in N && t(13, B = N.component), "tag" in N && t(14, R = N.tag), "$$scope" in N && t(37, r = N.$$scope);
   }, n.$$.update = () => {
     n.$$.dirty[0] & /*tabindexProp, nonInteractive, disabled, selected, input*/
-    1073808449 && t(21, i = c(S) ? !_ && !T && (O || V && V.checked) ? 0 : -1 : S);
+    1073808449 && t(21, i = c(S) ? !_ && !T && (O || j && j.checked) ? 0 : -1 : S);
   }, [
     O,
     C,
@@ -14298,7 +14305,7 @@ function oo(n, e, t) {
     B,
     R,
     D,
-    V,
+    j,
     p,
     k,
     b,
@@ -15043,9 +15050,9 @@ function Oo(n) {
     },
     p(o, u) {
       let d = e;
-      e = r(o), e === d ? a[e].p(o, u) : (Ve(), M(a[d], 1, 1, () => {
+      e = r(o), e === d ? a[e].p(o, u) : (je(), M(a[d], 1, 1, () => {
         a[d] = null;
-      }), je(), t = a[e], t ? t.p(o, u) : (t = a[e] = l[e](o), t.c()), F(t, 1), t.m(i.parentNode, i));
+      }), Ve(), t = a[e], t ? t.p(o, u) : (t = a[e] = l[e](o), t.c()), F(t, 1), t.m(i.parentNode, i));
     },
     i(o) {
       s || (F(t), s = !0);
@@ -15242,7 +15249,7 @@ function Uo(n) {
     props: {
       variant: "outlined",
       label: "Disable",
-      $$slots: { default: [jo] },
+      $$slots: { default: [Vo] },
       $$scope: { ctx: n }
     }
   }), e.$on(
@@ -15389,7 +15396,7 @@ function wo(n) {
     }
   };
 }
-function Vo(n) {
+function jo(n) {
   let e, t;
   return e = new bs({
     props: {
@@ -15419,7 +15426,7 @@ function Vo(n) {
     }
   };
 }
-function jo(n) {
+function Vo(n) {
   let e, t, i = {
     open: (
       /*menuStates*/
@@ -15430,7 +15437,7 @@ function jo(n) {
     ),
     anchorCorner: "BOTTOM_LEFT",
     style: "left: -70px;",
-    $$slots: { default: [Vo] },
+    $$slots: { default: [jo] },
     $$scope: { ctx: n }
   };
   return e = new _s({ props: i }), n[14](e), {
@@ -15532,10 +15539,10 @@ function zo(n) {
         /*plugin*/
         b[1]
       ))) && se(I, "title", L);
-      let V = m;
-      m = k(b, v), m === V ? p[m].p(b, v) : (Ve(), M(p[V], 1, 1, () => {
-        p[V] = null;
-      }), je(), S = p[m], S ? S.p(b, v) : (S = p[m] = w[m](b), S.c()), F(S, 1), S.m(e, null));
+      let j = m;
+      m = k(b, v), m === j ? p[m].p(b, v) : (je(), M(p[j], 1, 1, () => {
+        p[j] = null;
+      }), Ve(), S = p[m], S ? S.p(b, v) : (S = p[m] = w[m](b), S.c()), F(S, 1), S.m(e, null));
     },
     i(b) {
       q || (F(S), q = !0);
@@ -15589,7 +15596,7 @@ function Ko(n, e, t) {
     t(0, u = b), d(p, !0), console.log("Uninstalled external plugin:", p.name);
   }
   function g(p, k) {
-    const b = o, v = b.find((V) => V.name === p.name);
+    const b = o, v = b.find((j) => j.name === p.name);
     v && (v.installed = k), t(0, u = b), p.installed = k, d(p), console.log("Set toggle state for", p.name);
   }
   let h;
@@ -15814,7 +15821,7 @@ function Ji(n) {
   let e;
   return {
     c() {
-      e = te("div"), e.textContent = "No plugins found.", se(e, "class", "mdc-typography--body2"), jn(e, "margin-top", "1em");
+      e = te("div"), e.textContent = "No plugins found.", se(e, "class", "mdc-typography--body2"), Vn(e, "margin-top", "1em");
     },
     m(t, i) {
       K(t, e, i);
@@ -15882,7 +15889,7 @@ function xi(n) {
   let e;
   return {
     c() {
-      e = te("div"), e.textContent = "No plugins found.", se(e, "class", "mdc-typography--body2"), jn(e, "margin-top", "1em");
+      e = te("div"), e.textContent = "No plugins found.", se(e, "class", "mdc-typography--body2"), Vn(e, "margin-top", "1em");
     },
     m(t, i) {
       K(t, e, i);
@@ -15950,7 +15957,7 @@ function es(n) {
   let e;
   return {
     c() {
-      e = te("div"), e.textContent = "No plugins found.", se(e, "class", "mdc-typography--body2"), jn(e, "margin-top", "1em");
+      e = te("div"), e.textContent = "No plugins found.", se(e, "class", "mdc-typography--body2"), Vn(e, "margin-top", "1em");
     },
     m(t, i) {
       K(t, e, i);
@@ -15987,7 +15994,7 @@ function Yo(n) {
   ), v = [];
   for (let U = 0; U < b.length; U += 1)
     v[U] = Zi(Qi(n, b, U));
-  const V = (U) => M(v[U], 1, 1, () => {
+  const j = (U) => M(v[U], 1, 1, () => {
     v[U] = null;
   });
   let G = (
@@ -16014,7 +16021,7 @@ function Yo(n) {
   const Me = (U) => M(ie[U], 1, 1, () => {
     ie[U] = null;
   });
-  let j = (
+  let V = (
     /*validatorPlugins*/
     n[5].length === 0 && es()
   );
@@ -16029,7 +16036,7 @@ function Yo(n) {
       C = le(), z && z.c(), L = le(), O = te("plugin-store-items--category"), O.innerHTML = '<strong><div class="mdc-typography--headline6">Validator</div></strong> <hr class="plugin-store-items--divider svelte-11wvjm6"/>', T = le();
       for (let U = 0; U < ie.length; U += 1)
         ie[U].c();
-      m = le(), j && j.c(), vt(i, "class", "svelte-11wvjm6"), vt(t, "class", "svelte-11wvjm6"), vt(g, "class", "svelte-11wvjm6"), vt(I, "class", "svelte-11wvjm6"), vt(O, "class", "svelte-11wvjm6"), vt(f, "class", "svelte-11wvjm6"), vt(e, "class", "svelte-11wvjm6");
+      m = le(), V && V.c(), vt(i, "class", "svelte-11wvjm6"), vt(t, "class", "svelte-11wvjm6"), vt(g, "class", "svelte-11wvjm6"), vt(I, "class", "svelte-11wvjm6"), vt(O, "class", "svelte-11wvjm6"), vt(f, "class", "svelte-11wvjm6"), vt(e, "class", "svelte-11wvjm6");
     },
     m(U, $) {
       K(U, e, $), Q(e, t), Q(t, i), J(s, i, null), Q(i, a), J(r, i, null), Q(t, o), J(u, t, null), Q(e, c), Q(e, f), Q(f, g), Q(f, h);
@@ -16041,7 +16048,7 @@ function Yo(n) {
       Q(f, C), z && z.m(f, null), Q(f, L), Q(f, O), Q(f, T);
       for (let ce = 0; ce < ie.length; ce += 1)
         ie[ce] && ie[ce].m(f, null);
-      Q(f, m), j && j.m(f, null), n[12](e), S = !0;
+      Q(f, m), V && V.m(f, null), n[12](e), S = !0;
     },
     p(U, $) {
       const ce = {};
@@ -16065,9 +16072,9 @@ function Yo(n) {
           const P = Qi(U, b, D);
           v[D] ? (v[D].p(P, $), F(v[D], 1)) : (v[D] = Zi(P), v[D].c(), F(v[D], 1), v[D].m(f, y));
         }
-        for (Ve(), D = b.length; D < v.length; D += 1)
-          V(D);
-        je();
+        for (je(), D = b.length; D < v.length; D += 1)
+          j(D);
+        Ve();
       }
       if (/*editorPlugins*/
       U[7].length === 0 ? G || (G = Ji(), G.c(), G.m(f, _)) : G && (G.d(1), G = null), $ & /*menuPlugins, filteredPlugins, storedPlugins, localPlugins, pluginStore*/
@@ -16081,9 +16088,9 @@ function Yo(n) {
           const P = Xi(U, ae, D);
           B[D] ? (B[D].p(P, $), F(B[D], 1)) : (B[D] = Yi(P), B[D].c(), F(B[D], 1), B[D].m(f, C));
         }
-        for (Ve(), D = ae.length; D < B.length; D += 1)
+        for (je(), D = ae.length; D < B.length; D += 1)
           R(D);
-        je();
+        Ve();
       }
       if (/*menuPlugins*/
       U[6].length === 0 ? z || (z = xi(), z.c(), z.m(f, L)) : z && (z.d(1), z = null), $ & /*validatorPlugins, filteredPlugins, storedPlugins, localPlugins, pluginStore*/
@@ -16097,12 +16104,12 @@ function Yo(n) {
           const P = Ki(U, fe, D);
           ie[D] ? (ie[D].p(P, $), F(ie[D], 1)) : (ie[D] = $i(P), ie[D].c(), F(ie[D], 1), ie[D].m(f, m));
         }
-        for (Ve(), D = fe.length; D < ie.length; D += 1)
+        for (je(), D = fe.length; D < ie.length; D += 1)
           Me(D);
-        je();
+        Ve();
       }
       /*validatorPlugins*/
-      U[5].length === 0 ? j || (j = es(), j.c(), j.m(f, null)) : j && (j.d(1), j = null);
+      U[5].length === 0 ? V || (V = es(), V.c(), V.m(f, null)) : V && (V.d(1), V = null);
     },
     i(U) {
       if (!S) {
@@ -16129,7 +16136,7 @@ function Yo(n) {
       S = !1;
     },
     d(U) {
-      U && W(e), Y(s), Y(r), Y(u), Cn(v, U), G && G.d(), Cn(B, U), z && z.d(), Cn(ie, U), j && j.d(), n[12](null);
+      U && W(e), Y(s), Y(r), Y(u), Cn(v, U), G && G.d(), Cn(B, U), z && z.d(), Cn(ie, U), V && V.d(), n[12](null);
     }
   };
 }
