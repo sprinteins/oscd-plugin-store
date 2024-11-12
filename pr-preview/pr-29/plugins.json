@@ -1,0 +1,39 @@
+{
+	"plugins": [
+		{
+			"name": "Communication Explorer",
+			"author": "SprintEins",
+			"src": "https://sprinteins.github.io/oscd-plugins/communication-explorer/index.js",
+			"kind": "editor",
+			"description": "The Communication Explorer is used to display an overview of all communication in the network to give users an overview. It is possible to see the communication of message types such as MMS, Goose and Sampled Values between IEDs. It is also possible to see which IEDs are publishers and/or subscribers."
+		},
+		{
+			"name": "Documentation",
+			"author": "SprintEins",
+			"src": "https://sprinteins.github.io/oscd-plugins/documentation/index.js",
+			"kind": "editor",
+			"description": "The Documentation Plugin enables users to generate documentation for communication in the network as a PDF. These can be used, for example, for viewing, training and storage in the substation. The plugin uses the communication display from the Communication Explorer for this purpose."
+		},
+		{
+			"name": "Network Explorer",
+			"author": "SprintEins",
+			"src": "https://sprinteins.github.io/oscd-plugins/network-explorer/index.js",
+			"kind": "editor",
+			"description": "The Network Explorer is used to map and edit the physical elements in the network. It is possible to add, edit and delete cables and IEDs via the Network Explorer. Corresponding ports can be assigned in the IEDs for this purpose."
+		},
+		{
+			"name": "Type Switcher",
+			"author": "SprintEins",
+			"src": "https://sprinteins.github.io/oscd-plugins/type-switcher/index.js",
+			"kind": "editor",
+			"description": "When working with OpenSCD, various plug-ins can create unlinked and redundant elements. The Type Switcher makes it possible to link these unlinked elements correctly and then remove the redundancies using the Cleanup plugin. Elements to be linked can be Logical Node Types, Data Object Types, Data Attribute Types and Enum Types."
+		},
+		{
+			"name": "Type Designer",
+			"author": "SprintEins",
+			"src": "https://sprinteins.github.io/oscd-plugins/type-designer/index.js",
+			"kind": "editor",
+			"description": "The Type Designer plugin for OpenSCD simplifies the creation and management of types elements in SCL file."
+		}
+	]
+}
