@@ -34,6 +34,6 @@
 			"src": "https://sprinteins.github.io/oscd-plugins/type-designer/index.js",
 			"kind": "editor",
 			"description": "The Type Designer plugin for OpenSCD simplifies the creation and management of types elements in SCL file."
-	}
+		}
 	]
 }
