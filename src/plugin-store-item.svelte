@@ -2,23 +2,7 @@
 import Menu from "@smui/menu";
 import { Button, SplitButton } from "./components/button";
 import List, { Item, Text } from "@smui/list";
-
-type PluginKind = "editor" | "menu" | "validator";
-const menuPosition = ["top", "middle", "bottom"] as const;
-type MenuPosition = (typeof menuPosition)[number];
-
-type Plugin = {
-	name: string;
-	author?: string;
-	src: string;
-	icon?: string;
-	kind: PluginKind;
-	requireDoc?: boolean;
-	position?: MenuPosition;
-	installed: boolean;
-	official?: boolean;
-	description?: string;
-};
+import { getStoredPlugins, type Plugin, type PluginKind } from "./plugin-store";
 
 type ConfigurePluginDetail = {
 	name: string;
@@ -32,7 +16,6 @@ export let filteredPlugins: Plugin[];
 export let pluginStore: Element;
 export let plugin: Plugin;
 export let index: number;
-export let storedPlugins: Plugin[];
 export let localPlugins: Plugin[];
 
 function dispatchConfigurePlugin(plugin: Plugin, shouldDelete = false) {
@@ -53,13 +36,13 @@ function dispatchConfigurePlugin(plugin: Plugin, shouldDelete = false) {
 }
 
 function installExternalPlugin(plugin: Plugin) {
-	const currentPlugins = storedPlugins;
+	const currentPlugins = getStoredPlugins();
 
 	const pluginCopy = { ...plugin };
 	pluginCopy.installed = true;
 	currentPlugins.push(pluginCopy);
 
-	localPlugins = currentPlugins;
+	localPlugins = currentPlugins; 
 
 	dispatchConfigurePlugin(pluginCopy);
 	console.log("Installed external plugin:", plugin.name);
@@ -67,7 +50,7 @@ function installExternalPlugin(plugin: Plugin) {
 
 // Completely removes plugin from local browser cache.
 function uninstallExternalPlugin(plugin: Plugin) {
-	const currentPlugins = storedPlugins;
+	const currentPlugins = getStoredPlugins();
 	const updatedPlugins = currentPlugins.filter((it) => it.name !== plugin.name);
 	localPlugins = updatedPlugins;
 
@@ -77,7 +60,7 @@ function uninstallExternalPlugin(plugin: Plugin) {
 
 // Enables/disables plugin by toggling the "installed" property.
 function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
-	const currentPlugins = storedPlugins;
+	const currentPlugins = getStoredPlugins();
 	const foundPlugin = currentPlugins.find((it) => it.name === plugin.name);
 	if (foundPlugin) {
 		foundPlugin.installed = isEnabled;
