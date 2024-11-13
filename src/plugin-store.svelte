@@ -191,7 +191,7 @@ function getTagline(plugin: Plugin) {
 }
 
 function getPluginAuthor(plugin: Plugin) {
-	return plugin.official ? "Built-in" : plugin.author;
+	return plugin.official ? "Built-in" : (plugin.author || "External");
 }
 
 function getPluginSource(plugin: Plugin) {
