@@ -206,7 +206,7 @@ function openPluginDownloadUI() {
     document.dispatchEvent(new Event("open-plugin-download"));
 }
 
-document.addEventListener("external-plugin-add", () => {
+document.addEventListener("add-external-plugin", () => {
     localPlugins = storedPlugins();
 })
 // #endregion
