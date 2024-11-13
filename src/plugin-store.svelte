@@ -205,6 +205,10 @@ function getPluginDescription(plugin: Plugin) {
 function openPluginDownloadUI() {
     document.dispatchEvent(new Event("open-plugin-download"));
 }
+
+document.addEventListener("external-plugin-add", () => {
+    localPlugins = storedPlugins();
+})
 // #endregion
 </script>
 
