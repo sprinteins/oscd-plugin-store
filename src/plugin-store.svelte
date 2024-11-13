@@ -9,35 +9,12 @@ import IconButton from "@smui/icon-button";
 import Dialog, { Header, Title, Content, Actions } from "@smui/dialog";
 import { plugins as externalPlugins } from "../public/plugins.json";
 import PluginStoreItem from "./plugin-store-item.svelte";
+import type { Plugin } from "./plugin-store";
+import { getStoredPlugins as storedPlugins } from "./plugin-store";
 
 const isRestricted = !import.meta.env.VITE_EXTERNAL_PLUGINS === true;
 
 export let isOpen: boolean;
-
-// #region Plugin
-
-type PluginKind = "editor" | "menu" | "validator";
-const menuPosition = ["top", "middle", "bottom"] as const;
-type MenuPosition = (typeof menuPosition)[number];
-
-type Plugin = {
-	name: string;
-	author?: string;
-	src: string;
-	icon?: string;
-	kind: PluginKind;
-	requireDoc?: boolean;
-	position?: MenuPosition;
-	installed: boolean;
-	official?: boolean;
-	description?: string;
-};
-
-function storedPlugins(): Plugin[] {
-	return <Plugin[]>(
-		JSON.parse(localStorage.getItem("plugins") ?? "[]", (key, value) => value)
-	);
-}
 
 let showOnlyInstalled = false;
 let searchFilter = "";
@@ -97,12 +74,8 @@ $: editorPlugins = filteredPlugins.filter((it) => it.kind === "editor");
 $: menuPlugins = filteredPlugins.filter((it) => it.kind === "menu");
 $: validatorPlugins = filteredPlugins.filter((it) => it.kind === "validator");
 
-// #endregion
-
-// #region UI
 let pluginStore: Element;
 
-// #endregion
 </script>
 
 <Theme>
@@ -147,7 +120,6 @@ let pluginStore: Element;
                          plugin={plugin}
                          index={index}
                          filteredPlugins={filteredPlugins} 
-                         storedPlugins={storedPlugins()} 
                          bind:localPlugins={localPlugins} 
                          pluginStore={pluginStore}/> 
                     {/each}
@@ -165,8 +137,7 @@ let pluginStore: Element;
                          plugin={plugin}
                          index={index}
                          filteredPlugins={filteredPlugins} 
-                         storedPlugins={storedPlugins()} 
-                         localPlugins={localPlugins} 
+                         bind:localPlugins={localPlugins} 
                          pluginStore={pluginStore}/> 
                     {/each}
                     {#if menuPlugins.length === 0}
@@ -183,8 +154,7 @@ let pluginStore: Element;
                          plugin={plugin}
                          index={index}
                          filteredPlugins={filteredPlugins} 
-                         storedPlugins={storedPlugins()} 
-                         localPlugins={localPlugins} 
+                         bind:localPlugins={localPlugins} 
                          pluginStore={pluginStore}/> 
                     {/each}
                     {#if validatorPlugins.length === 0}
