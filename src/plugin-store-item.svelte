@@ -2,7 +2,7 @@
 import Menu from "@smui/menu";
 import { Button, SplitButton } from "./components/button";
 import List, { Item, Text } from "@smui/list";
-import { getStoredPlugins, type Plugin, type PluginKind } from "./plugin-store";
+import { getStoredPlugins, pluginIcons, type Plugin, type PluginKind } from "./plugin-store";
 
 type ConfigurePluginDetail = {
 	name: string;
@@ -105,24 +105,33 @@ function getPluginAuthor(plugin: Plugin) {
 function getPluginDescription(plugin: Plugin) {
 	return plugin.description || "";
 }
+
+function getPluginIcon(plugin: Plugin) {
+    return plugin.icon || pluginIcons[plugin.kind];
+}
 </script>
 
 <plugin-store-item>
     <plugin-store-item-meta>
-        <div class="mdc-typography--caption">
-            {getTagline(plugin)}
-        </div>
-        <div class="mdc-typography--body1">
-            <strong>{plugin.name}</strong>
-        </div>
-        <div class="mdc-typography--caption">
-            {getPluginSource(plugin)}
-        </div>
-        <div class="mdc-typography--caption plugin-store-item--description">
-            <div title={getPluginDescription(plugin)}>
-                {getPluginDescription(plugin)}
+        <plugin-store-item-meta--icon>
+            <mwc-icon>{getPluginIcon(plugin)}</mwc-icon>
+        </plugin-store-item-meta--icon>
+        <plugin-store-item-meta--wrapper>
+            <div class="mdc-typography--caption">
+                {getTagline(plugin)}
             </div>
-        </div>
+            <div class="mdc-typography--body1">
+                <strong>{plugin.name}</strong>
+            </div>
+            <div class="mdc-typography--caption">
+                {getPluginSource(plugin)}
+            </div>
+            <div class="mdc-typography--caption plugin-store-item--description">
+                <div title={getPluginDescription(plugin)}>
+                    {getPluginDescription(plugin)}
+                </div>
+            </div>
+        </plugin-store-item-meta--wrapper>
     </plugin-store-item-meta>
     {#if plugin.installed}
         {#if plugin.official}
@@ -175,8 +184,27 @@ function getPluginDescription(plugin: Plugin) {
     }
     plugin-store-item-meta {
         display: flex;
+        gap: 1.5em; 
+        width: 100%;
+    }
+    plugin-store-item-meta--icon {
+        display: flex;
+        place-items: center;
+        justify-content: center;
+
+        width: 100%;
+        max-width: 2em;
+
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    plugin-store-item-meta--wrapper {
+        display: flex;
         flex-direction: column;
         gap: 1px;
+        width: 100%;
     }
     .plugin-store-item--description {
         overflow: hidden;
@@ -184,5 +212,6 @@ function getPluginDescription(plugin: Plugin) {
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
         line-clamp: 2;
+        padding-right: 2em;
     }
 </style>
