@@ -16436,7 +16436,7 @@ function ou(n, e, t) {
   }
   let f = $t(), y;
   function b() {
-    y.dispatchEvent(new Event("open-plugin-download"));
+    y.dispatchEvent(new Event("open-plugin-download", { composed: !0, bubbles: !0 }));
   }
   const v = () => t(3, f = $t());
   function C(E) {
