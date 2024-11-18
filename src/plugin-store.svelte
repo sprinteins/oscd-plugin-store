@@ -79,7 +79,10 @@ $: validatorPlugins = filteredPlugins.filter((it) => it.kind === "validator");
 let pluginStore: Element;
 
 function openPluginDownloadUI() {
-    pluginStore.dispatchEvent(new Event("open-plugin-download"));
+    pluginStore.dispatchEvent(new Event("open-plugin-download", {
+        composed: true, 
+        bubbles: true
+    }));
 }
 
 //#endregion
