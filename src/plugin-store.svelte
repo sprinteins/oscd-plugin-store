@@ -74,10 +74,22 @@ $: editorPlugins = filteredPlugins.filter((it) => it.kind === "editor");
 $: menuPlugins = filteredPlugins.filter((it) => it.kind === "menu");
 $: validatorPlugins = filteredPlugins.filter((it) => it.kind === "validator");
 
+//#region UI
+
 let pluginStore: Element;
+
+function openPluginDownloadUI() {
+    pluginStore.dispatchEvent(new Event("open-plugin-download", {
+        composed: true, 
+        bubbles: true
+    }));
+}
+
+//#endregion
 
 </script>
 
+<svelte:document on:add-external-plugin={() => localPlugins = storedPlugins()}/>
 <Theme>
     <Dialog
         bind:open={isOpen}
@@ -166,9 +178,14 @@ let pluginStore: Element;
             </plugin-store>
         </Content>
         <Actions>
-            <SMUIButton action="accept">
-                <Label>Close</Label>
-            </SMUIButton>
+            <plugin-store-action-buttons>
+                <SMUIButton action="" disabled={isRestricted} on:click={() => openPluginDownloadUI()}>
+                    <Label>Add External Plugin</Label>
+                </SMUIButton>
+                <SMUIButton action="accept">
+                    <Label>Close</Label>
+                </SMUIButton>
+            </plugin-store-action-buttons>
         </Actions>
     </Dialog>
 </Theme>
@@ -235,5 +252,10 @@ let pluginStore: Element;
         background: black;
         opacity: 0.1;
         margin-bottom: 0;
+    }
+    plugin-store-action-buttons {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
     }
 </style>
