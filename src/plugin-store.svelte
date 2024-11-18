@@ -79,17 +79,17 @@ $: validatorPlugins = filteredPlugins.filter((it) => it.kind === "validator");
 let pluginStore: Element;
 
 function openPluginDownloadUI() {
-    document.dispatchEvent(new Event("open-plugin-download"));
+    pluginStore.dispatchEvent(new Event("open-plugin-download", {
+        composed: true, 
+        bubbles: true
+    }));
 }
-
-document.addEventListener("add-external-plugin", () => {
-    localPlugins = storedPlugins();
-})
 
 //#endregion
 
 </script>
 
+<svelte:document on:add-external-plugin={() => localPlugins = storedPlugins()}/>
 <Theme>
     <Dialog
         bind:open={isOpen}
