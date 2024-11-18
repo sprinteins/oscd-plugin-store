@@ -10844,7 +10844,7 @@ const ka = ut({
     author: "SprintEins",
     src: "https://sprinteins.github.io/oscd-plugins/communication-explorer/index.js",
     kind: "editor",
-    icon: "travel_explore",
+    icon: "account_tree",
     description: "The Communication Explorer is used to display an overview of all communication in the network to give users an overview. It is possible to see the communication of message types such as MMS, Goose and Sampled Values between IEDs. It is also possible to see which IEDs are publishers and/or subscribers."
   },
   {
