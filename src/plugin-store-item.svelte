@@ -123,9 +123,9 @@ function getPluginIcon(plugin: Plugin) {
             <div class="mdc-typography--body1">
                 <strong>{plugin.name}</strong>
             </div>
-            <div class="mdc-typography--caption">
+            <plugin-store-item-meta--source class="mdc-typography--caption">
                 {getPluginSource(plugin)}
-            </div>
+            </plugin-store-item-meta--source>
             <div class="mdc-typography--caption plugin-store-item--description">
                 <div title={getPluginDescription(plugin)}>
                     {getPluginDescription(plugin)}
@@ -205,6 +205,9 @@ function getPluginIcon(plugin: Plugin) {
         flex-direction: column;
         gap: 1px;
         width: 100%;
+    }
+    plugin-store-item-meta--source {
+        opacity: 0.65;
     }
     .plugin-store-item--description {
         overflow: hidden;
