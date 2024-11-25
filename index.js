@@ -2,7 +2,7 @@
 var Zs = Object.defineProperty;
 var Js = (n, e, t) => e in n ? Zs(n, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : n[e] = t;
 var rn = (n, e, t) => Js(n, typeof e != "symbol" ? e + "" : e, t);
-const ts = "oscd-plugin-store", Ys = "0.0.1";
+const ts = "oscd-plugin-store", Ys = "1.0.0";
 function Pe() {
 }
 function K(n, e) {
