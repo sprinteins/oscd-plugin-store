@@ -39,6 +39,14 @@
 			"kind": "editor",
 			"icon": "layers",
 			"description": "The Type Designer plugin for OpenSCD simplifies the creation and management of types elements in SCL file."
+		},
+		{
+			"name": "Auto Doc",
+			"author": "SprintEins",
+			"src": "https://sprinteins.github.io/oscd-plugins/auto-doc/index.js",
+			"kind": "editor",
+			"icon": "description",
+			"description": "The AutoDoc Plugin generates documentation from SCD files, allowing users to include custom elements like text, images, tables, and diagrams. It also features predefined elements, such as 'signal list,' which are automatically populated with relevant data from the SCD file."
 		}
 	]
 }
