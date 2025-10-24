@@ -14,10 +14,14 @@ import { getStoredPlugins as storedPlugins } from "./plugin-store";
 
 const isRestricted = !import.meta.env.VITE_EXTERNAL_PLUGINS === true;
 
-export let isOpen: boolean;
+    interface Props {
+        isOpen: boolean;
+    }
 
-let showOnlyInstalled = false;
-let searchFilter = "";
+    let { isOpen = $bindable() }: Props = $props();
+
+let showOnlyInstalled = $state(false);
+let searchFilter = $state("");
 
 function combineAllPlugins(local: Plugin[], external: Plugin[]): Plugin[] {
 	const plugins = [...local];
@@ -63,20 +67,20 @@ function filterSelf(plugin: Plugin): boolean {
 	return plugin.name !== "PluginStore" && plugin.name !== "Plugin Store";
 }
 
-let localPlugins = storedPlugins();
-$: plugins = combineAllPlugins(localPlugins, externalPlugins as Plugin[]);
-$: filteredPlugins = plugins
+let localPlugins = $state(storedPlugins());
+let plugins = $derived(combineAllPlugins(localPlugins, externalPlugins as Plugin[]));
+let filteredPlugins = $derived(plugins
 	.filter((plugin) => filterInstalledPlugins(plugin, showOnlyInstalled))
 	.filter((plugin) => filterSearchResults(plugin, searchFilter))
-	.filter((plugin) => filterSelf(plugin));
+	.filter((plugin) => filterSelf(plugin)));
 
-$: editorPlugins = filteredPlugins.filter((it) => it.kind === "editor");
-$: menuPlugins = filteredPlugins.filter((it) => it.kind === "menu");
-$: validatorPlugins = filteredPlugins.filter((it) => it.kind === "validator");
+let editorPlugins = $derived(filteredPlugins.filter((it) => it.kind === "editor"));
+let menuPlugins = $derived(filteredPlugins.filter((it) => it.kind === "menu"));
+let validatorPlugins = $derived(filteredPlugins.filter((it) => it.kind === "validator"));
 
 //#region UI
 
-let pluginStore: Element;
+let pluginStore: Element = $state();
 
 function openPluginDownloadUI() {
     pluginStore.dispatchEvent(new Event("open-plugin-download", {
@@ -89,7 +93,7 @@ function openPluginDownloadUI() {
 
 </script>
 
-<svelte:document on:add-external-plugin={() => localPlugins = storedPlugins()}/>
+<svelte:document onadd-external-plugin={() => localPlugins = storedPlugins()}/>
 <Theme>
     <Dialog
         bind:open={isOpen}
@@ -179,7 +183,7 @@ function openPluginDownloadUI() {
         </Content>
         <Actions>
             <plugin-store-action-buttons>
-                <SMUIButton action="" disabled={isRestricted} on:click={() => openPluginDownloadUI()}>
+                <SMUIButton action="" disabled={isRestricted} onclick={() => openPluginDownloadUI()}>
                     <Label>Add External Plugin</Label>
                 </SMUIButton>
                 <SMUIButton action="accept">

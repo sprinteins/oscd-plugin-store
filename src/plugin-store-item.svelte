@@ -12,11 +12,21 @@ type ConfigurePluginDetail = {
 	config: Plugin | null;
 };
 
-export let filteredPlugins: Plugin[];
-export let pluginStore: Element;
-export let plugin: Plugin;
-export let index: number;
-export let localPlugins: Plugin[];
+    interface Props {
+        filteredPlugins: Plugin[];
+        pluginStore: Element;
+        plugin: Plugin;
+        index: number;
+        localPlugins: Plugin[];
+    }
+
+    let {
+        filteredPlugins,
+        pluginStore,
+        plugin,
+        index,
+        localPlugins = $bindable()
+    }: Props = $props();
 
 function dispatchConfigurePlugin(plugin: Plugin, shouldDelete = false) {
 	const event = new CustomEvent<ConfigurePluginDetail>(
@@ -73,9 +83,9 @@ function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 	console.log("Set toggle state for", plugin.name);
 }
 
-let menus: Menu[];
-$: menus = filteredPlugins.map(() => null);
-$: menuStates = filteredPlugins.map(() => false);
+let menus: Menu[] = $derived(filteredPlugins.map(() => null));
+
+let menuStates = $derived(filteredPlugins.map(() => false));
 
 function openPluginMenu(index: number) {
 	menuStates = menuStates.map(() => false);
@@ -142,7 +152,7 @@ function getPluginIcon(plugin: Plugin) {
             <SplitButton variant="outlined" label="Disable" on:click={() => toggleOfficialPlugin(plugin, false)} on:menuOpen={() => openPluginMenu(index)}>
                 <Menu bind:this={menus[index]} open={menuStates[index]} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
                     <List>
-                        <Item on:SMUI:action={() => uninstallExternalPlugin(plugin)}>
+                        <Item onSMUIAction={() => uninstallExternalPlugin(plugin)}>
                             <Text>Uninstall</Text>
                         </Item>
                     </List>
@@ -158,7 +168,7 @@ function getPluginIcon(plugin: Plugin) {
             <SplitButton label="Enable" on:click={() => {toggleOfficialPlugin(plugin, true)}} on:menuOpen={() => openPluginMenu(index)}>
                 <Menu bind:this={menus[index]} open={menuStates[index]} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
                     <List>
-                        <Item on:SMUI:action={() => uninstallExternalPlugin(plugin)}>
+                        <Item onSMUIAction={() => uninstallExternalPlugin(plugin)}>
                             <Text>Uninstall</Text>
                         </Item>
                     </List>

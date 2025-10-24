@@ -1,18 +1,17 @@
 <script lang="ts">
-import Button, { Group, Label } from "@smui/button";
-import { createEventDispatcher } from "svelte";
+    import Button, { Group, Label } from "@smui/button";
 
-const dispatch = createEventDispatcher();
+    interface Props {
+        variant?: "text" | "raised" | "unelevated" | "outlined";
+        children?: import("svelte").Snippet;
+        onclick?: () => void;
+    }
 
-export let variant: "text" | "raised" | "unelevated" | "outlined" = "raised";
+    let { variant = "raised", children, onclick }: Props = $props();
 </script>
 
-<Group variant={variant}>
-    <Button
-        on:click={() => dispatch("click")}
-        variant={variant}
-        style="min-width: 148px;"
-    >
-        <Label><slot/></Label>
+<Group {variant}>
+    <Button {onclick} {variant} style="min-width: 148px;">
+        <Label>{@render children?.()}</Label>
     </Button>
 </Group>

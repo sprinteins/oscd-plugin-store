@@ -1,17 +1,21 @@
 <script lang="ts">
 import Button, { Group, GroupItem, Label } from "@smui/button";
 import IconArrowDropDown from "../icons/icon-arrow-drop-down.svelte";
-import { createEventDispatcher } from "svelte";
 
-const dispatch = createEventDispatcher();
+    interface Props {
+        variant?: "text" | "raised" | "unelevated" | "outlined";
+        label?: string;
+        children?: import('svelte').Snippet;
+        onclick?: () => void;
+        onmenuOpen?: () => void;
+    }
 
-export let variant: "text" | "raised" | "unelevated" | "outlined" = "raised";
-export let label = "";
+    let { variant = "raised", label = "", children, onclick, onmenuOpen }: Props = $props();
 </script>
 
 <Group variant={variant}>
     <Button
-        on:click={() => dispatch("click")}
+        onclick={onclick}
         variant={variant}
         style="min-width: 102px;"
     >
@@ -19,12 +23,12 @@ export let label = "";
     </Button>
     <div use:GroupItem>
         <Button
-            on:click={() => dispatch("menuOpen")}
+            onclick={onmenuOpen}
             style="min-width: 18px;"
             variant={variant}
         >
             <IconArrowDropDown />
         </Button>
-        <slot/> 
+        {@render children?.()} 
     </div>
 </Group>
