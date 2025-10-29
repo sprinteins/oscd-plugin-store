@@ -1,5 +1,3 @@
-<svelte:options customElement="plugin-store-2" />
-
 <script lang="ts">
     import PluginStore from "./plugin-store.svelte";
     import { name, version } from "../package.json";
