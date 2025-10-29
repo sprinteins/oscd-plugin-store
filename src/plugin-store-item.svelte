@@ -14,7 +14,7 @@ type ConfigurePluginDetail = {
 
     interface Props {
         filteredPlugins: Plugin[];
-        pluginStore: Element;
+        pluginStore: Element | undefined;
         plugin: Plugin;
         index: number;
         localPlugins: Plugin[];
@@ -29,6 +29,8 @@ type ConfigurePluginDetail = {
     }: Props = $props();
 
 function dispatchConfigurePlugin(plugin: Plugin, shouldDelete = false) {
+	if (!pluginStore) return;
+	
 	const event = new CustomEvent<ConfigurePluginDetail>(
 		"oscd-configure-plugin",
 		{
@@ -83,9 +85,14 @@ function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 	console.log("Set toggle state for", plugin.name);
 }
 
-let menus: Menu[] = $derived(filteredPlugins.map(() => null));
+let menus: (Menu | null)[] = $state([]);
+let menuStates = $state<boolean[]>([]);
 
-let menuStates = $derived(filteredPlugins.map(() => false));
+// Update arrays when filteredPlugins changes
+$effect(() => {
+	menus = filteredPlugins.map(() => null);
+	menuStates = filteredPlugins.map(() => false);
+});
 
 function openPluginMenu(index: number) {
 	menuStates = menuStates.map(() => false);
@@ -145,11 +152,11 @@ function getPluginIcon(plugin: Plugin) {
     </plugin-store-item-meta>
     {#if plugin.installed}
         {#if plugin.official}
-            <Button variant="outlined" on:click={() => toggleOfficialPlugin(plugin, false)}>
+            <Button variant="outlined" onclick={() => toggleOfficialPlugin(plugin, false)}>
                 Disable
             </Button>
         {:else}
-            <SplitButton variant="outlined" label="Disable" on:click={() => toggleOfficialPlugin(plugin, false)} on:menuOpen={() => openPluginMenu(index)}>
+            <SplitButton variant="outlined" label="Disable" onclick={() => toggleOfficialPlugin(plugin, false)} onmenuOpen={() => openPluginMenu(index)}>
                 <Menu bind:this={menus[index]} open={menuStates[index]} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
                     <List>
                         <Item onSMUIAction={() => uninstallExternalPlugin(plugin)}>
@@ -160,12 +167,12 @@ function getPluginIcon(plugin: Plugin) {
             </SplitButton>
         {/if}
     {:else if plugin.official}
-        <Button on:click={() => toggleOfficialPlugin(plugin, true)}>
+        <Button onclick={() => toggleOfficialPlugin(plugin, true)}>
             Enable
         </Button>
     {:else}
         {#if localPlugins.includes(plugin)}
-            <SplitButton label="Enable" on:click={() => {toggleOfficialPlugin(plugin, true)}} on:menuOpen={() => openPluginMenu(index)}>
+            <SplitButton label="Enable" onclick={() => {toggleOfficialPlugin(plugin, true)}} onmenuOpen={() => openPluginMenu(index)}>
                 <Menu bind:this={menus[index]} open={menuStates[index]} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
                     <List>
                         <Item onSMUIAction={() => uninstallExternalPlugin(plugin)}>
@@ -175,7 +182,7 @@ function getPluginIcon(plugin: Plugin) {
                 </Menu>
             </SplitButton>
         {:else}
-            <Button on:click={() => installExternalPlugin(plugin)}>
+            <Button onclick={() => installExternalPlugin(plugin)}>
                 Install
             </Button>
         {/if}

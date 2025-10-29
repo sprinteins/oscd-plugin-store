@@ -1,4 +1,4 @@
-<svelte:options customElement="" />
+<svelte:options customElement="plugin-store-2" />
 
 <script lang="ts">
     import PluginStore from "./plugin-store.svelte";

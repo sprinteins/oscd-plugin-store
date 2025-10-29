@@ -80,10 +80,10 @@ let validatorPlugins = $derived(filteredPlugins.filter((it) => it.kind === "vali
 
 //#region UI
 
-let pluginStore: Element = $state();
+let pluginStore: Element | undefined = $state();
 
 function openPluginDownloadUI() {
-    pluginStore.dispatchEvent(new Event("open-plugin-download", {
+    pluginStore?.dispatchEvent(new Event("open-plugin-download", {
         composed: true, 
         bubbles: true
     }));
@@ -91,9 +91,19 @@ function openPluginDownloadUI() {
 
 //#endregion
 
-</script>
+$effect(() => {
+    const handleAddExternalPlugin = () => {
+        localPlugins = storedPlugins();
+    };
+    
+    document.addEventListener('add-external-plugin', handleAddExternalPlugin);
+    
+    return () => {
+        document.removeEventListener('add-external-plugin', handleAddExternalPlugin);
+    };
+});
 
-<svelte:document onadd-external-plugin={() => localPlugins = storedPlugins()}/>
+</script>
 <Theme>
     <Dialog
         bind:open={isOpen}
