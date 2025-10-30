@@ -2,7 +2,7 @@
 import Menu from "@smui/menu";
 import { Button, SplitButton } from "./components/button";
 import List, { Item, Text } from "@smui/list";
-import { getStoredPlugins, pluginIcons, type Plugin, type PluginKind } from "./plugin-store";
+import { getStoredPlugins, savePluginsToLocalStorage, pluginIcons, type Plugin, type PluginKind } from "./plugin-store";
 
 type ConfigurePluginDetail = {
 	name: string;
@@ -51,9 +51,10 @@ function installExternalPlugin(plugin: Plugin) {
 	const currentPlugins = getStoredPlugins();
 
 	const pluginCopy = { ...plugin };
-	pluginCopy.installed = true;
+	pluginCopy.active = true;
 	currentPlugins.push(pluginCopy);
 
+	savePluginsToLocalStorage(currentPlugins);
 	localPlugins = currentPlugins; 
 
 	dispatchConfigurePlugin(pluginCopy);
@@ -64,22 +65,29 @@ function installExternalPlugin(plugin: Plugin) {
 function uninstallExternalPlugin(plugin: Plugin) {
 	const currentPlugins = getStoredPlugins();
 	const updatedPlugins = currentPlugins.filter((it) => it.name !== plugin.name);
+	
+	savePluginsToLocalStorage(updatedPlugins);
 	localPlugins = updatedPlugins;
 
 	dispatchConfigurePlugin(plugin, true);
 	console.log("Uninstalled external plugin:", plugin.name);
 }
 
-// Enables/disables plugin by toggling the "installed" property.
+// Enables/disables plugin by toggling the "active" property.
 function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 	const currentPlugins = getStoredPlugins();
 	const foundPlugin = currentPlugins.find((it) => it.name === plugin.name);
 	if (foundPlugin) {
-		foundPlugin.installed = isEnabled;
+		foundPlugin.active = isEnabled;
+	} else if (isEnabled) {
+		const pluginCopy = { ...plugin };
+		pluginCopy.active = isEnabled;
+		currentPlugins.push(pluginCopy);
 	}
 
+	savePluginsToLocalStorage(currentPlugins);
 	localPlugins = currentPlugins;
-	plugin.installed = isEnabled;
+	plugin.active = isEnabled;
 
 	dispatchConfigurePlugin(plugin);
 	console.log("Set toggle state for", plugin.name);
@@ -150,7 +158,7 @@ function getPluginIcon(plugin: Plugin) {
             </div>
         </plugin-store-item-meta--wrapper>
     </plugin-store-item-meta>
-    {#if plugin.installed}
+    {#if plugin.active}
         {#if plugin.official}
             <Button variant="outlined" onclick={() => toggleOfficialPlugin(plugin, false)}>
                 Disable
@@ -171,7 +179,7 @@ function getPluginIcon(plugin: Plugin) {
             Enable
         </Button>
     {:else}
-        {#if localPlugins.includes(plugin)}
+        {#if localPlugins.some(p => p.name === plugin.name)}
             <SplitButton label="Enable" onclick={() => {toggleOfficialPlugin(plugin, true)}} onmenuOpen={() => openPluginMenu(index)}>
                 <Menu bind:this={menus[index]} open={menuStates[index]} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
                     <List>

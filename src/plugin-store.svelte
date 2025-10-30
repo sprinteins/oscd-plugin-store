@@ -46,7 +46,8 @@ function combineAllPlugins(local: Plugin[], external: Plugin[]): Plugin[] {
 }
 
 function filterInstalledPlugins(plugin: Plugin, isChecked: boolean): boolean {
-	return !isChecked || localPlugins.includes(plugin);
+	if (!isChecked) return true;
+	return localPlugins.some(p => p.name === plugin.name && p.active);
 }
 
 function filterSearchResults(plugin: Plugin, filter: string): boolean {
