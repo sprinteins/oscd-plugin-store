@@ -13,12 +13,11 @@ import type { Plugin } from "./plugin-store";
 import { getStoredPlugins as storedPlugins } from "./plugin-store";
 
 const isRestricted = !import.meta.env.VITE_EXTERNAL_PLUGINS === true;
+interface Props {
+    isOpen: boolean;
+}
 
-    interface Props {
-        isOpen: boolean;
-    }
-
-    let { isOpen = $bindable() }: Props = $props();
+let { isOpen = $bindable() }: Props = $props();
 
 let showOnlyInstalled = $state(false);
 let searchFilter = $state("");
