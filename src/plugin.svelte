@@ -3,10 +3,11 @@
     extend: (customElementConstructor) => {
         return class extends customElementConstructor {
             constructor() {
-                super();
-                const cssCode = (globalThis as any).pluginStyle?.[pkg.name];
-                if (this.shadowRoot && cssCode) {
-                    this.shadowRoot.appendChild(cssCode);
+                super();   
+                const style = document.createElement('style')
+                style.innerHTML = (globalThis as any).pluginStyle?.[pkg.name];
+                if (this.shadowRoot && style.innerHTML) {
+                    this.shadowRoot.appendChild(style);
                 }
             }
         }
