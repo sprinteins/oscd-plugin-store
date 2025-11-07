@@ -2,7 +2,7 @@
 import Menu from "@smui/menu";
 import { Button, SplitButton } from "./components/button";
 import List, { Item, Text } from "@smui/list";
-import { getStoredPlugins, savePluginsToLocalStorage, pluginIcons, type Plugin, type PluginKind } from "./plugin-store";
+import { getStoredPlugins, pluginIcons, type Plugin, type PluginKind } from "./plugin-store";
 
 type ConfigurePluginDetail = {
 	name: string;
@@ -54,7 +54,6 @@ function installExternalPlugin(plugin: Plugin) {
 	pluginCopy.active = true;
 	currentPlugins.push(pluginCopy);
 
-	savePluginsToLocalStorage(currentPlugins);
 	localPlugins = currentPlugins; 
 
 	dispatchConfigurePlugin(pluginCopy);
@@ -66,7 +65,6 @@ function uninstallExternalPlugin(plugin: Plugin) {
 	const currentPlugins = getStoredPlugins();
 	const updatedPlugins = currentPlugins.filter((it) => it.name !== plugin.name);
 	
-	savePluginsToLocalStorage(updatedPlugins);
 	localPlugins = updatedPlugins;
 
 	dispatchConfigurePlugin(plugin, true);
@@ -77,17 +75,12 @@ function uninstallExternalPlugin(plugin: Plugin) {
 function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 	const currentPlugins = getStoredPlugins();
 	const foundPlugin = currentPlugins.find((it) => it.name === plugin.name);
-	if (foundPlugin) {
-		foundPlugin.active = isEnabled;
-	} else if (isEnabled) {
-		const pluginCopy = { ...plugin };
-		pluginCopy.active = isEnabled;
-		currentPlugins.push(pluginCopy);
-	}
-
-	savePluginsToLocalStorage(currentPlugins);
+    if (foundPlugin) {
+        foundPlugin.active = isEnabled;
+    }
+    
 	localPlugins = currentPlugins;
-	plugin.active = isEnabled;
+    plugin.active = isEnabled;
 
 	dispatchConfigurePlugin(plugin);
 	console.log("Set toggle state for", plugin.name);

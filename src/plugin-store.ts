@@ -8,7 +8,6 @@ export type Plugin = {
 	position?: MenuPosition;
 	active: boolean;
 	activeByDefault?: boolean;
-	installed?: boolean; // legacy property, use 'active' instead
 	official?: boolean;
 	description?: string;
 };
@@ -27,23 +26,7 @@ export const pluginIcons: Record<PluginKind | MenuPosition, string> = {
   }
 
 export function getStoredPlugins(): Plugin[] {
-    const plugins = <Plugin[]>(
+    return <Plugin[]>(
 		JSON.parse(localStorage.getItem("plugins") ?? "[]", (key, value) => value)
 	);
-	
-	return plugins.map(plugin => {
-		// If plugin has 'installed' but not 'active', use 'installed' value
-		if (plugin.active === undefined && plugin.installed !== undefined) {
-			plugin.active = plugin.installed;
-		}
-		// Ensure active is set (default to activeByDefault or false)
-		if (plugin.active === undefined) {
-			plugin.active = plugin.activeByDefault ?? false;
-		}
-		return plugin;
-	});
-}
-
-export function savePluginsToLocalStorage(plugins: Plugin[]): void {
-	localStorage.setItem("plugins", JSON.stringify(plugins));
 }
