@@ -6,7 +6,8 @@ export type Plugin = {
 	kind: PluginKind;
 	requireDoc?: boolean;
 	position?: MenuPosition;
-	installed: boolean;
+	active: boolean;
+	activeByDefault?: boolean;
 	official?: boolean;
 	description?: string;
 };
