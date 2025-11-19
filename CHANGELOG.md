@@ -14,9 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Migrated to Svelte 5
 - `installed` is not a property of Plugin anymore
 
-### Removed
-- Removed customElement as it isn't needed
-
 ## [1.0.0] - 2024-11-18
 
 ### Added
