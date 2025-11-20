@@ -142,11 +142,9 @@ $effect(() => {
                         <strong><div class="mdc-typography--headline6 plugin-store-items--category-title">Editor</div></strong>
                         <hr class="plugin-store-items--divider">
                     </plugin-store-items--category>
-                    {#each editorPlugins as plugin, index}
+                    {#each editorPlugins as plugin}
                         <PluginStoreItem 
                          plugin={plugin}
-                         index={index}
-                         filteredPlugins={filteredPlugins} 
                          bind:localPlugins={localPlugins} 
                          pluginStore={pluginStore}/> 
                     {/each}
@@ -159,11 +157,9 @@ $effect(() => {
                         <strong><div class="mdc-typography--headline6 plugin-store-items--category-title">Menu</div></strong>
                         <hr class="plugin-store-items--divider">
                     </plugin-store-items--category>
-                    {#each menuPlugins as plugin, index}
+                    {#each menuPlugins as plugin}
                         <PluginStoreItem 
                          plugin={plugin}
-                         index={index}
-                         filteredPlugins={filteredPlugins} 
                          bind:localPlugins={localPlugins} 
                          pluginStore={pluginStore}/> 
                     {/each}
@@ -176,11 +172,9 @@ $effect(() => {
                         <strong><div class="mdc-typography--headline6 plugin-store-items--category-title">Validator</div></strong>
                         <hr class="plugin-store-items--divider">
                     </plugin-store-items--category>
-                    {#each validatorPlugins as plugin, index}
+                    {#each validatorPlugins as plugin}
                         <PluginStoreItem 
                          plugin={plugin}
-                         index={index}
-                         filteredPlugins={filteredPlugins} 
                          bind:localPlugins={localPlugins} 
                          pluginStore={pluginStore}/> 
                     {/each}

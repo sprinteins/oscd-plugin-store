@@ -12,9 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Migrated to Svelte 5
-
-### Removed
-- Removed customElement as it isn't needed
+- `installed` is not a property of Plugin anymore
 
 ## [1.0.0] - 2024-11-18
 

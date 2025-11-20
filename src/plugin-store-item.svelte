@@ -2,7 +2,7 @@
 import Menu from "@smui/menu";
 import { Button, SplitButton } from "./components/button";
 import List, { Item, Text } from "@smui/list";
-import { getStoredPlugins, savePluginsToLocalStorage, pluginIcons, type Plugin, type PluginKind } from "./plugin-store";
+import { getStoredPlugins, pluginIcons, type Plugin, type PluginKind } from "./plugin-store";
 
 type ConfigurePluginDetail = {
 	name: string;
@@ -13,18 +13,14 @@ type ConfigurePluginDetail = {
 };
 
     interface Props {
-        filteredPlugins: Plugin[];
         pluginStore: Element | undefined;
         plugin: Plugin;
-        index: number;
         localPlugins: Plugin[];
     }
 
     let {
-        filteredPlugins,
         pluginStore,
         plugin,
-        index,
         localPlugins = $bindable()
     }: Props = $props();
 
@@ -54,7 +50,6 @@ function installExternalPlugin(plugin: Plugin) {
 	pluginCopy.active = true;
 	currentPlugins.push(pluginCopy);
 
-	savePluginsToLocalStorage(currentPlugins);
 	localPlugins = currentPlugins; 
 
 	dispatchConfigurePlugin(pluginCopy);
@@ -66,7 +61,6 @@ function uninstallExternalPlugin(plugin: Plugin) {
 	const currentPlugins = getStoredPlugins();
 	const updatedPlugins = currentPlugins.filter((it) => it.name !== plugin.name);
 	
-	savePluginsToLocalStorage(updatedPlugins);
 	localPlugins = updatedPlugins;
 
 	dispatchConfigurePlugin(plugin, true);
@@ -77,34 +71,21 @@ function uninstallExternalPlugin(plugin: Plugin) {
 function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 	const currentPlugins = getStoredPlugins();
 	const foundPlugin = currentPlugins.find((it) => it.name === plugin.name);
-	if (foundPlugin) {
-		foundPlugin.active = isEnabled;
-	} else if (isEnabled) {
-		const pluginCopy = { ...plugin };
-		pluginCopy.active = isEnabled;
-		currentPlugins.push(pluginCopy);
-	}
-
-	savePluginsToLocalStorage(currentPlugins);
+    if (foundPlugin) {
+        foundPlugin.active = isEnabled;
+    }
+    
 	localPlugins = currentPlugins;
-	plugin.active = isEnabled;
+    plugin.active = isEnabled;
 
 	dispatchConfigurePlugin(plugin);
 	console.log("Set toggle state for", plugin.name);
 }
 
-let menus: (Menu | null)[] = $state([]);
-let menuStates = $state<boolean[]>([]);
+let isMenuOpen = $state(false);
 
-// Update arrays when filteredPlugins changes
-$effect(() => {
-	menus = filteredPlugins.map(() => null);
-	menuStates = filteredPlugins.map(() => false);
-});
-
-function openPluginMenu(index: number) {
-	menuStates = menuStates.map(() => false);
-	menuStates[index] = true;
+function openPluginMenu() {
+	isMenuOpen = true;
 }
 
 function convertPluginKindToText(kind: PluginKind): string {
@@ -164,8 +145,8 @@ function getPluginIcon(plugin: Plugin) {
                 Disable
             </Button>
         {:else}
-            <SplitButton variant="outlined" label="Disable" onclick={() => toggleOfficialPlugin(plugin, false)} onmenuOpen={() => openPluginMenu(index)}>
-                <Menu bind:this={menus[index]} open={menuStates[index]} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
+            <SplitButton variant="outlined" label="Disable" onclick={() => toggleOfficialPlugin(plugin, false)} onmenuOpen={openPluginMenu}>
+                <Menu open={isMenuOpen} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
                     <List>
                         <Item onSMUIAction={() => uninstallExternalPlugin(plugin)}>
                             <Text>Uninstall</Text>
@@ -180,8 +161,8 @@ function getPluginIcon(plugin: Plugin) {
         </Button>
     {:else}
         {#if localPlugins.some(p => p.name === plugin.name)}
-            <SplitButton label="Enable" onclick={() => {toggleOfficialPlugin(plugin, true)}} onmenuOpen={() => openPluginMenu(index)}>
-                <Menu bind:this={menus[index]} open={menuStates[index]} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
+            <SplitButton label="Enable" onclick={() => {toggleOfficialPlugin(plugin, true)}} onmenuOpen={openPluginMenu}>
+                <Menu open={isMenuOpen} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
                     <List>
                         <Item onSMUIAction={() => uninstallExternalPlugin(plugin)}>
                             <Text>Uninstall</Text>
