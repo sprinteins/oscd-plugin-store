@@ -1,21 +1,21 @@
 <script lang="ts">
-    interface Props {
-        checked?: boolean;
-        label: string;
-        value?: string | number;
-        testid?: string;
-        onchange?: () => void;
-        oninput?: () => void;
-    }
+interface Props {
+	checked?: boolean
+	label: string
+	value?: string | number
+	testid?: string
+	onchange?: () => void
+	oninput?: () => void
+}
 
-    let {
-        checked = $bindable(false),
-        label,
-        value = $bindable(""),
-        testid = "",
-        onchange,
-        oninput,
-    }: Props = $props();
+let {
+	checked = $bindable(false),
+	label,
+	value = $bindable(''),
+	testid = '',
+	onchange,
+	oninput
+}: Props = $props()
 </script>
 
 <checkbox data-testid={testid}>

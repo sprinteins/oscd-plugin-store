@@ -1,119 +1,122 @@
 <script lang="ts">
-import Menu from "@smui/menu";
-import { Button, SplitButton } from "./components/button";
-import List, { Item, Text } from "@smui/list";
-import { getStoredPlugins, pluginIcons, type Plugin, type PluginKind } from "./plugin-store";
+import List, { Item, Text } from '@smui/list'
+import Menu from '@smui/menu'
+import { Button, SplitButton } from './components/button'
+import {
+	type Plugin,
+	type PluginKind,
+	getStoredPlugins,
+	pluginIcons
+} from './plugin-store'
 
 type ConfigurePluginDetail = {
-	name: string;
+	name: string
 	// The API describes only 'menu' and 'editor' kinds
 	// but we still use the 'validator' too, so I just use the type PluginKind
-	kind: PluginKind;
-	config: Plugin | null;
-};
+	kind: PluginKind
+	config: Plugin | null
+}
 
-    interface Props {
-        pluginStore: Element | undefined;
-        plugin: Plugin;
-        localPlugins: Plugin[];
-    }
+interface Props {
+	pluginStore: Element | undefined
+	plugin: Plugin
+	localPlugins: Plugin[]
+}
 
-    let {
-        pluginStore,
-        plugin,
-        localPlugins = $bindable()
-    }: Props = $props();
+let { pluginStore, plugin, localPlugins = $bindable() }: Props = $props()
 
 function dispatchConfigurePlugin(plugin: Plugin, shouldDelete = false) {
-	if (!pluginStore) return;
-	
+	if (!pluginStore) return
+
 	const event = new CustomEvent<ConfigurePluginDetail>(
-		"oscd-configure-plugin",
+		'oscd-configure-plugin',
 		{
 			bubbles: true,
 			composed: true,
 			detail: {
 				name: plugin.name,
 				kind: plugin.kind,
-				config: shouldDelete ? null : plugin,
-			},
-		},
-	);
+				config: shouldDelete ? null : plugin
+			}
+		}
+	)
 
-	pluginStore.dispatchEvent(event);
+	pluginStore.dispatchEvent(event)
 }
 
 function installExternalPlugin(plugin: Plugin) {
-	const currentPlugins = getStoredPlugins();
+	const currentPlugins = getStoredPlugins()
 
-	const pluginCopy = { ...plugin };
-	pluginCopy.active = true;
-	currentPlugins.push(pluginCopy);
+	const pluginCopy = { ...plugin }
+	pluginCopy.active = true
+	currentPlugins.push(pluginCopy)
 
-	localPlugins = currentPlugins; 
+	localPlugins = currentPlugins
 
-	dispatchConfigurePlugin(pluginCopy);
-	console.log("Installed external plugin:", plugin.name);
+	dispatchConfigurePlugin(pluginCopy)
+	console.log('Installed external plugin:', plugin.name)
 }
 
 // Completely removes plugin from local browser cache.
 function uninstallExternalPlugin(plugin: Plugin) {
-	const currentPlugins = getStoredPlugins();
-	const updatedPlugins = currentPlugins.filter((it) => it.name !== plugin.name);
-	
-	localPlugins = updatedPlugins;
+	const currentPlugins = getStoredPlugins()
+	const updatedPlugins = currentPlugins.filter(
+		(it) => it.name !== plugin.name
+	)
 
-	dispatchConfigurePlugin(plugin, true);
-	console.log("Uninstalled external plugin:", plugin.name);
+	localPlugins = updatedPlugins
+
+	dispatchConfigurePlugin(plugin, true)
+	console.log('Uninstalled external plugin:', plugin.name)
 }
 
 // Enables/disables plugin by toggling the "active" property.
 function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
-	const currentPlugins = getStoredPlugins();
-	const foundPlugin = currentPlugins.find((it) => it.name === plugin.name);
-    if (foundPlugin) {
-        foundPlugin.active = isEnabled;
-    }
-    
-	localPlugins = currentPlugins;
-    plugin.active = isEnabled;
+	const currentPlugins = getStoredPlugins()
+	const foundPlugin = currentPlugins.find((it) => it.name === plugin.name)
+	if (foundPlugin) {
+		foundPlugin.active = isEnabled
+	}
 
-	dispatchConfigurePlugin(plugin);
-	console.log("Set toggle state for", plugin.name);
+	localPlugins = currentPlugins
+	plugin.active = isEnabled
+
+	dispatchConfigurePlugin(plugin)
+	console.log('Set toggle state for', plugin.name)
 }
 
-let isMenuOpen = $state(false);
+let isMenuOpen = $state(false)
 
 function openPluginMenu() {
-	isMenuOpen = true;
+	isMenuOpen = true
 }
 
 function convertPluginKindToText(kind: PluginKind): string {
 	if (kind === undefined) {
-		return "";
+		return ''
 	}
 
-	const capitalized = kind.toString()[0].toUpperCase() + kind.substring(1);
-	return capitalized;
+	const capitalized = kind.toString()[0].toUpperCase() + kind.substring(1)
+	return capitalized
 }
 function getTagline(plugin: Plugin) {
-	return `${getPluginAuthor(plugin)} · ${convertPluginKindToText(plugin.kind)}`;
+	return `${getPluginAuthor(plugin)} · ${convertPluginKindToText(plugin.kind)}`
 }
 
 function getPluginSource(plugin: Plugin) {
-	return plugin.src;
+	return plugin.src
 }
 
 function getPluginAuthor(plugin: Plugin) {
-	return plugin.official ? "Built-in" : plugin.author;
+	return plugin.official ? 'Built-in' : plugin.author
 }
 
 function getPluginDescription(plugin: Plugin) {
-	return plugin.description || "";
+	return plugin.description || ''
 }
 
 function getPluginIcon(plugin: Plugin) {
-    return plugin.icon || pluginIcons[plugin.kind];
+	return plugin.icon || pluginIcons[plugin.kind]
 }
 </script>
 

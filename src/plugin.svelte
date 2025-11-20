@@ -1,12 +1,12 @@
 <script lang="ts">
-    import PluginStore from "./plugin-store.svelte";
-    import { name, version } from "../package.json";
+import { name, version } from '../package.json'
+import PluginStore from './plugin-store.svelte'
 
-    let isOpen = $state(false);
+let isOpen = $state(false)
 
-    export async function run() {
-        isOpen = true;
-    }
+export async function run() {
+	isOpen = true
+}
 </script>
 
 <PluginStore bind:isOpen />

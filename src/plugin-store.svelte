@@ -1,109 +1,121 @@
 <script lang="ts">
-import Theme from "./theme/theme.svelte";
-import { IconClose } from "./components/icons";
-import Textfield from "@smui/textfield";
-import { Label } from "@smui/button";
-import Switch from "@smui/switch";
-import SMUIButton from "@smui/button";
-import IconButton from "@smui/icon-button";
-import Dialog, { Header, Title, Content, Actions } from "@smui/dialog";
-import { plugins as externalPlugins } from "../public/plugins.json";
-import PluginStoreItem from "./plugin-store-item.svelte";
-import type { Plugin } from "./plugin-store";
-import { getStoredPlugins as storedPlugins } from "./plugin-store";
+import { Label } from '@smui/button'
+import SMUIButton from '@smui/button'
+import Dialog, { Header, Title, Content, Actions } from '@smui/dialog'
+import IconButton from '@smui/icon-button'
+import Switch from '@smui/switch'
+import Textfield from '@smui/textfield'
+import { plugins as externalPlugins } from '../public/plugins.json'
+import { IconClose } from './components/icons'
+import type { Plugin } from './plugin-store'
+import { getStoredPlugins as storedPlugins } from './plugin-store'
+import PluginStoreItem from './plugin-store-item.svelte'
+import Theme from './theme/theme.svelte'
 
-const isRestricted = !import.meta.env.VITE_EXTERNAL_PLUGINS === true;
+const isRestricted = !import.meta.env.VITE_EXTERNAL_PLUGINS === true
 
-    interface Props {
-        isOpen: boolean;
-    }
+interface Props {
+	isOpen: boolean
+}
 
-    let { isOpen = $bindable() }: Props = $props();
+let { isOpen = $bindable() }: Props = $props()
 
-let showOnlyInstalled = $state(false);
-let searchFilter = $state("");
+let showOnlyInstalled = $state(false)
+let searchFilter = $state('')
 
 function combineAllPlugins(local: Plugin[], external: Plugin[]): Plugin[] {
-	const plugins = [...local];
+	const plugins = [...local]
 
 	if (!isRestricted) {
 		for (const plugin of external) {
 			if (!localPlugins.some((it) => it.name === plugin.name)) {
-				plugins.push(plugin);
+				plugins.push(plugin)
 			}
 		}
 	}
 
 	plugins.sort((a, b) => {
 		if (a.author && b.author && a.author !== b.author) {
-			return a.author?.localeCompare(b.author);
+			return a.author?.localeCompare(b.author)
 		}
 
-		return a.name.localeCompare(b.name);
-	});
+		return a.name.localeCompare(b.name)
+	})
 
-	return plugins;
+	return plugins
 }
 
 function filterInstalledPlugins(plugin: Plugin, isChecked: boolean): boolean {
-	if (!isChecked) return true;
-	return localPlugins.some(p => p.name === plugin.name && p.active);
+	if (!isChecked) return true
+	return localPlugins.some((p) => p.name === plugin.name && p.active)
 }
 
 function filterSearchResults(plugin: Plugin, filter: string): boolean {
-	const search = filter.toLowerCase();
+	const search = filter.toLowerCase()
 
-	const foundName = plugin.name.toLowerCase().includes(search);
-	let foundAuthor = false;
+	const foundName = plugin.name.toLowerCase().includes(search)
+	let foundAuthor = false
 
 	if (plugin.author) {
-		foundAuthor = plugin.author.toLowerCase().includes(search);
+		foundAuthor = plugin.author.toLowerCase().includes(search)
 	}
 
-	return foundName || foundAuthor;
+	return foundName || foundAuthor
 }
 
 // Prevent Plugin Store itself from showing up in search results.
 function filterSelf(plugin: Plugin): boolean {
-	return plugin.name !== "PluginStore" && plugin.name !== "Plugin Store";
+	return plugin.name !== 'PluginStore' && plugin.name !== 'Plugin Store'
 }
 
-let localPlugins = $state(storedPlugins());
-let plugins = $derived(combineAllPlugins(localPlugins, externalPlugins as Plugin[]));
-let filteredPlugins = $derived(plugins
-	.filter((plugin) => filterInstalledPlugins(plugin, showOnlyInstalled))
-	.filter((plugin) => filterSearchResults(plugin, searchFilter))
-	.filter((plugin) => filterSelf(plugin)));
+let localPlugins = $state(storedPlugins())
+let plugins = $derived(
+	combineAllPlugins(localPlugins, externalPlugins as Plugin[])
+)
+let filteredPlugins = $derived(
+	plugins
+		.filter((plugin) => filterInstalledPlugins(plugin, showOnlyInstalled))
+		.filter((plugin) => filterSearchResults(plugin, searchFilter))
+		.filter((plugin) => filterSelf(plugin))
+)
 
-let editorPlugins = $derived(filteredPlugins.filter((it) => it.kind === "editor"));
-let menuPlugins = $derived(filteredPlugins.filter((it) => it.kind === "menu"));
-let validatorPlugins = $derived(filteredPlugins.filter((it) => it.kind === "validator"));
+let editorPlugins = $derived(
+	filteredPlugins.filter((it) => it.kind === 'editor')
+)
+let menuPlugins = $derived(filteredPlugins.filter((it) => it.kind === 'menu'))
+let validatorPlugins = $derived(
+	filteredPlugins.filter((it) => it.kind === 'validator')
+)
 
 //#region UI
 
-let pluginStore: Element | undefined = $state();
+let pluginStore: Element | undefined = $state()
 
 function openPluginDownloadUI() {
-    pluginStore?.dispatchEvent(new Event("open-plugin-download", {
-        composed: true, 
-        bubbles: true
-    }));
+	pluginStore?.dispatchEvent(
+		new Event('open-plugin-download', {
+			composed: true,
+			bubbles: true
+		})
+	)
 }
 
 //#endregion
 
 $effect(() => {
-    const handleAddExternalPlugin = () => {
-        localPlugins = storedPlugins();
-    };
-    
-    document.addEventListener('add-external-plugin', handleAddExternalPlugin);
-    
-    return () => {
-        document.removeEventListener('add-external-plugin', handleAddExternalPlugin);
-    };
-});
+	const handleAddExternalPlugin = () => {
+		localPlugins = storedPlugins()
+	}
 
+	document.addEventListener('add-external-plugin', handleAddExternalPlugin)
+
+	return () => {
+		document.removeEventListener(
+			'add-external-plugin',
+			handleAddExternalPlugin
+		)
+	}
+})
 </script>
 <Theme>
     <Dialog

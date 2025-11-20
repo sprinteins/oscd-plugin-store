@@ -1,13 +1,13 @@
 <script lang="ts">
-    import "svelte-material-ui/bare.css";
-    import "./fonts/google/roboto-mono-v13.css";
-    import "./fonts/google/roboto-v27.css";
-    import "@material/typography/mdc-typography.scss";
-    interface Props {
-        children?: import('svelte').Snippet;
-    }
+import 'svelte-material-ui/bare.css'
+import './fonts/google/roboto-mono-v13.css'
+import './fonts/google/roboto-v27.css'
+import '@material/typography/mdc-typography.scss'
+interface Props {
+	children?: import('svelte').Snippet
+}
 
-    let { children }: Props = $props();
+let { children }: Props = $props()
 </script>
 
 <tscd-theme>
