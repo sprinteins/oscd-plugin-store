@@ -1,18 +1,21 @@
 import * as pkg from '../package.json'
 
 import Plugin from './plugin.svelte'
+import { mount } from "svelte";
 
 export default class NewPlugin extends HTMLElement {
-	private plugin: Plugin
+	private plugin!: Plugin
 
 	connectedCallback() {
 		this.attachShadow({ mode: 'open' })
-		this.plugin = new Plugin({
+		if (!this.shadowRoot) return;
+		
+		this.plugin = mount(Plugin, {
 			target: this.shadowRoot
 		})
 
 		const style = document.createElement('style')
-		style.innerHTML = globalThis.pluginStyle[pkg.name]
+		style.innerHTML = (globalThis as any).pluginStyle[pkg.name]
 		this.shadowRoot.appendChild(style)
 	}
 

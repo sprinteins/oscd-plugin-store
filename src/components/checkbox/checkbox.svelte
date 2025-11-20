@@ -1,29 +1,40 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte/internal"
+    interface Props {
+        checked?: boolean;
+        label: string;
+        value?: string | number;
+        testid?: string;
+        onchange?: () => void;
+        oninput?: () => void;
+    }
 
-  export let checked = false
-  export let label: string
-  export let value: string | number = ""
-  export let testid = ""
+    let {
+        checked = $bindable(false),
+        label,
+        value = $bindable(""),
+        testid = "",
+        onchange,
+        oninput,
+    }: Props = $props();
 </script>
 
 <checkbox data-testid={testid}>
-  <label>
-    <input type="checkbox" bind:value on:change on:input bind:checked />
-    <span class="checkbox">{label}</span>
-  </label>
+    <label>
+        <input type="checkbox" bind:value {onchange} {oninput} bind:checked />
+        <span class="checkbox">{label}</span>
+    </label>
 </checkbox>
 
 <style>
-  .checkbox {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    accent-color: var(--color-accent);
-  }
+    .checkbox {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        accent-color: var(--color-accent);
+    }
 </style>

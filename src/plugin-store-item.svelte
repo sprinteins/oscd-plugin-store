@@ -12,13 +12,21 @@ type ConfigurePluginDetail = {
 	config: Plugin | null;
 };
 
-export let filteredPlugins: Plugin[];
-export let pluginStore: Element;
-export let plugin: Plugin;
-export let index: number;
-export let localPlugins: Plugin[];
+    interface Props {
+        pluginStore: Element | undefined;
+        plugin: Plugin;
+        localPlugins: Plugin[];
+    }
+
+    let {
+        pluginStore,
+        plugin,
+        localPlugins = $bindable()
+    }: Props = $props();
 
 function dispatchConfigurePlugin(plugin: Plugin, shouldDelete = false) {
+	if (!pluginStore) return;
+	
 	const event = new CustomEvent<ConfigurePluginDetail>(
 		"oscd-configure-plugin",
 		{
@@ -39,7 +47,7 @@ function installExternalPlugin(plugin: Plugin) {
 	const currentPlugins = getStoredPlugins();
 
 	const pluginCopy = { ...plugin };
-	pluginCopy.installed = true;
+	pluginCopy.active = true;
 	currentPlugins.push(pluginCopy);
 
 	localPlugins = currentPlugins; 
@@ -52,34 +60,32 @@ function installExternalPlugin(plugin: Plugin) {
 function uninstallExternalPlugin(plugin: Plugin) {
 	const currentPlugins = getStoredPlugins();
 	const updatedPlugins = currentPlugins.filter((it) => it.name !== plugin.name);
+	
 	localPlugins = updatedPlugins;
 
 	dispatchConfigurePlugin(plugin, true);
 	console.log("Uninstalled external plugin:", plugin.name);
 }
 
-// Enables/disables plugin by toggling the "installed" property.
+// Enables/disables plugin by toggling the "active" property.
 function toggleOfficialPlugin(plugin: Plugin, isEnabled: boolean) {
 	const currentPlugins = getStoredPlugins();
 	const foundPlugin = currentPlugins.find((it) => it.name === plugin.name);
-	if (foundPlugin) {
-		foundPlugin.installed = isEnabled;
-	}
-
+    if (foundPlugin) {
+        foundPlugin.active = isEnabled;
+    }
+    
 	localPlugins = currentPlugins;
-	plugin.installed = isEnabled;
+    plugin.active = isEnabled;
 
 	dispatchConfigurePlugin(plugin);
 	console.log("Set toggle state for", plugin.name);
 }
 
-let menus: Menu[];
-$: menus = filteredPlugins.map(() => null);
-$: menuStates = filteredPlugins.map(() => false);
+let isMenuOpen = $state(false);
 
-function openPluginMenu(index: number) {
-	menuStates = menuStates.map(() => false);
-	menuStates[index] = true;
+function openPluginMenu() {
+	isMenuOpen = true;
 }
 
 function convertPluginKindToText(kind: PluginKind): string {
@@ -133,16 +139,16 @@ function getPluginIcon(plugin: Plugin) {
             </div>
         </plugin-store-item-meta--wrapper>
     </plugin-store-item-meta>
-    {#if plugin.installed}
+    {#if plugin.active}
         {#if plugin.official}
-            <Button variant="outlined" on:click={() => toggleOfficialPlugin(plugin, false)}>
+            <Button variant="outlined" onclick={() => toggleOfficialPlugin(plugin, false)}>
                 Disable
             </Button>
         {:else}
-            <SplitButton variant="outlined" label="Disable" on:click={() => toggleOfficialPlugin(plugin, false)} on:menuOpen={() => openPluginMenu(index)}>
-                <Menu bind:this={menus[index]} open={menuStates[index]} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
+            <SplitButton variant="outlined" label="Disable" onclick={() => toggleOfficialPlugin(plugin, false)} onmenuOpen={openPluginMenu}>
+                <Menu open={isMenuOpen} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
                     <List>
-                        <Item on:SMUI:action={() => uninstallExternalPlugin(plugin)}>
+                        <Item onSMUIAction={() => uninstallExternalPlugin(plugin)}>
                             <Text>Uninstall</Text>
                         </Item>
                     </List>
@@ -150,22 +156,22 @@ function getPluginIcon(plugin: Plugin) {
             </SplitButton>
         {/if}
     {:else if plugin.official}
-        <Button on:click={() => toggleOfficialPlugin(plugin, true)}>
+        <Button onclick={() => toggleOfficialPlugin(plugin, true)}>
             Enable
         </Button>
     {:else}
-        {#if localPlugins.includes(plugin)}
-            <SplitButton label="Enable" on:click={() => {toggleOfficialPlugin(plugin, true)}} on:menuOpen={() => openPluginMenu(index)}>
-                <Menu bind:this={menus[index]} open={menuStates[index]} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
+        {#if localPlugins.some(p => p.name === plugin.name)}
+            <SplitButton label="Enable" onclick={() => {toggleOfficialPlugin(plugin, true)}} onmenuOpen={openPluginMenu}>
+                <Menu open={isMenuOpen} anchorCorner="BOTTOM_LEFT" style="left: -70px;">
                     <List>
-                        <Item on:SMUI:action={() => uninstallExternalPlugin(plugin)}>
+                        <Item onSMUIAction={() => uninstallExternalPlugin(plugin)}>
                             <Text>Uninstall</Text>
                         </Item>
                     </List>
                 </Menu>
             </SplitButton>
         {:else}
-            <Button on:click={() => installExternalPlugin(plugin)}>
+            <Button onclick={() => installExternalPlugin(plugin)}>
                 Install
             </Button>
         {/if}

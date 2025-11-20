@@ -14,10 +14,14 @@ import { getStoredPlugins as storedPlugins } from "./plugin-store";
 
 const isRestricted = !import.meta.env.VITE_EXTERNAL_PLUGINS === true;
 
-export let isOpen: boolean;
+    interface Props {
+        isOpen: boolean;
+    }
 
-let showOnlyInstalled = false;
-let searchFilter = "";
+    let { isOpen = $bindable() }: Props = $props();
+
+let showOnlyInstalled = $state(false);
+let searchFilter = $state("");
 
 function combineAllPlugins(local: Plugin[], external: Plugin[]): Plugin[] {
 	const plugins = [...local];
@@ -42,7 +46,8 @@ function combineAllPlugins(local: Plugin[], external: Plugin[]): Plugin[] {
 }
 
 function filterInstalledPlugins(plugin: Plugin, isChecked: boolean): boolean {
-	return !isChecked || localPlugins.includes(plugin);
+	if (!isChecked) return true;
+	return localPlugins.some(p => p.name === plugin.name && p.active);
 }
 
 function filterSearchResults(plugin: Plugin, filter: string): boolean {
@@ -63,23 +68,23 @@ function filterSelf(plugin: Plugin): boolean {
 	return plugin.name !== "PluginStore" && plugin.name !== "Plugin Store";
 }
 
-let localPlugins = storedPlugins();
-$: plugins = combineAllPlugins(localPlugins, externalPlugins as Plugin[]);
-$: filteredPlugins = plugins
+let localPlugins = $state(storedPlugins());
+let plugins = $derived(combineAllPlugins(localPlugins, externalPlugins as Plugin[]));
+let filteredPlugins = $derived(plugins
 	.filter((plugin) => filterInstalledPlugins(plugin, showOnlyInstalled))
 	.filter((plugin) => filterSearchResults(plugin, searchFilter))
-	.filter((plugin) => filterSelf(plugin));
+	.filter((plugin) => filterSelf(plugin)));
 
-$: editorPlugins = filteredPlugins.filter((it) => it.kind === "editor");
-$: menuPlugins = filteredPlugins.filter((it) => it.kind === "menu");
-$: validatorPlugins = filteredPlugins.filter((it) => it.kind === "validator");
+let editorPlugins = $derived(filteredPlugins.filter((it) => it.kind === "editor"));
+let menuPlugins = $derived(filteredPlugins.filter((it) => it.kind === "menu"));
+let validatorPlugins = $derived(filteredPlugins.filter((it) => it.kind === "validator"));
 
 //#region UI
 
-let pluginStore: Element;
+let pluginStore: Element | undefined = $state();
 
 function openPluginDownloadUI() {
-    pluginStore.dispatchEvent(new Event("open-plugin-download", {
+    pluginStore?.dispatchEvent(new Event("open-plugin-download", {
         composed: true, 
         bubbles: true
     }));
@@ -87,9 +92,19 @@ function openPluginDownloadUI() {
 
 //#endregion
 
-</script>
+$effect(() => {
+    const handleAddExternalPlugin = () => {
+        localPlugins = storedPlugins();
+    };
+    
+    document.addEventListener('add-external-plugin', handleAddExternalPlugin);
+    
+    return () => {
+        document.removeEventListener('add-external-plugin', handleAddExternalPlugin);
+    };
+});
 
-<svelte:document on:add-external-plugin={() => localPlugins = storedPlugins()}/>
+</script>
 <Theme>
     <Dialog
         bind:open={isOpen}
@@ -127,11 +142,9 @@ function openPluginDownloadUI() {
                         <strong><div class="mdc-typography--headline6 plugin-store-items--category-title">Editor</div></strong>
                         <hr class="plugin-store-items--divider">
                     </plugin-store-items--category>
-                    {#each editorPlugins as plugin, index}
+                    {#each editorPlugins as plugin}
                         <PluginStoreItem 
                          plugin={plugin}
-                         index={index}
-                         filteredPlugins={filteredPlugins} 
                          bind:localPlugins={localPlugins} 
                          pluginStore={pluginStore}/> 
                     {/each}
@@ -144,11 +157,9 @@ function openPluginDownloadUI() {
                         <strong><div class="mdc-typography--headline6 plugin-store-items--category-title">Menu</div></strong>
                         <hr class="plugin-store-items--divider">
                     </plugin-store-items--category>
-                    {#each menuPlugins as plugin, index}
+                    {#each menuPlugins as plugin}
                         <PluginStoreItem 
                          plugin={plugin}
-                         index={index}
-                         filteredPlugins={filteredPlugins} 
                          bind:localPlugins={localPlugins} 
                          pluginStore={pluginStore}/> 
                     {/each}
@@ -161,11 +172,9 @@ function openPluginDownloadUI() {
                         <strong><div class="mdc-typography--headline6 plugin-store-items--category-title">Validator</div></strong>
                         <hr class="plugin-store-items--divider">
                     </plugin-store-items--category>
-                    {#each validatorPlugins as plugin, index}
+                    {#each validatorPlugins as plugin}
                         <PluginStoreItem 
                          plugin={plugin}
-                         index={index}
-                         filteredPlugins={filteredPlugins} 
                          bind:localPlugins={localPlugins} 
                          pluginStore={pluginStore}/> 
                     {/each}
@@ -179,7 +188,7 @@ function openPluginDownloadUI() {
         </Content>
         <Actions>
             <plugin-store-action-buttons>
-                <SMUIButton action="" disabled={isRestricted} on:click={() => openPluginDownloadUI()}>
+                <SMUIButton action="" disabled={isRestricted} onclick={() => openPluginDownloadUI()}>
                     <Label>Add External Plugin</Label>
                 </SMUIButton>
                 <SMUIButton action="accept">

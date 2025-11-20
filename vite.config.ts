@@ -13,10 +13,11 @@ export default defineConfig({
 				cssCode: string,
 				options: any,
 			) {
-				if (!globalThis.pluginStyle) {
-					globalThis.pluginStyle = {};
+				const globalWithPluginStyle = globalThis as any;
+				if (!globalWithPluginStyle.pluginStyle) {
+					globalWithPluginStyle.pluginStyle = {};
 				}
-				globalThis.pluginStyle[options.styleId] = cssCode;
+				globalWithPluginStyle.pluginStyle[options.styleId] = cssCode;
 			},
 		}),
 		{
@@ -30,6 +31,10 @@ export default defineConfig({
 	],
 	server: {
 		port: 54187,
+	},
+	preview: {
+		port: 54187,
+		cors: true,
 	},
 	build: {
 		lib: {
