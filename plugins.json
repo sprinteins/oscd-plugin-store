@@ -47,6 +47,14 @@
 			"kind": "editor",
 			"icon": "description",
 			"description": "The AutoDoc Plugin generates documentation from SCD files, allowing users to include custom elements like text, images, tables, and diagrams. It also features predefined elements, such as 'signal list,' which are automatically populated with relevant data from the SCD file."
+		},
+		{
+			"name": "Type Distributor",
+			"author": "SprintEins",
+			"src": "https://sprinteins.github.io/oscd-plugins/type-distributor/index.js",
+			"kind": "editor",
+			"icon": "share",
+			"description": "The Type Distributor plugin allows users to efficiently distribute type definitions from a SSD file to a SCD file."
 		}
 	]
 }
