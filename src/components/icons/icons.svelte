@@ -1,16 +1,16 @@
 <script lang="ts">
-    import { openSCDIcons, type OpenSCDIconNames } from "./"
+import { type OpenSCDIconNames, openSCDIcons } from './'
 
-    type IconSizes = "small" | "normal" | "rect" | "big";
+type IconSizes = 'small' | 'normal' | 'rect' | 'big'
 
-    interface Props {
-        name: OpenSCDIconNames;
-        size: IconSizes;
-    }
+interface Props {
+	name: OpenSCDIconNames
+	size: IconSizes
+}
 
-    let { name, size }: Props = $props();
+let { name, size }: Props = $props()
 
-    let icon = $derived(openSCDIcons[name] ?? "")
+let icon = $derived(openSCDIcons[name] ?? '')
 </script>
 
 <div

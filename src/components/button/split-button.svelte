@@ -1,16 +1,22 @@
 <script lang="ts">
-import Button, { Group, GroupItem, Label } from "@smui/button";
-import IconArrowDropDown from "../icons/icon-arrow-drop-down.svelte";
+import Button, { Group, GroupItem, Label } from '@smui/button'
+import IconArrowDropDown from '../icons/icon-arrow-drop-down.svelte'
 
-    interface Props {
-        variant?: "text" | "raised" | "unelevated" | "outlined";
-        label?: string;
-        children?: import('svelte').Snippet;
-        onclick?: () => void;
-        onmenuOpen?: () => void;
-    }
+interface Props {
+	variant?: 'text' | 'raised' | 'unelevated' | 'outlined'
+	label?: string
+	children?: import('svelte').Snippet
+	onclick?: () => void
+	onmenuOpen?: () => void
+}
 
-    let { variant = "raised", label = "", children, onclick, onmenuOpen }: Props = $props();
+let {
+	variant = 'raised',
+	label = '',
+	children,
+	onclick,
+	onmenuOpen
+}: Props = $props()
 </script>
 
 <Group variant={variant}>

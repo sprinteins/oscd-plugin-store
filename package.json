@@ -1,7 +1,7 @@
 {
 	"name": "oscd-plugin-store",
 	"private": true,
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -11,7 +11,9 @@
 		"build:watch": "npm run build && concurrently 'npm:_build:watch' 'npm:preview'",
 		"_build:watch": "NODE_ENV=development vite build --watch",
 		"check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
-		"postinstall": "mkdir -p dist"
+		"postinstall": "mkdir -p dist",
+		"biome:check": "biome check .",
+		"biome:fix": "biome check . --write"
 	},
 	"devDependencies": {
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
@@ -23,7 +25,8 @@
 		"tslib": "^2.8.1",
 		"typescript": "^5.9.3",
 		"vite": "6.1.0",
-		"vite-plugin-css-injected-by-js": "^3.5.2"
+		"vite-plugin-css-injected-by-js": "^3.5.2",
+		"@biomejs/biome": "1.9.2"
 	},
 	"dependencies": {
 		"@material/mwc-icon": "^0.27.0",
